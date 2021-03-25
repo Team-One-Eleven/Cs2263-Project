@@ -3,12 +3,21 @@
  */
 package Cs2263.Project;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import Cs2263.UI.HomeUIViewController;
+import Cs2263.UI.UIView;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+import java.util.concurrent.TimeUnit;
+
+public class App {
+
+
+
+
+
+    public static void main(String[] args) throws Exception{
+        UIView uiView = new UIView();
+        uiView.startUI();
+
+
     }
 }
