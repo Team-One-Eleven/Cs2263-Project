@@ -1,8 +1,6 @@
 package Cs2263.UI.Commands;
 
-import Cs2263.UI.UICommand;
-
-public class PrintHelloCommand extends UICommand {
+public class PrintHelloCommand implements UICommand {
 
 
     @Override

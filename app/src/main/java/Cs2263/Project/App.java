@@ -3,10 +3,8 @@
  */
 package Cs2263.Project;
 
-import Cs2263.UI.HomeUIViewController;
+import Cs2263.UI.UIManager;
 import Cs2263.UI.UIView;
-
-import java.util.concurrent.TimeUnit;
 
 public class App {
 
@@ -15,9 +13,8 @@ public class App {
 
 
     public static void main(String[] args) throws Exception{
-        UIView uiView = new UIView();
-        uiView.startUI();
-
+        UIManager uiManager = UIManager.getInstance();
+        uiManager.startUI();
 
     }
 }

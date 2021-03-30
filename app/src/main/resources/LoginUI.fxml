@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cs2263.UI.UIController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cs2263.UI.Controllers.LoginUIViewController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="300.0" />
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="417.0" minWidth="10.0" prefWidth="392.0" />
@@ -32,12 +32,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="fxLoginButton" minWidth="100.0" mnemonicParsing="false" text="Login" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button fx:id="fxLoginButton" minWidth="100.0" mnemonicParsing="false" onAction="#login" text="Login" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button fx:id="fxRegisterButton" minWidth="100.0" mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="fxRegisterButton" minWidth="100.0" mnemonicParsing="false" onAction="#goToRegisterMenu" text="Register" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
