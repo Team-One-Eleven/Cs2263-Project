@@ -13,7 +13,7 @@
 
 package Cs2263.Project.user;
 
-import Cs2263.Project.listable.UserInfo;
+import Cs2263.Project.listable.UserCredentials;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -21,15 +21,15 @@ import java.util.LinkedList;
 public class Admin extends UserArchetype implements Serializable {
 
     // Variables
-    private LinkedList<UserInfo> userInfoList;
+    private LinkedList<UserCredentials> userCredentialsList;
 
     // Constructor
     public Admin() {
-        userInfoList = new LinkedList<>();
+        userCredentialsList = new LinkedList<>();
     }
 
     // Methods
-    public LinkedList<UserInfo> getUserInfoList() {
-        return userInfoList;
+    public LinkedList<UserCredentials> getUserCredentialsList() {
+        return userCredentialsList;
     }
 }

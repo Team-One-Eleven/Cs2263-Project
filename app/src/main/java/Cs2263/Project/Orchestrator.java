@@ -13,7 +13,7 @@
 
 package Cs2263.Project;
 
-import Cs2263.Project.listable.UserInfo;
+import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
@@ -25,6 +25,8 @@ import Cs2263.Project.tools.SearchEngine;
 import Cs2263.Project.user.User;
 import Cs2263.Project.tools.UserFactory;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -36,8 +38,9 @@ public class Orchestrator {
     // Variables
     // User - related
     private String userDataFilePath;
-    private LinkedList<UserInfo> userList;
+    private LinkedList<UserCredentials> userList;
     private User activeUser;
+    private UserCredentials activeInfo;
     private LinkedList<ToDoList> masterList;
     // Tools
     private FileManager fileManager;
@@ -46,12 +49,7 @@ public class Orchestrator {
     private UserFactory userFactory;
     private ItemFactory itemFactory;
     // System Settings
-    private double userIDseed;
-    private String baseDirectory;
-    private boolean logEnabled;
-    private String logFilePath;
-    private int defaultItemNum;
-    private int currentItemNum;
+    private Configuration config;
 
     // Singleton Constructor & getInstance;
     private Orchestrator() {
@@ -82,9 +80,6 @@ public class Orchestrator {
         return searchEngine;
     }
     // Get Settings Variables
-    public int getCurrentItemNum() {
-        return currentItemNum;
-    }
     public String getNextUserID() {
         /**
          * Returns a unique string for identifiengs users in the system.
@@ -97,8 +92,7 @@ public class Orchestrator {
          * Acceptable for development, create a more complicated ide system later.
          *
          */
-        userIDseed++;
-        return "User" + userIDseed;
+        return "User" + config.getNextUserIDseed();
     }
     // Get Factories
     public UserFactory getUserFactory() {
@@ -107,35 +101,48 @@ public class Orchestrator {
     public ItemFactory getItemFactory() {
         return itemFactory;
     }
-    // Get USER
+    // Get USER & related
     public User getActiveUser() {
         return activeUser;
+    }
+    public UserCredentials getActiveInfo() {
+        return activeInfo;
     }
     public LinkedList<ToDoList> getMasterList() {
         return masterList;
     }
+    public LinkedList<UserCredentials> getUserList() {
+        return userList;
+    }
+    // Get Config
+    public Configuration getConfig() {
+        return config;
+    }
+
     // System Methods
     public boolean registerUser(String email, String password){
-        for (UserInfo u: userList){
+        for (UserCredentials u: userList){
             if (u.getUserEmail() == email){
                 return false;
             }
             else {
                 String newUserID = getNextUserID();
-                UserInfo newInfo =  userFactory.makeUserInfo(email, password, newUserID);
-                User newUser = userFactory.makeUser(newInfo, newUserID);
+                UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
+                User newUser = userFactory.makeUser();
                 userList.add(newInfo);
                 // TODO filmangaer save user list
                 activeUser = newUser;
+                activeInfo = newInfo;
                 return true;
             }
         }
         return false;
     }
-    public boolean loginUser(String email, String password){
-        for (UserInfo u : userList){
-            if ((u.getUserEmail() == email) & (u.getUserPassword() == password)){
-                activeUser = fileManager.loadUser(u.getUserFile());
+    public boolean loginUser(String email, String password) throws IOException {
+        for (UserCredentials info : userList){
+            if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
+                activeInfo = info;
+                activeUser = fileManager.loadUser();
                 return true;
             }
             else {
@@ -178,6 +185,9 @@ public class Orchestrator {
                 }
             }
         }
+    }
+    private void startup() throws IOException {
+        userList = fileManager.loadUserList();
     }
     public void exit(){
         // NEEDS DEVELOPED

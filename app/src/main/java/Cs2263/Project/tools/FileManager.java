@@ -3,19 +3,29 @@
  *
  * Contains all the functions needed for loading and saving our json files
  *
- * STILL DEVELOPING
+ * TILL DEVELOPINGS
+ * Everything but the picture
  *
  * @author  Traae
- * @version 0.0
- * @since 3/25/2021
+ * @version .9
+ * @since 3/31/2021
  */
 
 package Cs2263.Project.tools;
 
+import Cs2263.Project.Configuration;
 import Cs2263.Project.Orchestrator;
-import Cs2263.Project.listable.UserInfo;
+import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.user.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.ObjectInputFilter;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class FileManager {
@@ -30,25 +40,37 @@ public class FileManager {
     private static final String SYSTEM_CONFIG_FILE = "./config/config.json";
     private static final String USER_LIST_DATA_FILE = "./config/users.json";
 
+    private Gson gson;
+
 
     private Orchestrator orchestrator;
 
     // Constructor
     public FileManager(Orchestrator o){
         this.orchestrator = o;
+        gson = new Gson();
     }
 
-    public LinkedList<UserInfo> loadUserList(String userListFile){
-        //TODO load the user list file
+    public LinkedList<UserCredentials> loadUserList() throws IOException {
+        String readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
+
+        Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
+
+        return gson.fromJson(readIn, type);
     }
-    public void saveUserList(LinkedList<UserInfo> userList){
-        //TODO save it
+    public void saveUserList() throws IOException {
+       String writeOut = gson.toJson(orchestrator.getUserList());
+
+        Files.writeString(Paths.get(USER_LIST_DATA_FILE), writeOut);
     }
-    public User loadUser(String userFile){
-        // TODO laod it
+    public User loadUser() throws IOException {
+        String readIn = Files.readString(Paths.get(orchestrator.getActiveInfo().getUserFile()));
+        Type type = new TypeToken<User>(){}.getType();
+        return gson.fromJson(readIn, type);
     }
-    public void saveUser(User u){
-        //TODO savie it
+    public void saveUser() throws IOException {
+        String writeOut = gson.toJson(orchestrator.getActiveUser());
+        Files.writeString(Paths.get(orchestrator.getActiveInfo().getUserFile()), writeOut);
     }
     public void deletePicture(String pictureFile){
 
@@ -58,8 +80,15 @@ public class FileManager {
     }
     //public LoadPicture(String pictureFile) : PictureSpriteThing-JavaFX
 
-    public void loadSettings(){}
-    public void saveSettings(){}
+    public Configuration loadConfig() throws IOException {
+        String readIn = Files.readString(Paths.get(SYSTEM_CONFIG_FILE));
+        Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
+        return gson.fromJson(readIn, type);
+    }
+    public void saveSettings() throws IOException {
+        String writeOut = gson.toJson(orchestrator.getConfig());
+        Files.writeString(Paths.get(SYSTEM_CONFIG_FILE), writeOut);
+    }
 
 
 

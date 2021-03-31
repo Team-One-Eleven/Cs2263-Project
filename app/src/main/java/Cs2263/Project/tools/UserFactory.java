@@ -15,7 +15,7 @@
 package Cs2263.Project.tools;
 
 import Cs2263.Project.Orchestrator;
-import Cs2263.Project.listable.UserInfo;
+import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.user.User;
 
 
@@ -32,15 +32,12 @@ public class UserFactory {
 
     // Methods
     // Makes
-    public User makeUser(UserInfo info){
+    public User makeUser(){
         User u = new User();
-        u.setEmail(info.getUserEmail());
-        u.setPassword(info.getUserPassword());
-        u.setUserID(info.getUserId());
         return new User();
     }
-    public UserInfo makeUserInfo(String email, String password, String userId) {
-        UserInfo newInfo = new UserInfo();
+    public UserCredentials makeUserInfo(String email, String password, String userId) {
+        UserCredentials newInfo = new UserCredentials();
         newInfo.setUserEmail(email);
         newInfo.setUserPassword(password);
         newInfo.setUserId(userId);

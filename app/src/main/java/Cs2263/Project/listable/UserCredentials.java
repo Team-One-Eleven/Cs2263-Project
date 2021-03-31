@@ -12,7 +12,7 @@ package Cs2263.Project.listable;
 
 import java.io.Serializable;
 
-public class UserInfo implements Serializable, ListableItem {
+public class UserCredentials implements Serializable, ListableItem {
     // Variables
     // Listable type
     private static final ListableType type = ListableType.UserInfo;
@@ -23,7 +23,7 @@ public class UserInfo implements Serializable, ListableItem {
     private String userFile;
 
     // Constructor
-    public UserInfo(){
+    public UserCredentials(){
         userEmail = "";
         userPassword = "";
         userId = "";
