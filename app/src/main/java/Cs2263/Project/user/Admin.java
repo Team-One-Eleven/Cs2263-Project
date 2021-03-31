@@ -4,11 +4,7 @@
  * The regular user class. In addition to the UserArchetype's properties
  * it has a list of user info and other properties supporting that.
  *
- * STILL DEVELOPING
- *
- * A question that needs to be resolved is ensuring that an Admin always exists.
- * I may need to hard code some default admin data that will create a new Admin
- * if an admin doesn't already exist
+ * /TODO solve THE ADMIN PROBLEM
  *
  * @author  Traae
  * @version 0.5
@@ -28,8 +24,8 @@ public class Admin extends UserArchetype implements Serializable {
     private LinkedList<UserInfo> userInfoList;
 
     // Constructor
-    public Admin(String id, String first, String last, String email, String password) {
-        super(id, first, last, email, password);
+    public Admin() {
+        userInfoList = new LinkedList<>();
     }
 
     // Methods

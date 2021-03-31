@@ -1,16 +1,14 @@
 /**
  * The To Do list class
  *
- * Makes up both the basic lists, and the sublists.
+ * Makes up todolist / project super structure, that then contains
+ * sections, which then contain tasks .
  *
- * STILL DEVELOPING
- * Needs constructors and factory methods reolved across its inheritence family
- *
- * Responsibilities need to be resolved across Section and todoList.
+ * creation is handled at ItemFactory
  *
  * @author  Traae
- * @version 0.0
- * @since 3/25/2021
+ * @version 1.0
+ * @since 3/31/2021
  */
 
 package Cs2263.Project.listable.lists;
@@ -20,9 +18,10 @@ import Cs2263.Project.listable.ListableType;
 import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.lists.Section;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class ToDoList extends ListArchetype implements ListableItem {
+public class ToDoList extends ListArchetype implements ListableItem, Serializable {
     // Variables
     // Listable type
     private static final ListableType type = ListableType.List;
@@ -33,11 +32,11 @@ public class ToDoList extends ListArchetype implements ListableItem {
     private boolean archived;
 
     // Constructor
+    // NO ARGUMENTS for Serializable
     public ToDoList(){
-        archived = false;
         comments = new LinkedList<>();
-        defaultSection = null;
         sections = new LinkedList<>();
+        archived = false;
     }
 
     //Methods
@@ -58,6 +57,14 @@ public class ToDoList extends ListArchetype implements ListableItem {
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
+
+    public void initDefaultSection(Section s) {
+        if (defaultSection == null) {
+            this.defaultSection = s;
+        }
+
+    }
+
     // ListableItem Implementation
     @Override
     public ListableType getType() {

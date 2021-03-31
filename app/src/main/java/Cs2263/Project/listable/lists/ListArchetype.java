@@ -3,27 +3,26 @@
  *
  * provides the common structure among the 2 types of lists
  *
- * STILL DEVELOPING
- * Needs constructors and factory methods reolved across its inheritence family
- *
- * Responsibilities need to be resolved across Section and todoList.
  *
  * @author  Traae
- * @version 0.0
- * @since 3/25/2021
+ * @version 1.0
+ * @since 3/31/2021
  */
 
 
 package Cs2263.Project.listable.lists;
-
 import java.util.LinkedList;
 
 public abstract class ListArchetype {
     // Variables
     private String title;
     private String description;
-    private String id;
-    private LinkedList<ToDoList> sublists;
+
+    public ListArchetype(){
+        title = "";
+        description = "";
+
+    }
 
 
     // Methods
@@ -33,12 +32,6 @@ public abstract class ListArchetype {
     }
     public String getDescription() {
         return description;
-    }
-    public String getId() {
-        return id;
-    }
-    public LinkedList<ToDoList> getSublists() {
-        return sublists;
     }
 
     // SETTERS

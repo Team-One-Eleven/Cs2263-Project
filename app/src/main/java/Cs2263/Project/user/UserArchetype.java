@@ -21,12 +21,14 @@ public abstract class UserArchetype {
     private String password;
 
     // Constructor
-    public UserArchetype(String id, String first, String last, String email, String password){
-        this.userID = id;
-        this.firstName = first;
-        this.lastName = last;
-        this.email = email;
-        this.password = password;
+    public UserArchetype(){
+        userID = "";
+        firstName = "";
+        lastName = "";
+        email = "";
+        pictureFile = "";
+        biography = "";
+        password = "";
     }
 
     // Methods
@@ -70,5 +72,8 @@ public abstract class UserArchetype {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
