@@ -14,19 +14,14 @@
 package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
-import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskStatus;
-import Cs2263.Project.tools.ItemFactory;
-import Cs2263.Project.tools.FileManager;
-import Cs2263.Project.tools.SearchEngine;
+import Cs2263.Project.tools.*;
 import Cs2263.Project.user.User;
-import Cs2263.Project.tools.UserFactory;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -34,14 +29,13 @@ public class Orchestrator {
     // Singleton instance
     private static Orchestrator instance = null;
 
-
     // Variables
     // User - related
-    private String userDataFilePath;
     private LinkedList<UserCredentials> userList;
     private User activeUser;
     private UserCredentials activeInfo;
     private LinkedList<ToDoList> masterList;
+    private ListManager listManager;
     // Tools
     private FileManager fileManager;
     private SearchEngine searchEngine;
@@ -52,18 +46,20 @@ public class Orchestrator {
     private Configuration config;
 
     // Singleton Constructor & getInstance;
-    private Orchestrator() {
-        // Load config
-        // Load userList
-
+    private Orchestrator() throws IOException {
         // Setup tools
         fileManager = new FileManager(this);
         searchEngine = new SearchEngine(this);
         userFactory = new UserFactory(this);
         itemFactory = new ItemFactory(this);
+        listManager = new ListManager(this);
+
+        // Load up the user list and the configuration.
+        userList = fileManager.loadUserList();
+        config = fileManager.loadConfig();
 
     }
-    public static Orchestrator getInstance() {
+    public static Orchestrator getInstance() throws IOException {
         if (instance == null){
             instance = new Orchestrator();
         }
@@ -76,6 +72,10 @@ public class Orchestrator {
     public FileManager getFileManager() {
         return fileManager;
     }
+    public ListManager getListManager() {
+        return listManager;
+    }
+
     public SearchEngine getSearchEngine() {
         return searchEngine;
     }
@@ -120,7 +120,7 @@ public class Orchestrator {
     }
 
     // System Methods
-    public boolean registerUser(String email, String password){
+    public boolean registerUser(String email, String password) throws IOException {
         for (UserCredentials u: userList){
             if (u.getUserEmail() == email){
                 return false;
@@ -130,9 +130,10 @@ public class Orchestrator {
                 UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
                 User newUser = userFactory.makeUser();
                 userList.add(newInfo);
-                // TODO filmangaer save user list
+                fileManager.saveUserList();
                 activeUser = newUser;
-                activeInfo = newInfo;
+                fileManager.saveUser();
+                activeUser = null;
                 return true;
             }
         }
@@ -143,6 +144,8 @@ public class Orchestrator {
             if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
                 activeInfo = info;
                 activeUser = fileManager.loadUser();
+                listManager.checkDueDates();
+                listManager.constructMasterList();
                 return true;
             }
             else {
@@ -151,45 +154,24 @@ public class Orchestrator {
         }
         return  false;
     }
-    private void checkDueDates(){
-        Date now = new Date();
-        for (ParentTask p : activeUser.getTheTasks()){
-            if ((p.getStatus() == TaskStatus.incomplete) & (p.isUsingDuedate())) {
-                for (ChildTask c : p.getChildTasks()){
-                    if ((c.getStatus() == TaskStatus.incomplete) & (c.isUsingDuedate())){
-                        if (c.getDueDate().before(now)){
-                            c.setStatus(TaskStatus.overdue);
-                        }
-                    }
-                }
-                if (p.getDueDate().before(now)){
-                    p.setStatus(TaskStatus.overdue);
-                }
-            }
-        }
+    public void logoutUser() throws IOException {
+        listManager.deconstructMasterList();
+        fileManager.saveUser();
+        fileManager.saveUserList();
+        activeInfo = null;
+        activeUser = null;
+        masterList = null;
     }
-    private void createMasterList(){
-        if (masterList == null){
-            masterList = new LinkedList<ToDoList>();
-        }
-        masterList.addAll(activeUser.getTheLists());
+    public void autosave() throws IOException {
+        listManager.deconstructMasterList();
+        fileManager.saveUser();
+        fileManager.saveUserList();
+        listManager.constructMasterList();
+    }
 
-        for (ParentTask task : activeUser.getTheTasks()){
-            for (String id: task.getParentSections()){
-                for (ToDoList list : masterList){
-                    for (Section section : list.getSections()){
-                        if (section.getId() == id){
-                            section.getTasks().add(task);
-                        }
-                    }
-                }
-            }
-        }
+    public void exit() throws IOException {
+        logoutUser();
+        fileManager.saveConfiguration();
     }
-    private void startup() throws IOException {
-        userList = fileManager.loadUserList();
-    }
-    public void exit(){
-        // NEEDS DEVELOPED
-    }
+
 }

@@ -85,7 +85,7 @@ public class FileManager {
         Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
         return gson.fromJson(readIn, type);
     }
-    public void saveSettings() throws IOException {
+    public void saveConfiguration() throws IOException {
         String writeOut = gson.toJson(orchestrator.getConfig());
         Files.writeString(Paths.get(SYSTEM_CONFIG_FILE), writeOut);
     }
