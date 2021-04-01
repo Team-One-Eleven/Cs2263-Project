@@ -7,9 +7,7 @@
 
 package Cs2263.UI.Commands;
 
-import Cs2263.Project.Orchestrator;
-import Cs2263.Project.user.User;
-import Cs2263.UI.UIManager;
+import Cs2263.Project.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

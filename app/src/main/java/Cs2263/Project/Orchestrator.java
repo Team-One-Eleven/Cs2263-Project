@@ -14,10 +14,9 @@
 package Cs2263.Project;
 
 import Cs2263.Project.tools.ListManager;
-import Cs2263.Project.user.UserCredentials;
+import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.tools.*;
-import Cs2263.Project.user.User;
 
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
@@ -167,6 +166,7 @@ public class Orchestrator {
         fileManager.saveConfiguration();
     }
 
+
     public void makeDefaultAdmin() throws IOException {
         UserCredentials info = userFactory.makeUserInfo(ADMIN_EMAIL_DEFAULT, ADMIN_PASSWORD_DEFAULT, ADMIN_ID_DEFAULT);
         User admin = userFactory.makeUser();
@@ -176,6 +176,7 @@ public class Orchestrator {
         userList.add(info);
         fileManager.saveUserList();
         fileManager.saveUser(admin, info);
+        makeExampleUsers();
     }
 
     private void makeExampleUsers() throws IOException {

@@ -6,22 +6,13 @@
 
 package Cs2263.UI.Controllers;
 
-import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.lists.ToDoList;
-import Cs2263.Project.user.User;
-import Cs2263.UI.Commands.PrintHelloCommand;
-import Cs2263.UI.Commands.UICommand;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class HomeUIViewController extends UIViewController {
 

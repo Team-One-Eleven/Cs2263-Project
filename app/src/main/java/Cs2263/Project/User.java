@@ -9,7 +9,7 @@
  * @since 3/25/2021
  */
 
-package Cs2263.Project.user;
+package Cs2263.Project;
 
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ParentTask;

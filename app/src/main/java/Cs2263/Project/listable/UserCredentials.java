@@ -8,7 +8,7 @@
  * @since 3/31/2021
  */
 
-package Cs2263.Project.user;
+package Cs2263.Project.listable;
 
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;

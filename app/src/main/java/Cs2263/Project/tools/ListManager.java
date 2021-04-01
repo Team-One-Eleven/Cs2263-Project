@@ -3,10 +3,9 @@ package Cs2263.Project.tools;
 import Cs2263.Project.Orchestrator;
 import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
-import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskStatus;
-import Cs2263.Project.user.User;
+import Cs2263.Project.User;
 
 import java.util.Date;
 import java.util.LinkedList;
