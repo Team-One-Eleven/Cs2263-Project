@@ -8,7 +8,10 @@
  * @since 3/31/2021
  */
 
-package Cs2263.Project.listable;
+package Cs2263.Project.user;
+
+import Cs2263.Project.listable.ListableItem;
+import Cs2263.Project.listable.ListableType;
 
 import java.io.Serializable;
 
@@ -55,13 +58,14 @@ public class UserCredentials implements Serializable, ListableItem {
     public void setUserFile(String userFile) {
         this.userFile = userFile;
     }
-    // ListableItem Interface
+
     @Override
     public String getTitle() {
-        return userEmail;
+        return getUserEmail();
     }
+
     @Override
-    public ListableType getType(){
+    public ListableType getType() {
         return type;
     }
 }

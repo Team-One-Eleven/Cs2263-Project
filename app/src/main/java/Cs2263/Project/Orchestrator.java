@@ -13,20 +13,22 @@
 
 package Cs2263.Project;
 
-import Cs2263.Project.listable.UserCredentials;
+import Cs2263.Project.tools.ListManager;
+import Cs2263.Project.user.UserCredentials;
 import Cs2263.Project.listable.lists.ToDoList;
-import Cs2263.Project.listable.tasks.ChildTask;
-import Cs2263.Project.listable.tasks.ParentTask;
-import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.Project.tools.*;
 import Cs2263.Project.user.User;
 
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class Orchestrator {
+    // Default Admin Credentials Globals
+    private static final String ADMIN_EMAIL_DEFAULT = "Admin";
+    private static final String ADMIN_PASSWORD_DEFAULT = "123password";
+    private static final String ADMIN_ID_DEFAULT = "ADMIN";
+
     // Singleton instance
     private static Orchestrator instance = null;
 
@@ -70,13 +72,6 @@ public class Orchestrator {
     // Methods
     // GETTERS
     // Get Tools
-    public FileManager getFileManager() {
-        return fileManager;
-    }
-    public ListManager getListManager() {
-        return listManager;
-    }
-
     public SearchEngine getSearchEngine() {
         return searchEngine;
     }
@@ -96,9 +91,6 @@ public class Orchestrator {
         return "User" + config.getNextUserIDseed();
     }
     // Get Factories
-    public UserFactory getUserFactory() {
-        return userFactory;
-    }
     public ItemFactory getItemFactory() {
         return itemFactory;
     }
@@ -133,7 +125,7 @@ public class Orchestrator {
                 userList.add(newInfo);
                 fileManager.saveUserList();
                 activeUser = newUser;
-                fileManager.saveUser();
+                fileManager.saveUser(activeUser, activeInfo);
                 activeUser = null;
                 return true;
             }
@@ -144,7 +136,7 @@ public class Orchestrator {
         for (UserCredentials info : userList){
             if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
                 activeInfo = info;
-                activeUser = fileManager.loadUser();
+                activeUser = fileManager.loadUser(activeInfo.getUserFile());
                 listManager.checkDueDates();
                 listManager.constructMasterList();
                 return true;
@@ -157,7 +149,7 @@ public class Orchestrator {
     }
     public void logoutUser() throws IOException {
         listManager.deconstructMasterList();
-        fileManager.saveUser();
+        fileManager.saveUser(activeUser, activeInfo);
         fileManager.saveUserList();
         activeInfo = null;
         activeUser = null;
@@ -165,7 +157,7 @@ public class Orchestrator {
     }
     public void autosave() throws IOException {
         listManager.deconstructMasterList();
-        fileManager.saveUser();
+        fileManager.saveUser(activeUser, activeInfo);
         fileManager.saveUserList();
         listManager.constructMasterList();
     }
@@ -173,6 +165,30 @@ public class Orchestrator {
     public void exit() throws IOException {
         logoutUser();
         fileManager.saveConfiguration();
+    }
+
+    public void makeDefaultAdmin() throws IOException {
+        UserCredentials info = userFactory.makeUserInfo(ADMIN_EMAIL_DEFAULT, ADMIN_PASSWORD_DEFAULT, ADMIN_ID_DEFAULT);
+        User admin = userFactory.makeUser();
+        admin.setFirstName("System");
+        admin.setLastName("Administrator");
+        admin.setBiography("");
+        userList.add(info);
+        fileManager.saveUserList();
+        fileManager.saveUser(admin, info);
+    }
+
+    private void makeExampleUsers() throws IOException {
+        for (int i=3; i>0; i--){
+            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password", "example" + i);
+            User example = userFactory.makeUser();
+            example.setFirstName("example");
+            example.setLastName("Number: " + i);
+            example.setBiography("");
+            userList.add(info);
+            fileManager.saveUserList();
+            fileManager.saveUser(example, info);
+        }
     }
 
 }

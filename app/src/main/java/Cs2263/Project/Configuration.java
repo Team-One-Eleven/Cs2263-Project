@@ -3,10 +3,12 @@ package Cs2263.Project;
 import java.io.Serializable;
 
 public class Configuration implements Serializable {
+    public static String logFilePath;
+
     private double userIDseed;
     private String baseDirectory;
     private boolean logEnabled;
-    private String logFilePath;
+
     private int defaultItemNum;
     private int currentItemNum;
 

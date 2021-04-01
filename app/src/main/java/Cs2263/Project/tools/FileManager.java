@@ -15,17 +15,19 @@ package Cs2263.Project.tools;
 
 import Cs2263.Project.Configuration;
 import Cs2263.Project.Orchestrator;
-import Cs2263.Project.listable.UserCredentials;
+import Cs2263.Project.user.UserCredentials;
 import Cs2263.Project.user.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sun.javafx.iio.ios.IosDescriptor;
+import com.sun.source.tree.TryTree;
+import org.junit.platform.commons.function.Try;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputFilter;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class FileManager {
@@ -52,10 +54,16 @@ public class FileManager {
     }
 
     public LinkedList<UserCredentials> loadUserList() throws IOException {
-        String readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
+        String readIn;
 
+        try {
+            readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
+        }
+        catch (IOException e){
+            orchestrator.makeDefaultAdmin();
+            readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
+        }
         Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
-
         return gson.fromJson(readIn, type);
     }
     public void saveUserList() throws IOException {
@@ -63,14 +71,14 @@ public class FileManager {
 
         Files.writeString(Paths.get(USER_LIST_DATA_FILE), writeOut);
     }
-    public User loadUser() throws IOException {
-        String readIn = Files.readString(Paths.get(orchestrator.getActiveInfo().getUserFile()));
+    public User loadUser(String filePath) throws IOException {
+        String readIn = Files.readString(Paths.get(filePath));
         Type type = new TypeToken<User>(){}.getType();
         return gson.fromJson(readIn, type);
     }
-    public void saveUser() throws IOException {
-        String writeOut = gson.toJson(orchestrator.getActiveUser());
-        Files.writeString(Paths.get(orchestrator.getActiveInfo().getUserFile()), writeOut);
+    public void saveUser(User toSave, UserCredentials toSaveInfo) throws IOException {
+        String writeOut = gson.toJson(toSave);
+        Files.writeString(Paths.get(toSaveInfo.getUserFile()), writeOut);
     }
     public void deletePicture(String pictureFile){
 

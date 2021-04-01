@@ -44,25 +44,31 @@ public class SearchEngine {
     // With Active user's master list
     public LinkedList<ParentTask> searchByDate(Date start, Date end){
         LinkedList<ParentTask> taskResults = new LinkedList<>();
-        LinkedList<ParentTask> childTaskResults = new LinkedList<>();
         for (ToDoList list : orchestrator.getMasterList()){
-            for (Section sec : list.getSections()){
-                for (ParentTask task : sec.getTasks()){
-                    if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
-                        taskResults.add(task);
-                    }
-                    else {
-                        for (ChildTask c : task.getChildTasks()){
-                            if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
-                                childTaskResults.add(task);
-                            }
+            masterRecursiveByDate(start, end, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByDate(Date start, Date end, ToDoList toSearch, LinkedList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
+                            results.add(task);
                         }
                     }
                 }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByDate(start, end, list, results);
             }
         }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
     }
     // With a LinkedList of Parents Tasks past in
     public LinkedList<ParentTask> searchByDate(Date start, Date end, LinkedList<ParentTask> ListToSearch){
@@ -88,25 +94,31 @@ public class SearchEngine {
     // With Active user's master list
     public LinkedList<ParentTask> searchByLabel(String Value){
         LinkedList<ParentTask> taskResults = new LinkedList<>();
-        LinkedList<ParentTask> childTaskResults = new LinkedList<>();
         for (ToDoList list : orchestrator.getMasterList()){
-            for (Section sec : list.getSections()){
-                for (ParentTask task : sec.getTasks()){
-                    if (task.getLabels().contains(Value)){
-                        taskResults.add(task);
-                    }
-                    else {
-                        for (ChildTask c : task.getChildTasks()){
-                            if (c.getLabels().contains(Value)){
-                                childTaskResults.add(task);
-                            }
+            masterRecursiveByLabel(Value, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByLabel(String value, ToDoList toSearch, LinkedList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if (task.getLabels().contains(value)){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if (c.getLabels().contains(value)){
+                            results.add(task);
                         }
                     }
                 }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByLabel(value, list, results);
             }
         }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
     }
     // With a LinkedList of Parents Tasks past in
     public LinkedList<ParentTask> searchByLabel(String Value, LinkedList<ParentTask> ListToSearch){
@@ -128,29 +140,35 @@ public class SearchEngine {
         return taskResults;
     }
 
-    // By TITEL
+    // By TITLE
     // With Active user's master list
     public LinkedList<ParentTask> searchByTitle(String Value){
         LinkedList<ParentTask> taskResults = new LinkedList<>();
-        LinkedList<ParentTask> childTaskResults = new LinkedList<>();
         for (ToDoList list : orchestrator.getMasterList()){
-            for (Section sec : list.getSections()){
-                for (ParentTask task : sec.getTasks()){
-                    if (task.getTitle() == Value){
-                        taskResults.add(task);
-                    }
-                    else {
-                        for (ChildTask c : task.getChildTasks()){
-                            if (c.getTitle() == Value){
-                                childTaskResults.add(task);
-                            }
+            masterRecursiveByTitle(Value, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByTitle(String value, ToDoList toSearch, LinkedList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if (task.getTitle() == value){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if (c.getTitle() == (value)){
+                            results.add(task);
                         }
                     }
                 }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByTitle(value, list, results);
             }
         }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
     }
     // With a LinkedList of Parents Tasks past in
     public LinkedList<ParentTask> LinkedsearchByTitle(String Value, LinkedList<ParentTask> ListToSearch){
@@ -176,25 +194,31 @@ public class SearchEngine {
     // With Active user's master list
     public LinkedList<ParentTask> searchByPriority(TaskPriority Value){
         LinkedList<ParentTask> taskResults = new LinkedList<>();
-        LinkedList<ParentTask> childTaskResults = new LinkedList<>();
         for (ToDoList list : orchestrator.getMasterList()){
-            for (Section sec : list.getSections()){
-                for (ParentTask task : sec.getTasks()){
-                    if (task.getPriority() == Value){
-                        taskResults.add(task);
-                    }
-                    else {
-                        for (ChildTask c : task.getChildTasks()){
-                            if (c.getPriority() == Value){
-                                childTaskResults.add(task);
-                            }
+            masterRecursiveByPriority(Value, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByPriority(TaskPriority value, ToDoList toSearch, LinkedList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if (task.getPriority() == value){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if (c.getPriority() == value){
+                            results.add(task);
                         }
                     }
                 }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByPriority(value, list, results);
             }
         }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
     }
     // With a LinkedList of Parents Tasks past in
     public LinkedList<ParentTask> searchByPriority(TaskPriority Value, LinkedList<ParentTask> ListToSearch){
@@ -220,25 +244,31 @@ public class SearchEngine {
     // With Active user's master list
     public   LinkedList<ParentTask> searchByDescription(String Value){
         LinkedList<ParentTask> taskResults = new LinkedList<>();
-        LinkedList<ParentTask> childTaskResults = new LinkedList<>();
         for (ToDoList list : orchestrator.getMasterList()){
-            for (Section sec : list.getSections()){
-                for (ParentTask task : sec.getTasks()){
-                    if (task.getDescription().contains(Value)){
-                        taskResults.add(task);
-                    }
-                    else {
-                        for (ChildTask c : task.getChildTasks()){
-                            if (c.getDescription().contains(Value)){
-                                childTaskResults.add(task);
-                            }
+            masterRecursiveByDescription(Value, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByDescription(String value, ToDoList toSearch, LinkedList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if (task.getDescription().contains(value)){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if (c.getDescription().contains(value)){
+                            results.add(task);
                         }
                     }
                 }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByDescription(value, list, results);
             }
         }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
     }
     // With a LinkedList of Parents Tasks past in
     public   LinkedList<ParentTask> searchByDescription(String Value, LinkedList<ParentTask> ListToSearch){
@@ -259,5 +289,7 @@ public class SearchEngine {
         taskResults.addAll(childTaskResults);
         return taskResults;
     }
+
+
 
 }
