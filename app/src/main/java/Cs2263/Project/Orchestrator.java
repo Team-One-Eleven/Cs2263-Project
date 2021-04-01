@@ -21,6 +21,7 @@ import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.Project.tools.*;
 import Cs2263.Project.user.User;
 
+import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -139,7 +140,7 @@ public class Orchestrator {
         }
         return false;
     }
-    public boolean loginUser(String email, String password) throws IOException {
+    public boolean loginUser(String email, String password) throws IOException, FailedLoginException {
         for (UserCredentials info : userList){
             if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
                 activeInfo = info;
@@ -149,7 +150,7 @@ public class Orchestrator {
                 return true;
             }
             else {
-                return false;
+                throw new FailedLoginException("Invalid login credentials");
             }
         }
         return  false;

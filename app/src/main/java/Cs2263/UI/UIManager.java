@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class UIManager {
 
-    private Orchestrator orchestrator = new Orchestrator();
+    private Orchestrator orchestrator = Orchestrator.getInstance();
     private UICommand currentCommand;
     private LoginState currentLoginState;
     private static UIManager uiManager = null;
@@ -34,22 +34,6 @@ public class UIManager {
         return uiManager;
     }
 
-    private HashMap<String,String> userList = new HashMap<>();
-    private String activeUser;
-
-    public HashMap getUserList(){
-        return userList;
-    }
-    public void addUser(String e, String p){
-        userList.put(e,p);
-    }
-
-    public void setActiveUser(String user){
-        activeUser = user;
-    }
-    public String getActiveUser(){
-        return activeUser;
-    }
 
 
 
@@ -64,7 +48,6 @@ public class UIManager {
     }
 
     public void startUI(){
-        buildUserList();
         uiView = new UIView();
         uiView.startUI();
     }
@@ -73,10 +56,6 @@ public class UIManager {
         return uiView;
     }
 
-    public void buildUserList(){
-        userList.put("Bob@gmail.com", "123");
-        userList.put("Bill@yahoo.com", "123");
-        userList.put("Joe@joe.com", "123");
-    }
+
 
 }

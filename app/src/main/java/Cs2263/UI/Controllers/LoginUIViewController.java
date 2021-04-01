@@ -23,15 +23,21 @@ public class LoginUIViewController extends UIViewController {
 
     private Scene registerScene;
     private Scene homeScene;
+
+    //Login error label
+    @FXML private Label fxLoginLabel;
+
     //Login data fields
     @FXML private TextField fxEmailTextField;
     @FXML private TextField fxPasswordTextField;
 
-    //Login buttons
+    //Login button
     @FXML private Button fxLoginButton;
+
+    //Register button
     @FXML private Button fxRegisterButton;
 
-    //Register
+
 
     public LoginUIViewController(){
 
@@ -43,15 +49,14 @@ public class LoginUIViewController extends UIViewController {
         UICommand login = new LoginUserCommand(email,password);
         uiManager.setCommand(login);
         uiManager.executeCommand();
-        if(UIManager.getInstance().getActiveUser() != null){
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                    s.setScene(homeScene);
-                }
-            });
-        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                s.setScene(homeScene);
+            }
+        });
+
     }
 
     @FXML private void goToRegisterMenu(ActionEvent event){
@@ -62,6 +67,10 @@ public class LoginUIViewController extends UIViewController {
                 s.setScene(registerScene);
             }
         });
+    }
+
+    public void setLoginLabel(String l){
+        fxLoginLabel.setText(l);
     }
 
     public void setRegisterScene(Scene s){

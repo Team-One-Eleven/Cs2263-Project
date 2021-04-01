@@ -1,14 +1,18 @@
 package Cs2263.UI.Commands;
 
-import Cs2263.Project.user.User;
+import Cs2263.UI.Controllers.HomeUIViewController;
+import Cs2263.UI.Controllers.LoginUIViewController;
 import Cs2263.UI.UIManager;
 
-import java.util.HashMap;
+import javax.security.auth.login.FailedLoginException;
+import java.io.IOException;
 
 public class LoginUserCommand implements UICommand{
 
     private String email;
     private String password;
+    private HomeUIViewController homeUIViewController = UIManager.getInstance().getView().getHomeController();
+    private LoginUIViewController loginUIViewController = UIManager.getInstance().getView().getLoginController();
 
     public LoginUserCommand(String e, String p){
        this.email = e;
@@ -16,13 +20,16 @@ public class LoginUserCommand implements UICommand{
     }
 
     @Override
-    public void execute() {
-        HashMap userList = UIManager.getInstance().getUserList();
-        if(userList.containsKey(email)){
-            String foundUserPass = (String) userList.get(email);
-            if(foundUserPass.equals(password)){
-                UIManager.getInstance().setActiveUser(email);
-            }
+    public void execute(){
+        try{
+            orchestrator.loginUser(email,password);
+            homeUIViewController.loadUserInfo();
+        }
+        catch (IOException e){
+            loginUIViewController.setLoginLabel("IO Exception Occurred");
+        }
+        catch (FailedLoginException e){
+            loginUIViewController.setLoginLabel("Invalid credentials");
         }
     }
 }

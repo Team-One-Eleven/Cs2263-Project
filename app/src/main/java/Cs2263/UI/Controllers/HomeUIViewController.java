@@ -6,13 +6,21 @@
 
 package Cs2263.UI.Controllers;
 
+import Cs2263.Project.listable.ListableItem;
+import Cs2263.Project.listable.lists.ToDoList;
+import Cs2263.Project.user.User;
 import Cs2263.UI.Commands.PrintHelloCommand;
 import Cs2263.UI.Commands.UICommand;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class HomeUIViewController extends UIViewController {
@@ -27,7 +35,7 @@ public class HomeUIViewController extends UIViewController {
     @FXML private Tab fxTasksButton;
     @FXML private Tab fxCompletedButton;
     @FXML private Tab fxOverdueButton;
-    @FXML private ListView fxTaskList;
+    @FXML private ListView<String> fxTaskList;
     @FXML private ListView fxCompletedList;
     @FXML private ListView fxOverdueList;
 
@@ -52,18 +60,36 @@ public class HomeUIViewController extends UIViewController {
     //Main window Gridpane
     @FXML private GridPane fxMainWindowGridPane;
 
-    @FXML
-    private void printHelloWorld(ActionEvent event){
-        UICommand printCommand = new PrintHelloCommand();
-        uiManager.setCommand(printCommand);
-    }
 
+    //Updates the Task ListView (tasks which aren't complete or overdue)
     @FXML
-    private void updateListView(List l){
+    private void updateTaskListView(){
+        LinkedList<ToDoList> masterList = orchestrator.getMasterList();
 
     }
 
-    private void showTask(){
+    @FXML private void showTask(){
+        for (Node n : fxMainWindowGridPane.getChildren()) {
+            if (n instanceof GridPane
+                    && n.getId().equals("fxSectionViewGridPane")
+                    || n.getId().equals("fxListViewGridPane"))
+            {
+                System.out.println("Test");
+                ((GridPane)n).setDisable(true);
+            }
+        }
+        fxMainWindowGridPane.add(taskGridpane,1,1);
+    }
+    @FXML private void showSection(){
+        fxMainWindowGridPane.add(sectionGridpane,1,1);
+    }
+
+    @FXML private void showList(){
+        fxMainWindowGridPane.add(listGridpane,1,1);
+    }
+
+
+    public void loadUserInfo(){
 
     }
 

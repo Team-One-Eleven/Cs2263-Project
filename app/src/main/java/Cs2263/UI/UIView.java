@@ -104,13 +104,14 @@ public class UIView extends Application {
         primaryStage.setTitle("Sticky Note");
 
         //Start at login scene and show
-        primaryStage.setScene(loginScene);
+        primaryStage.setScene(homeScene);
         primaryStage.show();
     }
 
-    public UIViewController getHomeController(){
+    public HomeUIViewController getHomeController(){
         return homeUIViewController;
     }
+    public LoginUIViewController getLoginController(){return loginUIViewController;}
 
     public void startUI(){
         Application.launch();
