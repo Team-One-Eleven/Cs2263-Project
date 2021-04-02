@@ -13,15 +13,17 @@ import javafx.scene.control.TextField;
 
 public class SectionContextUIController extends UIViewController {
 
+    /**
+     * Below is all the JavaFX objects defined in the FXML documents for the section context of the UI.
+     * This is a JavaFX controller bound to the SectionContext gridpane, which is designed to show the details of a
+     * section and make available actions like deleting the section or changing its parent.
+     */
+
     //Task View Fields
     @FXML
     private TextField fxNoteTitleTextField;
     @FXML private TextArea fxNoteBodyTextArea;
 
-    //Always visible buttons
-    @FXML private Button fxNewTaskButton;
-    @FXML private Button fxNewSectionButton;
-    @FXML private Button fxNewListButton;
 
     //Task Context Buttons
     @FXML private Button fxMoveSectionButton;
