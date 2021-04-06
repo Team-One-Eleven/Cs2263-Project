@@ -16,11 +16,6 @@ public class ListContextUIController extends UIViewController {
     private TextField fxNoteTitleTextField;
     @FXML private TextArea fxNoteBodyTextArea;
 
-    //Always visible buttons
-    @FXML private Button fxNewTaskButton;
-    @FXML private Button fxNewSectionButton;
-    @FXML private Button fxNewListButton;
-
     //Task Context Buttons
     @FXML private Button fxArchiveButton;
     @FXML private Button fxMoveAllButton;
