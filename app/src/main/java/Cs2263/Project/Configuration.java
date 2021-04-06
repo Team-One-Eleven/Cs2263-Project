@@ -1,29 +1,62 @@
+/**
+ * Configurations for the system.
+ *
+ * Currently the config has had its functionality reduced from the project's original scale.
+ *
+ * It's only being used for the user id seed, which is super important,
+ * and for holding global variables used through out the orchestrator and associated tools.
+ *
+ * @author Traae
+ * @version 1.0
+ * @since 4/6/2021
+ */
+
 package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Configuration implements Serializable {
+    // GLOBALS FOR THE SYSTEM
+    // File paths
+    public static final String BASE_DIRECTORY = "system/";
+    public static final String SYSTEM_CONFIG_FILE = "config/config.json";
+    public static final String USER_LIST_DATA_FILE = "config/users.json";
+    public static final String USER_DATA_BASE = "data/";
+    public static final String USER_DATA_FILE_SUFFIX = ".json";
+    // Default Admin Credentials
+    public static final String ADMIN_EMAIL_DEFAULT = "Admin";
+    public static final String ADMIN_PASSWORD_DEFAULT = "123password";
+    public static final String ADMIN_ID_DEFAULT = "ADMIN";
 
-    // NOT IN USE
-    //public static final String LOG_PATH = "/log.json";
-    //private boolean logEnabled;
-    //private String baseDirectory;
-
+    // Variables
     private double userIDseed;
 
+    // Constructor
     public Configuration(){
         userIDseed = 0;
     }
 
+    // Methods
     public double getNextUserIDseed() {
+        /**
+         * This method increments the userIDseed and then returns the new one.
+         *
+         * the seed is only ever incremented up, thus ensuring the id's a re unique
+         */
         userIDseed++;
         return userIDseed;
     }
-
     public void recoverUserIDseed(LinkedList<UserCredentials> userList){
+        /**
+         * This function scans the userList for the highest id then sets the user Id see to a number
+         * above that.
+         *
+         * Available in the event that data is deleted or corrupted.
+         *
+         * Aside from this, there is no other way to fix the seed.
+         */
         double highest = 0;
         for (UserCredentials info : userList){
             String id = info.getUserId();
@@ -33,33 +66,4 @@ public class Configuration implements Serializable {
             }
         }
     }
-
-
-//    public String getBaseDirectory() {
-//        return baseDirectory;
-//    }
-//    public boolean isLogEnabled() {
-//        return logEnabled;
-//    }
-//    public String getLogFilePath() {
-//        return logFilePath;
-//    }
-//    public int getDefaultItemNum() {
-//        return defaultItemNum;
-//    }
-//    public int getCurrentItemNum() {
-//        return currentItemNum;
-//    }
-//    public void setBaseDirectory(String baseDirectory) {
-//        this.baseDirectory = baseDirectory;
-//    }
-//    public void setLogEnabled(boolean logEnabled) {
-//        this.logEnabled = logEnabled;
-//    }
-//    public void setLogFilePath(String logFilePath) {
-//        this.logFilePath = logFilePath;
-//    }
-//    public void setCurrentItemNum(int currentItemNum) {
-//        this.currentItemNum = currentItemNum;
-//    }
 }
