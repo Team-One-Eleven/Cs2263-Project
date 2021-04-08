@@ -1,14 +1,21 @@
 /**
  * Orchestrator for the system.
  *
+ * Supposed to be in the vein of a facade, and NOT a god object.
  * Handles all of the logic and/or the classes that handles the logic
  * for the system and makes it accessible to the UI.
  *
- * STILL DEVELOPING
+ * Currently it handles the compound methods for user's: list and data, registering, login, and log out.
+ * The exit and autosave methods handle the safe preservation of data, and should be called by the
+ * app during those titular operations.
+ *
+ * The Orchestrator is a singleton, which then holds a single instance of various tools that are needed, such
+ * as the File Manager, Search Engine, System Configuration, and Factories.
+ *
  *
  * @author  Traae
- * @version 0.5
- * @since 3/25/2021
+ * @version 1.0
+ * @since 4/6/2021
  */
 
 package Cs2263.Project;
@@ -20,23 +27,21 @@ import Cs2263.Project.tools.*;
 
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Orchestrator {
-    // Default Admin Credentials Globals
-    private static final String ADMIN_EMAIL_DEFAULT = "Admin";
-    private static final String ADMIN_PASSWORD_DEFAULT = "123password";
-    private static final String ADMIN_ID_DEFAULT = "ADMIN";
+
 
     // Singleton instance
     private static Orchestrator instance = null;
 
     // Variables
     // User - related
-    private LinkedList<UserCredentials> userList;
+    private ArrayList<UserCredentials> userList;
     private User activeUser;
     private UserCredentials activeInfo;
-    private LinkedList<ToDoList> masterList;
+    private ArrayList<ToDoList> masterList;
     private ListManager listManager;
     // Tools
     private FileManager fileManager;
@@ -74,21 +79,6 @@ public class Orchestrator {
     public SearchEngine getSearchEngine() {
         return searchEngine;
     }
-    // Get Settings Variables
-    public String getNextUserID() {
-        /**
-         * Returns a unique string for identifiengs users in the system.
-         * Each call of this will increment the user Id seed and create a
-         * string with it. It doesn't matter if this function gets called
-         * arbitrarily, or if the user that's being made fails. The seed only ever
-         * goes up.
-         *
-         * Theoretically it could max, however it is a double, this is unfeasible.
-         * Acceptable for development, create a more complicated ide system later.
-         *
-         */
-        return "User" + config.getNextUserIDseed();
-    }
     // Get Factories
     public ItemFactory getItemFactory() {
         return itemFactory;
@@ -100,10 +90,10 @@ public class Orchestrator {
     public UserCredentials getActiveInfo() {
         return activeInfo;
     }
-    public LinkedList<ToDoList> getMasterList() {
+    public ArrayList<ToDoList> getMasterList() {
         return masterList;
     }
-    public LinkedList<UserCredentials> getUserList() {
+    public ArrayList<UserCredentials> getUserList() {
         return userList;
     }
     // Get Config
@@ -112,13 +102,23 @@ public class Orchestrator {
     }
 
     // System Methods
-    public boolean registerUser(String email, String password) throws IOException {
+    public boolean registerUser(String email, String password) throws IOException   {
+        /**
+         *  This is a compound method for registering a new user.
+         *  It creates and entry in the user list, and a new user file, but doesn't fill them out completely.
+         *  Doesn't log user in.
+         *
+         *  currently throws a false if the registration fails, and true if successful
+         */
         for (UserCredentials u: userList){
+            // first, see if the email is already in use
             if (u.getUserEmail() == email){
                 return false;
             }
             else {
-                String newUserID = getNextUserID();
+                // if not, grab a new user ID, fetch an info and user from the factory, fill out the basics
+                // and save there info into the files.
+                double newUserID = config.getNextUserIDseed();
                 UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
                 User newUser = userFactory.makeUser();
                 userList.add(newInfo);
@@ -132,6 +132,12 @@ public class Orchestrator {
         return false;
     }
     public boolean loginUser(String email, String password) throws IOException, FailedLoginException {
+        /**
+         * This is a compound method for logging in a user.
+         * scans the user list, finds the matching credentials, loads their file, sets them to the active
+         *
+         * Then scans their list to check the due dates, and build the master list structure.
+         */
         for (UserCredentials info : userList){
             if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
                 activeInfo = info;
@@ -147,6 +153,14 @@ public class Orchestrator {
         return  false;
     }
     public void logoutUser() throws IOException {
+        /**
+         * This is a compound method to logout the current user.
+         *
+         * first, deconstructs the master list structure.
+         * second, saves all the users data.
+         * third, sets all the active user variables to null.
+         *
+         */
         listManager.deconstructMasterList();
         fileManager.saveUser(activeUser, activeInfo);
         fileManager.saveUserList();
@@ -155,6 +169,15 @@ public class Orchestrator {
         masterList = null;
     }
     public void autosave() throws IOException {
+        /**
+         * This is a compound method the provide the methods to perform a safe save of data.
+         * it have been named autosave to match its functional usage in the app/driver.
+         *
+         * It DOESN'T do anything without being called.
+         *
+         * This method can also be called to invoke a manual save. The process is the same.
+         */
+        // Deconstruct the master list to avoid recursive serialisation, save the data, build the mast list again.
         listManager.deconstructMasterList();
         fileManager.saveUser(activeUser, activeInfo);
         fileManager.saveUserList();
@@ -162,26 +185,54 @@ public class Orchestrator {
     }
 
     public void exit() throws IOException {
-        logoutUser();
+        /**
+         * This is a compound method to be called when exiting the app.
+         * This will  log out the current user, and save the config data.
+         */
+        if (activeUser != null){
+            logoutUser();
+        }
         fileManager.saveConfiguration();
     }
 
 
-    public void makeDefaultAdmin() throws IOException {
-        UserCredentials info = userFactory.makeUserInfo(ADMIN_EMAIL_DEFAULT, ADMIN_PASSWORD_DEFAULT, ADMIN_ID_DEFAULT);
+    public void makeDefaultUserList() throws IOException {
+        /**
+         * This is a compound method for initializing the Admin abd Userlist for the program.
+         * it will be called anytime that data for the program isn't found.
+         *
+         * Thus, it should be called the first time a new instance of the app is installed, and
+         * anytime the data has been deleted or interfered with.
+         */
+        UserCredentials info = userFactory.makeUserInfo(Configuration.ADMIN_EMAIL_DEFAULT,
+                Configuration.ADMIN_PASSWORD_DEFAULT,
+                Configuration.ADMIN_ID_DEFAULT);
         User admin = userFactory.makeUser();
         admin.setFirstName("System");
         admin.setLastName("Administrator");
         admin.setBiography("");
+
+        if (userList == null){
+            userList = new ArrayList<UserCredentials>();
+        }
         userList.add(info);
+
         fileManager.saveUserList();
         fileManager.saveUser(admin, info);
         makeExampleUsers();
     }
 
     private void makeExampleUsers() throws IOException {
+        /**
+         * This is a compound function the should only be called by makeDefaultUserList()
+         *
+         * for Testing purposes. Delete or comment away later.
+         *
+         * This function will further populated the the user list with some data for the new admin to check.
+         *
+         */
         for (int i=3; i>0; i--){
-            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password", "example" + i);
+            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password",  i);
             User example = userFactory.makeUser();
             example.setFirstName("example");
             example.setLastName("Number: " + i);

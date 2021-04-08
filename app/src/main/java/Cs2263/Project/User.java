@@ -5,24 +5,23 @@
  * it has a list of tasks & lists and other properties supporting that.
  *
  * @author  Traae
- * @version .0
- * @since 3/25/2021
+ * @version 1.0
+ * @since 4/6/2021
  */
 
 package Cs2263.Project;
 
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ParentTask;
-
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
 
     // Variables
-    private LinkedList<ParentTask> theTasks;
-    private LinkedList<ToDoList> theLists;
+    private ArrayList<ParentTask> theTasks;
+    private ArrayList<ToDoList> theLists;
     private double sectionIDseed;
     private String firstName;
     private String lastName;
@@ -36,16 +35,16 @@ public class User implements Serializable {
         lastName = "";
         pictureFile = "";
         biography = "";
-        theTasks = new LinkedList<>();
-        theLists = new LinkedList<>();
+        theTasks = new ArrayList<>();
+        theLists = new ArrayList<>();
     }
 
     // Methods
     //GETTERS
-    public LinkedList<ParentTask> getTheTasks() {
+    public ArrayList<ParentTask> getTheTasks() {
         return theTasks;
     }
-    public LinkedList<ToDoList> getTheLists() {
+    public ArrayList<ToDoList> getTheLists() {
         return theLists;
     }
     public String getNextSectionID() {
@@ -63,9 +62,6 @@ public class User implements Serializable {
     public String getLastName() {
         return lastName;
     }
-    public String getPictureFile() {
-        return pictureFile;
-    }
     public String getBiography() {
         return biography;
     }
@@ -76,14 +72,7 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public void setPictureFile(String pictureFile) {
-        this.pictureFile = pictureFile;
-    }
     public void setBiography(String biography) {
         this.biography = biography;
-    }
-    // OTHER
-    public void newPictureFile(String picFilePath){
-        // NEEDS DEVELOPED
     }
 }

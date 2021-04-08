@@ -33,4 +33,6 @@ public class ChildTask extends TaskArchetype implements ListableItem, Serializab
     public ListableType getType() {
         return type;
     }
+
+
 }

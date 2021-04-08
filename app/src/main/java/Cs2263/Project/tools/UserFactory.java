@@ -5,23 +5,22 @@
  *
  * Produces a new User using userInfo.
  *
- * TODO need to solve THE ADMIN PROBLEM
  *
  * @author  Traae
- * @version 0.9
+ * @version 1.0
  * @since 3/31/2021
  */
 
 package Cs2263.Project.tools;
 
+import Cs2263.Project.Configuration;
 import Cs2263.Project.Orchestrator;
 import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.User;
 
 
 public class UserFactory {
-    public static final String USER_DATA_BASE = "./data/";
-    public static final String USER_DATA_FILE_SUFFIX = ".json";
+
 
     private Orchestrator orchestrator;
 
@@ -36,12 +35,12 @@ public class UserFactory {
         User u = new User();
         return new User();
     }
-    public UserCredentials makeUserInfo(String email, String password, String userId) {
+    public UserCredentials makeUserInfo(String email, String password, double userId) {
         UserCredentials newInfo = new UserCredentials();
         newInfo.setUserEmail(email);
         newInfo.setUserPassword(password);
         newInfo.setUserId(userId);
-        newInfo.setUserFile(USER_DATA_BASE + userId + USER_DATA_FILE_SUFFIX);
+        newInfo.setUserFile(Configuration.USER_DATA_BASE + userId + Configuration.USER_DATA_FILE_SUFFIX);
         return newInfo;
     }
 
