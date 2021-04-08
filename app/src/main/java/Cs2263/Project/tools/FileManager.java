@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class FileManager {
     // Variables
@@ -36,7 +36,7 @@ public class FileManager {
     }
 
 
-    public LinkedList<UserCredentials> loadUserList() throws IOException {
+    public ArrayList<UserCredentials> loadUserList() throws IOException {
         /**
          * This function loads the user list
          *
@@ -48,10 +48,10 @@ public class FileManager {
             readIn = Files.readString(Paths.get(Configuration.USER_LIST_DATA_FILE));
         }
         catch (IOException e){
-            orchestrator.makeDefaultAdmin();
+            orchestrator.makeDefaultUserList();
             readIn = Files.readString(Paths.get(Configuration.USER_LIST_DATA_FILE));
         }
-        Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
+        Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
         return gson.fromJson(readIn, type);
     }
 
@@ -88,7 +88,7 @@ public class FileManager {
         Configuration c;
         try {
             String readIn = Files.readString(Paths.get(Configuration.SYSTEM_CONFIG_FILE));
-            Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
+            Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
             c = gson.fromJson(readIn, type);
         }
         catch (IOException e){

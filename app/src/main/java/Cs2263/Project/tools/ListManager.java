@@ -24,7 +24,7 @@ import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.Project.User;
 
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 
 public class ListManager {
@@ -40,11 +40,11 @@ public class ListManager {
          *
          * If any tasks fail to find a home, then should be added to the master list under a new "unlisted section"
          */
-        LinkedList<ToDoList> masterList = o.getMasterList();
+        ArrayList<ToDoList> masterList = o.getMasterList();
         User activeUser = o.getActiveUser();
 
         masterList.addAll(activeUser.getTheLists());
-        LinkedList<ParentTask> unListed = new LinkedList<>();
+        ArrayList<ParentTask> unListed = new ArrayList<>();
 
         for (ParentTask toAdd : activeUser.getTheTasks()){
             for (ToDoList toSearch: masterList){
@@ -61,7 +61,7 @@ public class ListManager {
             ToDoList lostAndFound = o.getItemFactory().makeToDOList();
             lostAndFound.setTitle("Unlisted");
             lostAndFound.getDefaultSection().getTasks().addAll(unListed);
-            masterList.addLast(lostAndFound);
+            masterList.add(lostAndFound);
         }
 
         activeUser.getTheTasks().clear();
@@ -75,7 +75,7 @@ public class ListManager {
          */
         if (!toAdd.getParentSections().isEmpty()){
             for (Section secSearch: toSearch.getSections()){
-                LinkedList<String> toRemove = new LinkedList<>();
+                ArrayList<String> toRemove = new ArrayList<>();
                 for (String id: toAdd.getParentSections()){
                     if (id == secSearch.getId()){
                         secSearch.getTasks().add(toAdd);

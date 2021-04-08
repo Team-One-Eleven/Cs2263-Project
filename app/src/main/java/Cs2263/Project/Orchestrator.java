@@ -27,6 +27,7 @@ import Cs2263.Project.tools.*;
 
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Orchestrator {
@@ -37,10 +38,10 @@ public class Orchestrator {
 
     // Variables
     // User - related
-    private LinkedList<UserCredentials> userList;
+    private ArrayList<UserCredentials> userList;
     private User activeUser;
     private UserCredentials activeInfo;
-    private LinkedList<ToDoList> masterList;
+    private ArrayList<ToDoList> masterList;
     private ListManager listManager;
     // Tools
     private FileManager fileManager;
@@ -78,21 +79,6 @@ public class Orchestrator {
     public SearchEngine getSearchEngine() {
         return searchEngine;
     }
-    // Get Settings Variables
-    public String getNextUserID() {
-        /**
-         * Returns a unique string for identifiengs users in the system.
-         * Each call of this will increment the user Id seed and create a
-         * string with it. It doesn't matter if this function gets called
-         * arbitrarily, or if the user that's being made fails. The seed only ever
-         * goes up.
-         *
-         * Theoretically it could max, however it is a double, this is unfeasible.
-         * Acceptable for development, create a more complicated ide system later.
-         *
-         */
-        return "User" + config.getNextUserIDseed();
-    }
     // Get Factories
     public ItemFactory getItemFactory() {
         return itemFactory;
@@ -104,10 +90,10 @@ public class Orchestrator {
     public UserCredentials getActiveInfo() {
         return activeInfo;
     }
-    public LinkedList<ToDoList> getMasterList() {
+    public ArrayList<ToDoList> getMasterList() {
         return masterList;
     }
-    public LinkedList<UserCredentials> getUserList() {
+    public ArrayList<UserCredentials> getUserList() {
         return userList;
     }
     // Get Config
@@ -132,7 +118,7 @@ public class Orchestrator {
             else {
                 // if not, grab a new user ID, fetch an info and user from the factory, fill out the basics
                 // and save there info into the files.
-                String newUserID = getNextUserID();
+                double newUserID = config.getNextUserIDseed();
                 UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
                 User newUser = userFactory.makeUser();
                 userList.add(newInfo);
@@ -210,7 +196,7 @@ public class Orchestrator {
     }
 
 
-    public void makeDefaultAdmin() throws IOException {
+    public void makeDefaultUserList() throws IOException {
         /**
          * This is a compound method for initializing the Admin abd Userlist for the program.
          * it will be called anytime that data for the program isn't found.
@@ -225,7 +211,12 @@ public class Orchestrator {
         admin.setFirstName("System");
         admin.setLastName("Administrator");
         admin.setBiography("");
+
+        if (userList == null){
+            userList = new ArrayList<UserCredentials>();
+        }
         userList.add(info);
+
         fileManager.saveUserList();
         fileManager.saveUser(admin, info);
         makeExampleUsers();
@@ -233,7 +224,7 @@ public class Orchestrator {
 
     private void makeExampleUsers() throws IOException {
         /**
-         * This is a compound function the should only be called by makeDefaultAdmin()
+         * This is a compound function the should only be called by makeDefaultUserList()
          *
          * for Testing purposes. Delete or comment away later.
          *
@@ -241,7 +232,7 @@ public class Orchestrator {
          *
          */
         for (int i=3; i>0; i--){
-            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password", "example" + i);
+            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password",  i);
             User example = userFactory.makeUser();
             example.setFirstName("example");
             example.setLastName("Number: " + i);

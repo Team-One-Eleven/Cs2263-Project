@@ -35,7 +35,7 @@ public class UserFactory {
         User u = new User();
         return new User();
     }
-    public UserCredentials makeUserInfo(String email, String password, String userId) {
+    public UserCredentials makeUserInfo(String email, String password, double userId) {
         UserCredentials newInfo = new UserCredentials();
         newInfo.setUserEmail(email);
         newInfo.setUserPassword(password);

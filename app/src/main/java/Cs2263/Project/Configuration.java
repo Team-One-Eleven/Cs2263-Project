@@ -15,6 +15,7 @@ package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Configuration implements Serializable {
@@ -28,14 +29,14 @@ public class Configuration implements Serializable {
     // Default Admin Credentials
     public static final String ADMIN_EMAIL_DEFAULT = "Admin";
     public static final String ADMIN_PASSWORD_DEFAULT = "123password";
-    public static final String ADMIN_ID_DEFAULT = "ADMIN";
+    public static final Double ADMIN_ID_DEFAULT = 0.0;
 
     // Variables
     private double userIDseed;
 
     // Constructor
     public Configuration(){
-        userIDseed = 0;
+        userIDseed = 1.0;
     }
 
     // Methods
@@ -48,7 +49,7 @@ public class Configuration implements Serializable {
         userIDseed++;
         return userIDseed;
     }
-    public void recoverUserIDseed(LinkedList<UserCredentials> userList){
+    public void recoverUserIDseed(ArrayList<UserCredentials> userList){
         /**
          * This function scans the userList for the highest id then sets the user Id see to a number
          * above that.
@@ -59,10 +60,9 @@ public class Configuration implements Serializable {
          */
         double highest = 0;
         for (UserCredentials info : userList){
-            String id = info.getUserId();
-            id.replaceFirst("User", "");
-            if (Double.valueOf(id) > highest){
-                highest = Double.valueOf(id);
+            double id = info.getUserId();
+            if (id > highest){
+                highest = id;
             }
         }
     }

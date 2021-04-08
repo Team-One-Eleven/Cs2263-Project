@@ -22,14 +22,14 @@ public class UserCredentials implements Serializable, ListableItem {
     // Instance variables
     private String userEmail;
     private String userPassword;
-    private String userId;
+    private double userId;
     private String userFile;
 
     // Constructor
     public UserCredentials(){
         userEmail = "";
         userPassword = "";
-        userId = "";
+        userId = 1;
         userFile = "";
     }
     // Methods
@@ -40,7 +40,7 @@ public class UserCredentials implements Serializable, ListableItem {
     public String getUserPassword() {
         return userPassword;
     }
-    public String getUserId() {
+    public double getUserId() {
         return userId;
     }
     public String getUserFile() {
@@ -52,7 +52,7 @@ public class UserCredentials implements Serializable, ListableItem {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
-    public void setUserId(String userId) {
+    public void setUserId(double userId) {
         this.userId = userId;
     }
     public void setUserFile(String userFile) {
@@ -63,9 +63,13 @@ public class UserCredentials implements Serializable, ListableItem {
     public String getTitle() {
         return getUserEmail();
     }
-
     @Override
     public ListableType getType() {
         return type;
+    }
+
+    @Override
+    public String toString(){
+        return getTitle();
     }
 }

@@ -14,14 +14,14 @@ package Cs2263.Project;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ParentTask;
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
 
     // Variables
-    private LinkedList<ParentTask> theTasks;
-    private LinkedList<ToDoList> theLists;
+    private ArrayList<ParentTask> theTasks;
+    private ArrayList<ToDoList> theLists;
     private double sectionIDseed;
     private String firstName;
     private String lastName;
@@ -35,16 +35,16 @@ public class User implements Serializable {
         lastName = "";
         pictureFile = "";
         biography = "";
-        theTasks = new LinkedList<>();
-        theLists = new LinkedList<>();
+        theTasks = new ArrayList<>();
+        theLists = new ArrayList<>();
     }
 
     // Methods
     //GETTERS
-    public LinkedList<ParentTask> getTheTasks() {
+    public ArrayList<ParentTask> getTheTasks() {
         return theTasks;
     }
-    public LinkedList<ToDoList> getTheLists() {
+    public ArrayList<ToDoList> getTheLists() {
         return theLists;
     }
     public String getNextSectionID() {
