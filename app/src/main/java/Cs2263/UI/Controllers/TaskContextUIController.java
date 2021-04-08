@@ -9,6 +9,9 @@ package Cs2263.UI.Controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class TaskContextUIController extends UIViewController{
 
     /**
@@ -34,5 +37,11 @@ public class TaskContextUIController extends UIViewController{
     @FXML private Button fxMoveTaskButton;
     @FXML private Button fxDuplicateButton;
     @FXML private Button fxDeleteTaskButton;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
 
 }

@@ -34,16 +34,16 @@ public class ToDoList extends ListArchetype implements ListableItem, Serializabl
     // Constructor
     // NO ARGUMENTS for Serializable
     public ToDoList(){
-        comments = new LinkedList<>();
+        //comments = new LinkedList<>();
         sections = new LinkedList<>();
         archived = false;
     }
 
     //Methods
     // GETTERS
-    public LinkedList<String> getComments() {
-        return comments;
-    }
+//    public LinkedList<String> getComments() {
+//        return comments;
+//    }
     public Section getDefaultSection() {
         return defaultSection;
     }

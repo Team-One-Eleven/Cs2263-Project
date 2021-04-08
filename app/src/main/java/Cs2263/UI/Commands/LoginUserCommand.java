@@ -6,10 +6,11 @@
 
 package Cs2263.UI.Commands;
 
-import Cs2263.Project.Orchestrator;
 import Cs2263.UI.Controllers.HomeUIViewController;
 import Cs2263.UI.Controllers.LoginUIViewController;
 import Cs2263.UI.UIManager;
+import Cs2263.UI.UIView;
+
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
 
@@ -18,8 +19,7 @@ public class LoginUserCommand implements UICommand{
     private final String email;
     private final String password;
     private HomeUIViewController homeUIViewController = UIManager.getInstance().getView().getHomeController();
-    private LoginUIViewController loginUIViewController = UIManager.getInstance().getView().getLoginController();
-    private Orchestrator orchestrator;
+    private final LoginUIViewController loginUIViewController = UIManager.getInstance().getView().getLoginController();
 
 
     /**
@@ -29,31 +29,31 @@ public class LoginUserCommand implements UICommand{
      * @param p  User Password
      */
     public LoginUserCommand(String e, String p){
-        try {
-            orchestrator = Orchestrator.getInstance();
-        }
-        catch (IOException io){
-            System.out.println("An Orchestrator IO Exception Occurred in LoginUserCommand");
-        }
-       this.email = e;
-       this.password =p;
+        this.email = e;
+        this.password =p;
     }
 
     /**
      * Sends email and password data to orchestrator for login.
      */
 
+    //TODO Fix error messages creating null pointer
     @Override
     public void execute(){
         try{
             orchestrator.loginUser(email,password);
-            homeUIViewController.loadUserInfo();
-        }
-        catch (IOException e){
-            loginUIViewController.setLoginLabel("IO Exception Occurred");
         }
         catch (FailedLoginException e){
-            loginUIViewController.setLoginLabel("Invalid credentials");
+            //loginUIViewController.setLoginLabel("Login failed. Invalid credentials.");
+            System.out.printf("Login failed at %s%n",this.getClass().getName());
+        }
+        catch (IOException e){
+            //loginUIViewController.setLoginLabel("An IO Exception Occurred.");
+            System.out.printf("IO Exception in %s%n",this.getClass().getName());
+        }
+        catch (Exception e){
+            //loginUIViewController.setLoginLabel("An Exception Occurred.");
+            System.out.printf("Exception in %s%n",this.getClass().getName());
         }
     }
 }

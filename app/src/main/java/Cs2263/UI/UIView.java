@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -24,29 +25,15 @@ public class UIView extends Application {
     private String UI_LOGIN_DOC = "/LoginUI.fxml";
     private String UI_REGISTER_DOC = "/RegisterUI.fxml";
 
-    private String UI_TASK_GRIDPANE = "/TaskItemContext.fxml";
-    private String UI_LIST_GRIDPANE = "/ListItemContext.fxml";
-    private String UI_SECTION_GRIDPANE = "/SectionItemContext.fxml";
-
     private HomeUIViewController homeUIViewController;
     private LoginUIViewController loginUIViewController;
     private RegisterUIViewController registerUIViewController;
-    private TaskContextUIController taskContextUIController;
-    private ListContextUIController listContextUIController;
-    private SectionContextUIController sectionContextUIController;
 
     private Scene homeScene;
     private Scene loginScene;
     private Scene registerScene;
 
-    private GridPane taskContextGridpane;
-    private GridPane listContextGridpane;
-    private GridPane sectionContextGridpane;
-
     private Stage primaryStage;
-
-
-
 
     public UIView(){
 
@@ -57,33 +44,21 @@ public class UIView extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
+
         //Load each FXML file for different UI states
         FXMLLoader homeFxmlLoader = new FXMLLoader(getClass().getResource(UI_HOME_DOC));
         FXMLLoader loginFxmlLoader = new FXMLLoader(getClass().getResource(UI_LOGIN_DOC));
         FXMLLoader registerFxmlLoader = new FXMLLoader(getClass().getResource(UI_REGISTER_DOC));
-
-        //Load each FXML file for different item states(task, list, section) within the Home (or logged in) state
-        FXMLLoader taskContentFxmlLoader = new FXMLLoader(getClass().getResource(UI_TASK_GRIDPANE));
-        FXMLLoader listContentFxmlLoader = new FXMLLoader(getClass().getResource(UI_LIST_GRIDPANE));
-        FXMLLoader sectionContentFxmlLoader = new FXMLLoader(getClass().getResource(UI_SECTION_GRIDPANE));
 
         //Load the FXML docs for the different scenes
         Parent homePageParent = homeFxmlLoader.load();
         Parent loginPageParent = loginFxmlLoader.load();
         Parent registerPageParent = registerFxmlLoader.load();
 
-        //Load various item context Gridpanes (Task, List, Section) for use in the Home Page Scene
-        taskContextGridpane = taskContentFxmlLoader.load();
-        listContextGridpane = listContentFxmlLoader.load();
-        sectionContextGridpane = sectionContentFxmlLoader.load();
-
         //Load all controllers for the above elements so they can be used by the system.
-        homeUIViewController = (HomeUIViewController) homeFxmlLoader.getController();
-        loginUIViewController = (LoginUIViewController) loginFxmlLoader.getController();
-        registerUIViewController = (RegisterUIViewController) registerFxmlLoader.getController();
-        taskContextUIController = (TaskContextUIController) taskContentFxmlLoader.getController();
-        listContextUIController = (ListContextUIController) listContentFxmlLoader.getController();
-        sectionContextUIController = (SectionContextUIController) sectionContentFxmlLoader.getController();
+        homeUIViewController = homeFxmlLoader.getController();
+        loginUIViewController = loginFxmlLoader.getController();
+        registerUIViewController = registerFxmlLoader.getController();
 
         //Load scenes
         homeScene = new Scene(homePageParent, WIDTH, HEIGHT);
@@ -93,18 +68,12 @@ public class UIView extends Application {
         //Pass loaded scenes to UI controllers so they can change to them
         loginUIViewController.setRegisterScene(registerScene);
         loginUIViewController.setHomeScene(homeScene);
-
         registerUIViewController.setLoginScene(loginScene);
 
-        //Pass loaded gridpanes to the home view so it can use them to render list items
-        homeUIViewController.setTaskGridpane(taskContextGridpane);
-        homeUIViewController.setListGridpane(listContextGridpane);
-        homeUIViewController.setSectionGridpane(sectionContextGridpane);
-
-        primaryStage.setTitle("Sticky Note");
+        primaryStage.setTitle("TODO");
 
         //Start at login scene and show
-        primaryStage.setScene(homeScene);
+        primaryStage.setScene(loginScene);
         primaryStage.show();
     }
 
@@ -113,7 +82,7 @@ public class UIView extends Application {
     }
     public LoginUIViewController getLoginController(){return loginUIViewController;}
 
-    public void startUI(){
+    public void launchView(){
         Application.launch();
     }
 }

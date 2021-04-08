@@ -50,9 +50,10 @@ public class FileManager {
             readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
         }
         catch (IOException e){
-            orchestrator.makeDefaultAdmin();
+            //orchestrator.makeDefaultAdmin();
             readIn = Files.readString(Paths.get(USER_LIST_DATA_FILE));
         }
+
         Type type = new TypeToken<LinkedList<UserCredentials>>(){}.getType();
         return gson.fromJson(readIn, type);
     }
@@ -78,7 +79,7 @@ public class FileManager {
     }
     //public LoadPicture(String pictureFile) : PictureSpriteThing-JavaFX
 
-    public Configuration loadConfig() throws IOException {
+    public Configuration loadConfig() {
         Configuration c;
         try {
             String readIn = Files.readString(Paths.get(SYSTEM_CONFIG_FILE));

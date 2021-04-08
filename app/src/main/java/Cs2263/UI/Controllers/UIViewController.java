@@ -12,22 +12,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public abstract class UIViewController implements Initializable {
 
-    UIManager uiManager;
-    Orchestrator orchestrator;
+    protected UIManager uiManager;
+    protected Orchestrator orchestrator;
 
     protected UIViewController() {
-        try{
-            orchestrator = Orchestrator.getInstance();
-        }
-        catch (IOException io){
-            System.out.println("An Orchestrator IO Exception Occurred in UIViewController");
-        }
+        uiManager = UIManager.getInstance();
+        orchestrator = uiManager.getOrchestrator();
     }
 
     /**
@@ -38,9 +33,7 @@ public abstract class UIViewController implements Initializable {
      */
 
 
-    public void initialize(URL location, ResourceBundle resources)  {
-        uiManager = UIManager.getInstance();
-    }
+    public abstract void initialize(URL location, ResourceBundle resources);
 
     //A shorthand executeCommand for use within the UI
     @FXML private void executeCommand(ActionEvent event){

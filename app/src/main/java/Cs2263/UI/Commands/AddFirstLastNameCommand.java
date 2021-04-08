@@ -14,11 +14,8 @@ import java.util.regex.Pattern;
 
 public class AddFirstLastNameCommand implements UICommand{
 
-    Orchestrator orchestrator;
-
     String fName;
     String lName;
-
 
     //Pattern for ensuring alphabetic characters only in name
     public static final Pattern VALID_NAME_PATTERN =
@@ -32,12 +29,6 @@ public class AddFirstLastNameCommand implements UICommand{
      */
 
     public AddFirstLastNameCommand(String f, String l) throws IllegalArgumentException{
-        try{
-            orchestrator = Orchestrator.getInstance();
-        }
-        catch (IOException e){
-            System.out.println("IO Exception in AddFirstLastNameCommand");
-        }
 
         Matcher fNameMatcher = VALID_NAME_PATTERN.matcher(f);
         Matcher lNameMatcher = VALID_NAME_PATTERN.matcher(l);

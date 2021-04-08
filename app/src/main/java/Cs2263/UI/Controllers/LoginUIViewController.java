@@ -15,12 +15,23 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LoginUIViewController extends UIViewController {
 
     private Scene registerScene;
     private Scene homeScene;
+
+    //Login Gridpane
+    @FXML private GridPane fxLoginGridpane;
 
     //Login error label
     @FXML private Label fxLoginLabel;
@@ -35,9 +46,26 @@ public class LoginUIViewController extends UIViewController {
     //Register button
     @FXML private Button fxRegisterButton;
 
+    //Image View for Logo
+    @FXML private ImageView fxLoginImageView;
+
 
 
     public LoginUIViewController(){
+
+    }
+
+    //TODO Load login image
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            InputStream logoInput = getClass().getClassLoader().getResourceAsStream("logo.png");
+            Image logo = new Image(logoInput);
+            fxLoginImageView.setImage(logo);
+        }
+        catch(Exception e){
+            System.out.println("Failed load logo from resources folder");
+        }
 
     }
 
@@ -52,15 +80,20 @@ public class LoginUIViewController extends UIViewController {
         UICommand login = new LoginUserCommand(email,password);
         uiManager.setCommand(login);
         uiManager.executeCommand();
-        Platform.runLater(() -> {
-            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            s.setScene(homeScene);
-        });
+        if(orchestrator.getActiveUser() != null){
+            Platform.runLater(() -> {
+                Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                s.setScene(homeScene);
+            });
+        }
+
 
     }
 
     @FXML private void goToRegisterMenu(ActionEvent event){
         Platform.runLater(() -> {
+            fxEmailTextField.setText("");
+            fxPasswordTextField.setText("");
             Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
             s.setScene(registerScene);
         });
