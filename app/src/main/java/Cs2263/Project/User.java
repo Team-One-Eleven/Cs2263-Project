@@ -47,13 +47,13 @@ public class User implements Serializable {
     public ArrayList<ToDoList> getTheLists() {
         return theLists;
     }
-    public String getNextSectionID() {
+    public double getNextSectionID() {
         /**
          * returns a String to be used as an ID for a toDoList.
          * is based off an incrementing double.
          */
         sectionIDseed++;
-        return "list" + sectionIDseed;
+        return sectionIDseed;
     }
     // GETTERS
     public String getFirstName() {

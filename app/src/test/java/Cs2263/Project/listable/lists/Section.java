@@ -14,7 +14,6 @@ package Cs2263.Project.listable.lists;
 
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;
-import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.tasks.ParentTask;
 
 import java.io.Serializable;
@@ -27,14 +26,13 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Instance variables
     private LinkedList<ParentTask> tasks;
     private LinkedList<ToDoList> lists;
-    private double id;
+    private String id;
 
     // Constructor
     // NO ARGUMENTS for Serializable
     public Section(){
         tasks = new LinkedList<>();
         lists = new LinkedList<>();
-        id = 3.14;
     }
 
     //Methods
@@ -42,7 +40,7 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     public LinkedList<ParentTask> getTasks() {
         return tasks;
     }
-    public double getId() {
+    public String getId() {
         return id;
     }
     public LinkedList<ToDoList> getLists() {
@@ -50,8 +48,8 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     }
 
     // ID initialization
-    public void initId(double id) {
-        if (id == 3.14){
+    public void initId(String id) {
+        if (id == null){
             this.id = id;
         }
     }
