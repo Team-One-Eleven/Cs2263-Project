@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class RegisterUIViewController extends UIViewController {
 
     //Login Scene (to go back to it with the back button)
@@ -38,6 +41,11 @@ public class RegisterUIViewController extends UIViewController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
     /**
      * Creates new register command from form data and sends it to the uiManager for execution
      */
@@ -51,7 +59,7 @@ public class RegisterUIViewController extends UIViewController {
            uiManager.executeCommand();
        }
        catch (IllegalArgumentException e){
-            setRegisterLabel("Invalid Registration Details");
+            setRegisterLabel("Error: Please use a valid email and alphanumeric password.");
        }
     }
 
@@ -67,6 +75,8 @@ public class RegisterUIViewController extends UIViewController {
 
     @FXML private void goToLogin(ActionEvent event){
         Platform.runLater(() -> {
+            fxRegisterEmailField.setText("");
+            fxRegisterPassField.setText("");
             Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
             s.setScene(loginScene);
         });

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="fxItemViewGridPane" prefHeight="382.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cs2263.UI.Controllers.SectionContextUIController">
+<GridPane fx:id="fxSectionViewGridPane" prefHeight="382.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cs2263.UI.Controllers.SectionContextUIController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="48.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="370.0" minWidth="10.0" prefWidth="370.0" />

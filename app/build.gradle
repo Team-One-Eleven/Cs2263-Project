@@ -45,3 +45,9 @@ javafx {
     version = "15.0.1"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
+
+task copyTestResources(type: Copy) {
+    from "${projectDir}/cs"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources

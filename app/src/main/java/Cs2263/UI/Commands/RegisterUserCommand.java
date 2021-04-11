@@ -36,12 +36,6 @@ public class RegisterUserCommand implements UICommand{
 
 
     public RegisterUserCommand(String e, String p) throws IllegalArgumentException{
-        try{
-            orchestrator = Orchestrator.getInstance();
-        }
-        catch (IOException o){
-            System.out.println("IO Exception in RegisterUserCommand");
-        }
 
         Matcher emailMatcher = VALID_EMAIL_PATTERN.matcher(e);
         Matcher passwordMatcher = VALID_PASSWORD_PATTERN.matcher(p);

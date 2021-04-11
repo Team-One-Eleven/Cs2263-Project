@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class SectionContextUIController extends UIViewController {
 
     /**
@@ -29,4 +32,8 @@ public class SectionContextUIController extends UIViewController {
     @FXML private Button fxMoveSectionButton;
     @FXML private Button fxDeleteSectionButton;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }

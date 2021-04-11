@@ -57,11 +57,9 @@
                </rowConstraints>
                <children>
                   <Button fx:id="fxEditLabelsButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Edit Labels" />
-                  <Button fx:id="fxEditListsButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Edit Lists" GridPane.rowIndex="1" />
-                  <Button fx:id="fxAddSubtaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add Subtask" GridPane.rowIndex="2" />
-                  <Button fx:id="fxMoveTaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Move" GridPane.rowIndex="3" />
-                  <Button fx:id="fxDuplicateButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Duplicate" GridPane.rowIndex="4" />
-                  <Button fx:id="fxDeleteTaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="5" />
+                  <Button fx:id="fxAddSubtaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Add Subtask" GridPane.rowIndex="1" />
+                  <Button fx:id="fxMoveTaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Move" GridPane.rowIndex="2" />
+                  <Button fx:id="fxDeleteTaskButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

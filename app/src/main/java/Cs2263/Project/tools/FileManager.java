@@ -79,6 +79,7 @@ public class FileManager {
         Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + toSaveInfo.getUserFile()), writeOut);
     }
 
+
     public Configuration loadConfig() throws IOException {
         /**
          * This method loads the configuration file.

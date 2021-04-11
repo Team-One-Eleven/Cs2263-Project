@@ -6,11 +6,12 @@
 
 package Cs2263.UI.Commands;
 
+import Cs2263.Project.Orchestrator;
 import Cs2263.UI.UIManager;
 
 public interface UICommand{
 
-    UIManager uiManager = UIManager.getInstance();
+    Orchestrator orchestrator = UIManager.getInstance().getOrchestrator();
 
     public abstract void execute();
 }
