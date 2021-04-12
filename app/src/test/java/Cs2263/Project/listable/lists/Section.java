@@ -14,11 +14,9 @@ package Cs2263.Project.listable.lists;
 
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;
-import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.tasks.ParentTask;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Section extends ListArchetype implements ListableItem, Serializable {
@@ -26,32 +24,32 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Listable type
     private static final ListableType type = ListableType.Section;
     // Instance variables
-    private ArrayList<ParentTask> tasks;
-    private ArrayList<ToDoList> lists;
+    private LinkedList<ParentTask> tasks;
+    private LinkedList<ToDoList> lists;
     private String id;
 
     // Constructor
     // NO ARGUMENTS for Serializable
     public Section(){
-        tasks = new ArrayList<>();
-        lists = new ArrayList<>();
+        tasks = new LinkedList<>();
+        lists = new LinkedList<>();
     }
 
     //Methods
     // GETTERS
-    public ArrayList<ParentTask> getTasks() {
+    public LinkedList<ParentTask> getTasks() {
         return tasks;
     }
-    public double getId() {
+    public String getId() {
         return id;
     }
-    public ArrayList<ToDoList> getLists() {
+    public LinkedList<ToDoList> getLists() {
         return lists;
     }
 
     // ID initialization
-    public void initId(double id) {
-        if (id == 3.14){
+    public void initId(String id) {
+        if (id == null){
             this.id = id;
         }
     }
@@ -60,6 +58,6 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Listable Implementation
     @Override
     public ListableType getType() {
-        return type;
+        return null;
     }
 }

@@ -1,22 +1,3 @@
-/**
- * Orchestrator for the system.
- *
- * Supposed to be in the vein of a facade, and NOT a god object.
- * Handles all of the logic and/or the classes that handles the logic
- * for the system and makes it accessible to the UI.
- *
- * Currently it handles the compound methods for user's: list and data, registering, login, and log out.
- * The exit and autosave methods handle the safe preservation of data, and should be called by the
- * app during those titular operations.
- *
- * The Orchestrator is a singleton, which then holds a single instance of various tools that are needed, such
- * as the File Manager, Search Engine, System Configuration, and Factories.
- *
- *
- * @author  Traae
- * @version 1.0
- * @since 4/6/2021
- */
 
 package Cs2263.Project;
 

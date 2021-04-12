@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,11 +46,11 @@ public class FileManager {
          */
         String readIn;
         try {
-            readIn = Files.readString(Paths.get(Configuration.USER_LIST_DATA_FILE));
+            readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
         }
         catch (IOException e){
             orchestrator.makeDefaultUserList();
-            readIn = Files.readString(Paths.get(Configuration.USER_LIST_DATA_FILE));
+            readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
         }
         Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
         return gson.fromJson(readIn, type);
@@ -60,13 +61,13 @@ public class FileManager {
          * Saves the user list.
          */
        String writeOut = gson.toJson(orchestrator.getUserList());
-        Files.writeString(Paths.get(Configuration.USER_LIST_DATA_FILE), writeOut);
+        Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE), writeOut);
     }
     public User loadUser(String filePath) throws IOException {
         /**
          * Loads user
          */
-        String readIn = Files.readString(Paths.get(filePath));
+        String readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + filePath));
         Type type = new TypeToken<User>(){}.getType();
         return gson.fromJson(readIn, type);
     }
@@ -75,7 +76,7 @@ public class FileManager {
          * Saves user
          */
         String writeOut = gson.toJson(toSave);
-        Files.writeString(Paths.get(toSaveInfo.getUserFile()), writeOut);
+        Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + toSaveInfo.getUserFile()), writeOut);
     }
 
 
