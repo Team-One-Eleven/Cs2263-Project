@@ -18,6 +18,7 @@ import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.lists.Section;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ParentTask extends TaskArchetype implements ListableItem, Serializable {
@@ -25,24 +26,24 @@ public class ParentTask extends TaskArchetype implements ListableItem, Serializa
     // Listable type
     private static final ListableType type = ListableType.ParentTask;
     // Instance variables
-    private LinkedList<String> parentSections;
-    private LinkedList<ChildTask> childTasks;
+    private ArrayList<String> parentSections;
+    private ArrayList<ChildTask> childTasks;
 
 
 
     // Constructor
     // NO ARGUMENTS for Serializable
     public ParentTask(){
-        parentSections = new LinkedList<>();
-        childTasks = new LinkedList<>();
+        parentSections = new ArrayList<>();
+        childTasks = new ArrayList<>();
         super.setUsingDuedate(true);
     }
     // Methods
     // GETTERS
-    public LinkedList<String> getParentSections() {
+    public ArrayList<String> getParentSections() {
         return parentSections;
     }
-    public LinkedList<ChildTask> getChildTasks() {
+    public ArrayList<ChildTask> getChildTasks() {
         return childTasks;
     }
     // Listable Implementation

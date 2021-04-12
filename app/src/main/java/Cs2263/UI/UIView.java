@@ -10,20 +10,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-
 public class UIView extends Application {
-    private int WIDTH = 692;
-    private int HEIGHT = 409;
+    private final int WIDTH = 692;
+    private final int HEIGHT = 409;
 
-    private String UI_HOME_DOC = "/HomeUI.fxml";
-    private String UI_LOGIN_DOC = "/LoginUI.fxml";
-    private String UI_REGISTER_DOC = "/RegisterUI.fxml";
+    private final String UI_HOME_DOC = "/HomeUI.fxml";
+    private final String UI_LOGIN_DOC = "/LoginUI.fxml";
+    private final String UI_REGISTER_DOC = "/RegisterUI.fxml";
 
     private HomeUIViewController homeUIViewController;
     private LoginUIViewController loginUIViewController;
@@ -33,8 +28,6 @@ public class UIView extends Application {
     private Scene loginScene;
     private Scene registerScene;
 
-    private Stage primaryStage;
-
     public UIView(){
 
     }
@@ -42,7 +35,6 @@ public class UIView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.primaryStage = primaryStage;
 
 
         //Load each FXML file for different UI states
@@ -57,6 +49,7 @@ public class UIView extends Application {
 
         //Load all controllers for the above elements so they can be used by the system.
         homeUIViewController = homeFxmlLoader.getController();
+        System.out.println(homeUIViewController);
         loginUIViewController = loginFxmlLoader.getController();
         registerUIViewController = registerFxmlLoader.getController();
 
@@ -73,13 +66,12 @@ public class UIView extends Application {
         primaryStage.setTitle("TODO");
 
         //Start at login scene and show
-        primaryStage.setScene(loginScene);
+        primaryStage.setScene(homeScene);
         primaryStage.show();
     }
 
     public HomeUIViewController getHomeController(){
-        return homeUIViewController;
-    }
+        return homeUIViewController; }
     public LoginUIViewController getLoginController(){return loginUIViewController;}
 
     public void launchView(){

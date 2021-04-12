@@ -18,6 +18,7 @@ import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.tasks.ParentTask;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Section extends ListArchetype implements ListableItem, Serializable {
@@ -25,26 +26,26 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Listable type
     private static final ListableType type = ListableType.Section;
     // Instance variables
-    private LinkedList<ParentTask> tasks;
-    private LinkedList<ToDoList> lists;
+    private ArrayList<ParentTask> tasks;
+    private ArrayList<ToDoList> lists;
     private String id;
 
     // Constructor
     // NO ARGUMENTS for Serializable
     public Section(){
-        tasks = new LinkedList<>();
-        lists = new LinkedList<>();
+        tasks = new ArrayList<>();
+        lists = new ArrayList<>();
     }
 
     //Methods
     // GETTERS
-    public LinkedList<ParentTask> getTasks() {
+    public ArrayList<ParentTask> getTasks() {
         return tasks;
     }
     public String getId() {
         return id;
     }
-    public LinkedList<ToDoList> getLists() {
+    public ArrayList<ToDoList> getLists() {
         return lists;
     }
 
@@ -59,6 +60,6 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Listable Implementation
     @Override
     public ListableType getType() {
-        return null;
+        return type;
     }
 }

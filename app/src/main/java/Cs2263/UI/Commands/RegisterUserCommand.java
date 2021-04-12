@@ -18,7 +18,6 @@ public class RegisterUserCommand implements UICommand{
     String password;
     String fName;
     String lName;
-    Orchestrator orchestrator;
 
     public static final Pattern VALID_EMAIL_PATTERN =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);

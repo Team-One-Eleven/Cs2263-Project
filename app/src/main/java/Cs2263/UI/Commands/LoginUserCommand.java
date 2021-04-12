@@ -9,8 +9,6 @@ package Cs2263.UI.Commands;
 import Cs2263.UI.Controllers.HomeUIViewController;
 import Cs2263.UI.Controllers.LoginUIViewController;
 import Cs2263.UI.UIManager;
-import Cs2263.UI.UIView;
-
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
 

@@ -6,6 +6,8 @@
 
 package Cs2263.UI.Controllers;
 
+import Cs2263.UI.Commands.AddFirstLastNameCommand;
+import Cs2263.UI.UIManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -33,7 +35,14 @@ public class FirstLastDialogController extends UIViewController {
 
     @FXML
     private void onOKClicked(){
-
+        try{
+            AddFirstLastNameCommand addFirstLastNameCommand = new AddFirstLastNameCommand(fxFirstName.getText(),fxLastName.getText());
+            uiManager.setCommand(addFirstLastNameCommand);
+            uiManager.executeCommand();
+        }
+        catch (IllegalArgumentException e){
+            fxFirstLastErrorLabel.setText("Alphabetic Characters only");
+        }
 
     }
 

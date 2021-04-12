@@ -15,11 +15,11 @@ public class AddTaskCommand implements UICommand{
 
     public AddTaskCommand(){
 
-        LinkedList<ToDoList> itemList = orchestrator.getMasterList();
+        //LinkedList<ToDoList> itemList = orchestrator.getMasterList();
 
-        for(ToDoList t : itemList){
-
-        }
+//        for(ToDoList t : itemList){
+//
+//        }
     }
 
     @Override

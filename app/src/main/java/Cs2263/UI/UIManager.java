@@ -21,16 +21,13 @@ public class UIManager {
 
     //Tries to load the orchestrator for use across the application in constructor
     private UIManager(){
-//        try {
-//            orchestrator = Orchestrator.getInstance();
-//        }
-//       catch(IOException e){
-//           System.out.printf("An Orchestrator IO Exception Occurred in %s. The orchestrator could not " +
-//                  "be loaded.%n", this.getClass().getName());
-//        }
-//       finally {
-//           System.out.println(orchestrator);
-//       }
+        try {
+            orchestrator = Orchestrator.getInstance();
+        }
+       catch(IOException e){
+           System.out.printf("An Orchestrator IO Exception Occurred in %s. The orchestrator could not " +
+                  "be loaded.%n", this.getClass().getName());
+        }
     }
 
     public static UIManager getInstance(){

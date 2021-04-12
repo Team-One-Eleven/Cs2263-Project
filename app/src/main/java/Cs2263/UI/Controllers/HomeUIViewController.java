@@ -7,25 +7,27 @@
 
 package Cs2263.UI.Controllers;
 
+import Cs2263.Project.Orchestrator;
 import Cs2263.Project.User;
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;
 import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
+import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
-import Cs2263.UI.ListableItemCell;
-import Cs2263.UI.TreeItemCell;
-import com.sun.javafx.collections.ObservableListWrapper;
-import javafx.collections.ObservableArray;
+import Cs2263.UI.UIManager;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -38,6 +40,10 @@ public class HomeUIViewController extends UIViewController {
      * This is a JavaFX controller, so it is loaded when the FXML document is loaded, and the controls are
      * bound to these objects so the UI can function.
      */
+
+    //Get Orchestrator
+    Orchestrator orchestrator = UIManager.getInstance().getOrchestrator();
+
     //Task List Section Gridpane Locations
     private String UI_TASK_GRIDPANE = "/TaskItemContext.fxml";
     private String UI_LIST_GRIDPANE = "/ListItemContext.fxml";
@@ -81,6 +87,12 @@ public class HomeUIViewController extends UIViewController {
     @FXML private ListView<ListableItem> fxOverdueList;
     @FXML private ListView<ListableItem> fxArchivedList;
 
+    //List TreeView Roots
+    private TreeItem<ListableItem> taskTreeRoot;
+
+    //TODO remove this test variable
+    private ToDoList testList;
+
     //Search controls
     @FXML private TextField fxSearchTextField;
     @FXML private Button fxSearchButton;
@@ -104,10 +116,11 @@ public class HomeUIViewController extends UIViewController {
     ObservableList<ListableItem> completeListObservableList = FXCollections.observableArrayList();
     ObservableList<ListableItem> overdueListObservableList = FXCollections.observableArrayList();
 
-    //TreeItem Roots
-    TreeItem<ListableItem> taskListRoot = new TreeItem<>();
-
     public HomeUIViewController() {
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         try {
             this.taskGridpane = taskContentFxmlLoader.load();
             this.listGridpane = listContentFxmlLoader.load();
@@ -123,14 +136,11 @@ public class HomeUIViewController extends UIViewController {
             System.out.printf("IO Exception in %s%n",this.getClass().getName());
         }
 
-    }
+        taskContextUIController.setHomeUIViewController(this);
+        listContextUIController.setHomeUIViewController(this);
+        sectionContextUIController.setHomeUIViewController(this);
+        loadUserTaskList();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-
-        //loadUserTaskList();
     }
 
 
@@ -170,7 +180,13 @@ public class HomeUIViewController extends UIViewController {
     }
 
     public void addTask(){
-        //TODO create and execute AddTaskCommand when complete
+        ListableItem item;
+        try{
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
+            return;
+        }
     }
 
 
@@ -219,94 +235,130 @@ public class HomeUIViewController extends UIViewController {
         list1.getSections().add(section1);
         list1.getSections().add(section2);
 
+        testList = list1;
 
+        taskTreeRoot = buildTree(testList);
 
-
-
-
-
-
-
-
-
-        ArrayList<ListableItem> masterList = new ArrayList<>();
-
-        masterList.add(list1);
-
-
-
-
-
-
-
-        fxTaskList.setItems(taskListObservableList);
-
-//        fxTaskList.setCellFactory(new Callback<ListView<ListableItem>, ListCell<ListableItem>>() {
-//            @Override
-//            public ListableItemCell<ListableItem> call(ListView<ListableItem> param) {
-//                return new ListableItemCell<>();
-//            }
-//        });
-
+        fxTaskTree.setRoot(taskTreeRoot);
 
     }
 
-    public void checkFirstLastNameExists(){
+    public boolean checkFirstLastNameExists(){
         User activeUser = orchestrator.getActiveUser();
-        //if(activeUser.getFirstName() == "" || activeUser.getLastName() == ""){ }
-    }
-
-    public void setDialogScene(){
-    }
-
-    private ObservableList<ListableItem> buildObservableList(ObservableList<ListableItem> a){
-        ObservableList<ListableItem> returnList = FXCollections.observableArrayList();
-        for(ListableItem item : a){
-            if(item.getType() == ListableType.List){
-                ToDoList toDoList = (ToDoList) item;
-                ObservableList<ListableItem> newList = FXCollections.observableArrayList(toDoList);
-                returnList.addAll(buildObservableList(newList));
-            }
-            else if(item.getType() == ListableType.Section){
-
-            }
+        if(activeUser.getFirstName().length() == 0|| activeUser.getLastName().length() == 0){
+            return false;
         }
+        else return true;
     }
 
-    private TreeItem<ListableItem> buildTree(LinkedList<ListableItem> list){
-        for(ListableItem item : list){
-            if(item.getType() == ListableType.List){
-                ToDoList toDoList = (ToDoList) item;
-                if(toDoList.isArchived()){
 
-                }
-                else{
+    private TreeItem<ListableItem> buildTree(ListableItem root){
+        TreeItem<ListableItem> returnTree;
+            if(root.getType() == ListableType.List){
+                ToDoList toDoList = (ToDoList) root;
+                returnTree = new TreeItem<>(toDoList);
 
+                ArrayList<ListableItem> sectionArray = new ArrayList<>();
+                for(Section s : toDoList.getSections()){
+                    sectionArray.add(s);
                 }
+
+                for(ListableItem section : sectionArray){
+                    returnTree.getChildren().add(buildTree(section));
+                }
+
+                return returnTree;
             }
-        }
+            else if(root.getType() == ListableType.Section){
+                Section section = (Section) root;
+                returnTree = new TreeItem<>(section);
+
+                ArrayList<ListableItem> taskArray = new ArrayList<>();
+                for(ParentTask sectionTasks : section.getTasks()){
+                    taskArray.add(sectionTasks);
+                }
+
+                ArrayList<ListableItem> listArray = new ArrayList<>();
+                for(ToDoList sectionLists : section.getLists()){
+                    listArray.add(sectionLists);
+                }
+
+                for(ListableItem t : taskArray){
+                    returnTree.getChildren().add(buildTree(t));
+                }
+                for(ListableItem l : listArray){
+                    returnTree.getChildren().add(buildTree(l));
+                }
+                return returnTree;
+            }
+            else if(root.getType() == ListableType.ParentTask){
+                ParentTask task = (ParentTask) root;
+                returnTree = new TreeItem<>(task);
+
+                ArrayList<ListableItem> childArray = new ArrayList<>();
+                for(ChildTask child : task.getChildTasks()){
+                    childArray.add(child);
+                }
+
+                for(ListableItem child : childArray){
+                    returnTree.getChildren().add(buildTree(child));
+                }
+
+                return returnTree;
+            }
+            else if(root.getType() == ListableType.ChildTask){
+                ChildTask child = (ChildTask) root;
+                returnTree = new TreeItem<>(child);
+
+                return returnTree;
+            }
+        return null;
+    }
+
+    public void refreshTree(){
+        taskTreeRoot.getChildren().clear();
+        taskTreeRoot = buildTree(testList);
+        fxTaskTree.setRoot(taskTreeRoot);
     }
 
 
 
 
-    private void openFirstLastDialog(){
-
+    public void openFirstLastDialog(){
+        Scene scene = new Scene(firstLastDialog, 600, 300);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 
     @FXML private void setSelectedItem(){
-        ListableItem item = (ListableItem) fxTaskList.getSelectionModel().getSelectedItem();
-        if(item == null){
+        ListableItem item;
+        try{
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
             return;
         }
-        else if(item.getType() == ListableType.List){
+        if(item.getType() == ListableType.List){
             ToDoList list = (ToDoList) item;
-            listContextUIController.setData(item,list.getTitle(),list.getDescription(),list.isArchived());
-
+            listContextUIController.setData(list,list.getTitle(),list.getDescription(),list.isArchived());
+            showList();
         }
-        showList();
+        else if(item.getType() == ListableType.Section){
+            Section section = (Section) item;
+            sectionContextUIController.setData(section,section.getTitle(),section.getDescription());
+            showSection();
+        }
+        else if(item.getType() == ListableType.ParentTask){
+            ParentTask task = (ParentTask) item;
+            taskContextUIController.setData(task,task.getTitle(),task.getDescription());
+            showTask();
+        }
     }
+
+
 
 
 }

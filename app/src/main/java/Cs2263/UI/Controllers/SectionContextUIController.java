@@ -6,6 +6,8 @@
 
 package Cs2263.UI.Controllers;
 
+import Cs2263.Project.listable.ListableItem;
+import Cs2263.Project.listable.lists.Section;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -22,18 +24,45 @@ public class SectionContextUIController extends UIViewController {
      * section and make available actions like deleting the section or changing its parent.
      */
 
-    //Task View Fields
+    //Section View Fields
     @FXML
     private TextField fxNoteTitleTextField;
     @FXML private TextArea fxNoteBodyTextArea;
 
 
-    //Task Context Buttons
+    //Section Context Buttons
     @FXML private Button fxMoveSectionButton;
     @FXML private Button fxDeleteSectionButton;
+    @FXML private Button fxSaveSectionButton;
+
+    //Active item
+    Section section;
+
+    //Home Controller
+    HomeUIViewController homeUIViewController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    @FXML public void setData(Section item, String title, String body){
+        if(item != null){
+            this.section = item;
+        }
+        fxNoteTitleTextField.setText(title);
+        fxNoteBodyTextArea.setText(body);
+    }
+
+    @FXML private void saveSection(){
+        if(this.section == null){return;}
+        section.setTitle(fxNoteTitleTextField.getText());
+        section.setDescription(fxNoteBodyTextArea.getText());
+        System.out.println(section.getTitle());
+        homeUIViewController.refreshTree();
+    }
+
+    public void setHomeUIViewController(HomeUIViewController c){
+        this.homeUIViewController = c;
     }
 }

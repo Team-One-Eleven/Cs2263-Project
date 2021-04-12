@@ -53,7 +53,7 @@ public class Orchestrator {
     private Configuration config;
 
     // Singleton Constructor & getInstance;
-    private Orchestrator() throws IOException {
+    private Orchestrator() throws IOException{
         // Setup tools
         fileManager = new FileManager(this);
         searchEngine = new SearchEngine(this);
@@ -62,11 +62,12 @@ public class Orchestrator {
         listManager = new ListManager(this);
 
         // Load up the user list and the configuration.
+
         userList = fileManager.loadUserList();
         config = fileManager.loadConfig();
 
     }
-    public static Orchestrator getInstance() throws IOException {
+    public static Orchestrator getInstance() throws IOException{
         if (instance == null){
             instance = new Orchestrator();
         }

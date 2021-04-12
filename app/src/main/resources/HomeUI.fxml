@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -39,7 +40,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
                            <children>
-                              <TreeView fx:id="fxTaskTree" prefHeight="292.0" prefWidth="200.0" />
+                              <TreeView fx:id="fxTaskTree" onMouseClicked="#setSelectedItem" prefHeight="292.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -86,7 +87,7 @@
               </rowConstraints>
                <children>
                   <TextField fx:id="fxSearchTextField" prefHeight="25.0" prefWidth="181.0" promptText="Search" />
-                  <Button fx:id="fxSearchButton" mnemonicParsing="false" onAction="#showList" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                  <Button fx:id="fxSearchButton" mnemonicParsing="false" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                </children>
             </GridPane>
             <GridPane GridPane.rowIndex="1">
@@ -119,12 +120,12 @@
           <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="fxUserButton" mnemonicParsing="false" onAction="#showTask" prefHeight="25.0" prefWidth="47.0" text="User">
+            <Button fx:id="fxUserButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="User">
                <GridPane.margin>
                   <Insets bottom="-5.0" left="5.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="fxSettingsButton" mnemonicParsing="false" onAction="#showSection" text="Settings" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <Button fx:id="fxSettingsButton" mnemonicParsing="false" text="Settings" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -145,7 +146,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Exit" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+            <Button mnemonicParsing="false" text="Save &amp; Exit" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets bottom="-5.0" right="5.0" />
                </GridPane.margin></Button>
@@ -161,7 +162,7 @@
             <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="303.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label opacity="0.55" prefHeight="17.0" prefWidth="476.0" text="&lt;--- Search will return names, contents of, and labels of items which match the query." textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <Label opacity="0.55" prefHeight="17.0" prefWidth="476.0" text="&lt;--- Search will return names and contents of items which match the query." textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -171,11 +172,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="TOP_LEFT" opacity="0.55" prefHeight="292.0" prefWidth="389.0" text="Welcome to TODO! You can start by adding a task, section or list. Lists can hold sections, and sections can hold tasks. When you complete a task, it will be moved to the Completed tab. If an item is Overdue, it will be moved to the Overdue tab. Tasks can also have labels and a priority." wrapText="true" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
+            <TextArea prefHeight="200.0" prefWidth="200.0" text="Welcome to TODO! &#10;&#10;You can start by adding a task, section or list. Lists can hold sections, and sections can hold tasks. &#10;&#10;Be sure to select the list you would like to add a section to, or the section you would like to add a task to. If none is selected the item will be added to the root list.&#10;&#10;When you complete a task, it will be moved to the Completed tab. If an item is Overdue, it will be moved to the Overdue tab. &#10;" wrapText="true" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

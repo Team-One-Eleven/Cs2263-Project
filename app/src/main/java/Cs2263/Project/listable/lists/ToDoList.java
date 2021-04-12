@@ -19,6 +19,7 @@ import Cs2263.Project.listable.lists.ListArchetype;
 import Cs2263.Project.listable.lists.Section;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ToDoList extends ListArchetype implements ListableItem, Serializable {
@@ -26,16 +27,16 @@ public class ToDoList extends ListArchetype implements ListableItem, Serializabl
     // Listable type
     private static final ListableType type = ListableType.List;
     // Instance variables
-    private LinkedList<String> comments;
+    private ArrayList<String> comments;
     private Section defaultSection;
-    private LinkedList<Section> sections;
+    private ArrayList<Section> sections;
     private boolean archived;
 
     // Constructor
     // NO ARGUMENTS for Serializable
     public ToDoList(){
         //comments = new LinkedList<>();
-        sections = new LinkedList<>();
+        sections = new ArrayList<>();
         archived = false;
     }
 
@@ -47,7 +48,7 @@ public class ToDoList extends ListArchetype implements ListableItem, Serializabl
     public Section getDefaultSection() {
         return defaultSection;
     }
-    public LinkedList<Section> getSections() {
+    public ArrayList<Section> getSections() {
         return sections;
     }
     public boolean isArchived() {

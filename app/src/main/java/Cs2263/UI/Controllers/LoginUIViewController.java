@@ -9,6 +9,7 @@ package Cs2263.UI.Controllers;
 
 import Cs2263.UI.Commands.LoginUserCommand;
 import Cs2263.UI.Commands.UICommand;
+import Cs2263.UI.UIView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,8 @@ public class LoginUIViewController extends UIViewController {
 
     private Scene registerScene;
     private Scene homeScene;
+
+    private HomeUIViewController homeUIViewController;
 
     //Login Gridpane
     @FXML private GridPane fxLoginGridpane;
@@ -52,7 +55,7 @@ public class LoginUIViewController extends UIViewController {
 
 
     public LoginUIViewController(){
-
+        homeUIViewController = uiManager.getView().getHomeController();
     }
 
     //TODO Load login image
@@ -84,6 +87,10 @@ public class LoginUIViewController extends UIViewController {
             Platform.runLater(() -> {
                 Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 s.setScene(homeScene);
+                if(orchestrator.getActiveUser().getFirstName() == "" ||
+                        orchestrator.getActiveUser().getLastName() == ""){
+                    homeUIViewController.openFirstLastDialog();
+                }
             });
         }
 
