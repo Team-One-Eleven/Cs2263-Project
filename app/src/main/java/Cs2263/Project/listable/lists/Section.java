@@ -28,7 +28,7 @@ public class Section extends ListArchetype implements ListableItem, Serializable
     // Instance variables
     private ArrayList<ParentTask> tasks;
     private ArrayList<ToDoList> lists;
-    private String id;
+    private Double id;
 
     // Constructor
     // NO ARGUMENTS for Serializable
