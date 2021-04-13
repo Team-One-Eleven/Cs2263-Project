@@ -6,9 +6,8 @@
 
 package Cs2263.UI.Commands;
 
-import Cs2263.Project.Orchestrator;
 import Cs2263.Project.User;
-import java.io.IOException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +44,7 @@ public class AddFirstLastNameCommand implements UICommand{
 
     @Override
     public void execute() {
-        User activeUser = orchestrator.getActiveUser();
+        User activeUser = BUTT_STUFF.getActiveUser();
         activeUser.setFirstName(fName);
         activeUser.setLastName(lName);
     }

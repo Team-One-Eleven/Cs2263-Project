@@ -18,11 +18,11 @@ import java.util.ResourceBundle;
 public abstract class UIViewController implements Initializable {
 
     protected UIManager uiManager;
-    protected Orchestrator orchestrator;
+    protected Orchestrator Orchestrator;
 
     protected UIViewController() {
         uiManager = UIManager.getInstance();
-        orchestrator = uiManager.getOrchestrator();
+        Orchestrator = uiManager.getOrchestrator();
     }
 
     /**

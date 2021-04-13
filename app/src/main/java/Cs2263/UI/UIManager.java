@@ -17,12 +17,12 @@ public class UIManager {
     private UICommand currentCommand;
     private static UIManager uiManager = null;
     private UIView uiView;
-    private Orchestrator orchestrator;
+    private Orchestrator Orchestrator;
 
     //Tries to load the orchestrator for use across the application in constructor
     private UIManager(){
         try {
-            orchestrator = Orchestrator.getInstance();
+            Orchestrator = Orchestrator.getInstance();
         }
        catch(IOException e){
            System.out.printf("An Orchestrator IO Exception Occurred in %s. The orchestrator could not " +
@@ -65,7 +65,7 @@ public class UIManager {
     }
 
     public Orchestrator getOrchestrator(){
-        return this.orchestrator;
+        return this.Orchestrator;
     }
 
 

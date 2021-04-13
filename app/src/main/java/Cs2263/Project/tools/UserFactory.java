@@ -22,11 +22,11 @@ import Cs2263.Project.User;
 public class UserFactory {
 
 
-    private Orchestrator orchestrator;
+    private Orchestrator Orchestrator;
 
     // Constructor
     public UserFactory(Orchestrator o){
-        this.orchestrator = o;
+        this.Orchestrator = o;
     }
 
     // Methods

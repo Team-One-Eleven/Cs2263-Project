@@ -20,19 +20,18 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FileManager {
     // Variables
-    private Orchestrator orchestrator;
+    private Orchestrator Orchestrator;
     private Gson gson;
 
     // Constructor
     public FileManager(Orchestrator o){
-        this.orchestrator = o;
+        this.Orchestrator = o;
         gson = new Gson();
     }
 
@@ -49,7 +48,7 @@ public class FileManager {
             readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
         }
         catch (IOException e){
-            orchestrator.makeDefaultUserList();
+            Orchestrator.makeDefaultUserList();
             readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
         }
         Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
@@ -60,7 +59,7 @@ public class FileManager {
         /**
          * Saves the user list.
          */
-       String writeOut = gson.toJson(orchestrator.getUserList());
+       String writeOut = gson.toJson(Orchestrator.getUserList());
         Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE), writeOut);
     }
     public User loadUser(String filePath) throws IOException {
@@ -95,7 +94,7 @@ public class FileManager {
         }
         catch (IOException e){
             c = new Configuration();
-            c.recoverUserIDseed(orchestrator.getUserList());
+            c.recoverUserIDseed(Orchestrator.getUserList());
         }
         return c;
 
@@ -104,7 +103,7 @@ public class FileManager {
         /**
          * Saves config.
          */
-        String writeOut = gson.toJson(orchestrator.getConfig());
+        String writeOut = gson.toJson(Orchestrator.getConfig());
         Files.writeString(Paths.get(Configuration.SYSTEM_CONFIG_FILE), writeOut);
     }
 

@@ -9,7 +9,6 @@ package Cs2263.UI.Controllers;
 
 import Cs2263.UI.Commands.LoginUserCommand;
 import Cs2263.UI.Commands.UICommand;
-import Cs2263.UI.UIView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -83,12 +81,12 @@ public class LoginUIViewController extends UIViewController {
         UICommand login = new LoginUserCommand(email,password);
         uiManager.setCommand(login);
         uiManager.executeCommand();
-        if(orchestrator.getActiveUser() != null){
+        if(Orchestrator.getActiveUser() != null){
             Platform.runLater(() -> {
                 Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 s.setScene(homeScene);
-                if(orchestrator.getActiveUser().getFirstName() == "" ||
-                        orchestrator.getActiveUser().getLastName() == ""){
+                if(Orchestrator.getActiveUser().getFirstName() == "" ||
+                        Orchestrator.getActiveUser().getLastName() == ""){
                     homeUIViewController.openFirstLastDialog();
                 }
             });

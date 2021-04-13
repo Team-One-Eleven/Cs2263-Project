@@ -26,7 +26,7 @@ public class ParentTask extends TaskArchetype implements ListableItem, Serializa
     // Listable type
     private static final ListableType type = ListableType.ParentTask;
     // Instance variables
-    private ArrayList<String> parentSections;
+    private ArrayList<Double> parentSections;
     private ArrayList<ChildTask> childTasks;
 
 
@@ -40,7 +40,7 @@ public class ParentTask extends TaskArchetype implements ListableItem, Serializa
     }
     // Methods
     // GETTERS
-    public ArrayList<String> getParentSections() {
+    public ArrayList<Double> getParentSections() {
         return parentSections;
     }
     public ArrayList<ChildTask> getChildTasks() {
