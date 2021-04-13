@@ -5,13 +5,11 @@
  */
 
 package Cs2263.UI.Controllers;
-
 import Cs2263.Project.Orchestrator;
 import Cs2263.UI.UIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

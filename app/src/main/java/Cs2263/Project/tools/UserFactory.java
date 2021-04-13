@@ -18,7 +18,6 @@ import Cs2263.Project.Orchestrator;
 import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.User;
 
-
 public class UserFactory {
 
 

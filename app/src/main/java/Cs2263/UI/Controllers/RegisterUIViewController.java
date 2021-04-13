@@ -5,7 +5,6 @@
  */
 
 package Cs2263.UI.Controllers;
-
 import Cs2263.UI.Commands.RegisterUserCommand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,9 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

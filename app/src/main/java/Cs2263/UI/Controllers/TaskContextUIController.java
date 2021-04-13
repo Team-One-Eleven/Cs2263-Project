@@ -5,10 +5,7 @@
  */
 
 package Cs2263.UI.Controllers;
-
 import Cs2263.Project.listable.tasks.TaskArchetype;
-import Cs2263.UI.UIManager;
-import Cs2263.UI.UIView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.net.URL;

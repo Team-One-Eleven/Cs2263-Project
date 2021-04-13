@@ -23,7 +23,6 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
-
 import java.util.ArrayList;
 import java.util.Date;
 

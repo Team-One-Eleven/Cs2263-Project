@@ -7,15 +7,12 @@
 package Cs2263.UI.Controllers;
 
 import Cs2263.UI.Commands.AddFirstLastNameCommand;
-import Cs2263.UI.UIManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
