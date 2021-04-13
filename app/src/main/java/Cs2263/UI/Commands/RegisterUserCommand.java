@@ -5,6 +5,10 @@
  */
 
 package Cs2263.UI.Commands;
+<<<<<<< HEAD
+
+=======
+>>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
 import Cs2263.Project.User;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -53,8 +57,8 @@ public class RegisterUserCommand implements UICommand{
     @Override
     public void execute() {
         try {
-            if (orchestrator.registerUser(email, password)) {
-                User newUser = orchestrator.getActiveUser();
+            if (BUTT_STUFF.registerUser(email, password)) {
+                User newUser = BUTT_STUFF.getActiveUser();
                 newUser.setFirstName(fName);
                 newUser.setLastName(lName);
             }

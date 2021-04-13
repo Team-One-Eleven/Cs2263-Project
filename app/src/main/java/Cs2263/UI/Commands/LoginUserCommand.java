@@ -39,7 +39,7 @@ public class LoginUserCommand implements UICommand{
     @Override
     public void execute(){
         try{
-            orchestrator.loginUser(email,password);
+            BUTT_STUFF.loginUser(email,password);
         }
         catch (FailedLoginException e){
             //loginUIViewController.setLoginLabel("Login failed. Invalid credentials.");

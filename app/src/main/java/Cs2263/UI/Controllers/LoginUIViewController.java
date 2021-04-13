@@ -19,6 +19,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
+
+=======
+>>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,12 +84,12 @@ public class LoginUIViewController extends UIViewController {
         UICommand login = new LoginUserCommand(email,password);
         uiManager.setCommand(login);
         uiManager.executeCommand();
-        if(orchestrator.getActiveUser() != null){
+        if(Orchestrator.getActiveUser() != null){
             Platform.runLater(() -> {
                 Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 s.setScene(homeScene);
-                if(orchestrator.getActiveUser().getFirstName() == "" ||
-                        orchestrator.getActiveUser().getLastName() == ""){
+                if(Orchestrator.getActiveUser().getFirstName() == "" ||
+                        Orchestrator.getActiveUser().getLastName() == ""){
                     homeUIViewController.openFirstLastDialog();
                 }
             });

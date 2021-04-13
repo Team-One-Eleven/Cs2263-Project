@@ -51,9 +51,11 @@ public class Section extends ListArchetype implements ListableItem, Serializable
 
     // ID initialization
     public void initId(double id) {
+<<<<<<< HEAD
+=======
         if (this.id == null){
+>>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
             this.id = id;
-        }
     }
 
 

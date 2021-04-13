@@ -29,11 +29,11 @@ import java.util.Date;
 public class SearchEngine {
     // Variables
     // Parent orchestrator reference
-    private Orchestrator orchestrator;
+    private Orchestrator Orchestrator;
 
     // Constructor
     public SearchEngine(Orchestrator o){
-        this.orchestrator = o;
+        this.Orchestrator = o;
     }
 
     // Methods
@@ -43,7 +43,7 @@ public class SearchEngine {
     // With Active user's master list
     public ArrayList<ParentTask> searchByDate(Date start, Date end){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : orchestrator.getMasterList()){
+        for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByDate(start, end, list, taskResults);
         }
         return taskResults;
@@ -93,7 +93,7 @@ public class SearchEngine {
     // With Active user's master list
     public ArrayList<ParentTask> searchByLabel(String Value){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : orchestrator.getMasterList()){
+        for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByLabel(Value, list, taskResults);
         }
         return taskResults;
@@ -143,7 +143,7 @@ public class SearchEngine {
     // With Active user's master list
     public ArrayList<ParentTask> searchByTitle(String Value){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : orchestrator.getMasterList()){
+        for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByTitle(Value, list, taskResults);
         }
         return taskResults;
@@ -193,7 +193,7 @@ public class SearchEngine {
     // With Active user's master list
     public ArrayList<ParentTask> searchByPriority(TaskPriority Value){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : orchestrator.getMasterList()){
+        for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByPriority(Value, list, taskResults);
         }
         return taskResults;
@@ -243,7 +243,7 @@ public class SearchEngine {
     // With Active user's master list
     public   ArrayList<ParentTask> searchByDescription(String Value){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : orchestrator.getMasterList()){
+        for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByDescription(Value, list, taskResults);
         }
         return taskResults;

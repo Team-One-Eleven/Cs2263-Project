@@ -42,7 +42,7 @@ public class HomeUIViewController extends UIViewController {
      */
 
     //Get Orchestrator
-    Orchestrator orchestrator = UIManager.getInstance().getOrchestrator();
+    Orchestrator Orchestrator = UIManager.getInstance().getOrchestrator();
 
     //Task List Section Gridpane Locations
     private String UI_TASK_GRIDPANE = "/TaskItemContext.fxml";
@@ -244,7 +244,7 @@ public class HomeUIViewController extends UIViewController {
     }
 
     public boolean checkFirstLastNameExists(){
-        User activeUser = orchestrator.getActiveUser();
+        User activeUser = Orchestrator.getActiveUser();
         if(activeUser.getFirstName().length() == 0|| activeUser.getLastName().length() == 0){
             return false;
         }
