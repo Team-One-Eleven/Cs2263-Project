@@ -22,10 +22,8 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.Project.User;
-
 import java.util.Date;
 import java.util.ArrayList;
-
 
 public class ListManager {
     private Orchestrator o;
@@ -75,8 +73,8 @@ public class ListManager {
          */
         if (!toAdd.getParentSections().isEmpty()){
             for (Section secSearch: toSearch.getSections()){
-                ArrayList<String> toRemove = new ArrayList<>();
-                for (String id: toAdd.getParentSections()){
+                ArrayList<Double> toRemove = new ArrayList<>();
+                for (Double id: toAdd.getParentSections()){
                     if (id == secSearch.getId()){
                         secSearch.getTasks().add(toAdd);
                         toRemove.add(id);

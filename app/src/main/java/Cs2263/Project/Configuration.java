@@ -16,7 +16,6 @@ package Cs2263.Project;
 import Cs2263.Project.listable.UserCredentials;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Configuration implements Serializable {
     // GLOBALS FOR THE SYSTEM

@@ -3,9 +3,7 @@
  */
 package Cs2263;
 
-import Cs2263.Project.Orchestrator;
 import Cs2263.UI.UIManager;
-import Cs2263.UI.UIView;
 
 public class App {
 
@@ -16,7 +14,6 @@ public class App {
     public static void main(String[] args) throws Exception{
         UIManager uiManager = UIManager.getInstance();
         uiManager.startUI();
-
     }
 
 }

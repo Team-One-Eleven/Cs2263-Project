@@ -17,7 +17,6 @@ import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
-import Cs2263.Project.listable.tasks.TaskStatus;
 
 public class ItemFactory {
     // Variables

@@ -1,12 +1,10 @@
 package Cs2263.UI;
 
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.util.Callback;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

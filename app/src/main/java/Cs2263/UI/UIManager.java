@@ -9,7 +9,6 @@ package Cs2263.UI;
 
 import Cs2263.Project.Orchestrator;
 import Cs2263.UI.Commands.UICommand;
-
 import java.io.IOException;
 
 public class UIManager {

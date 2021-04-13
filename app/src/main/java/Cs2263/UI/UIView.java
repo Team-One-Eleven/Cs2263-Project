@@ -49,7 +49,6 @@ public class UIView extends Application {
 
         //Load all controllers for the above elements so they can be used by the system.
         homeUIViewController = homeFxmlLoader.getController();
-        System.out.println(homeUIViewController);
         loginUIViewController = loginFxmlLoader.getController();
         registerUIViewController = registerFxmlLoader.getController();
 
@@ -70,8 +69,7 @@ public class UIView extends Application {
         primaryStage.show();
     }
 
-    public HomeUIViewController getHomeController(){
-        return homeUIViewController; }
+    public HomeUIViewController getHomeController(){ return homeUIViewController; }
     public LoginUIViewController getLoginController(){return loginUIViewController;}
 
     public void launchView(){

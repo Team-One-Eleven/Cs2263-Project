@@ -5,14 +5,11 @@
  */
 
 package Cs2263.UI.Controllers;
-
-import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.lists.Section;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

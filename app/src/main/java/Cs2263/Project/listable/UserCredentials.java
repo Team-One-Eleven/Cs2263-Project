@@ -10,9 +10,6 @@
 
 package Cs2263.Project.listable;
 
-import Cs2263.Project.listable.ListableItem;
-import Cs2263.Project.listable.ListableType;
-
 import java.io.Serializable;
 
 public class UserCredentials implements Serializable, ListableItem {

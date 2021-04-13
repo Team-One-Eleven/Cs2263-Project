@@ -3,6 +3,7 @@ package Cs2263.UI;
 import Cs2263.Project.listable.ListableType;
 import Cs2263.Project.listable.lists.ToDoList;
 import javafx.scene.control.ListCell;
+
 public class ListableItemCell<ListableItem> extends ListCell<Cs2263.Project.listable.ListableItem> {
 
 
