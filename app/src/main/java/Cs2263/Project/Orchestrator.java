@@ -48,7 +48,9 @@ public class Orchestrator {
         // Load up the user list and the configuration.
 
         userList = fileManager.loadUserList();
+        fileManager.saveUserList();
         config = fileManager.loadConfig();
+        fileManager.saveConfiguration();
 
     }
     public static Orchestrator getInstance(){
@@ -203,7 +205,7 @@ public class Orchestrator {
             userList = new ArrayList<UserCredentials>();
         }
         userList.add(info);
-        makeExampleUsers();
+        ///makeExampleUsers();
 
         return userList;
     }

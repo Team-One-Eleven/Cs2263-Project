@@ -77,7 +77,7 @@ public class FileManager {
 
         try {
             String writeOut = gson.toJson(orchestrator.getUserList());
-            Files.writeString(Paths.get(userPath(userListPath())), writeOut);
+            Files.writeString(Paths.get(userListPath()), writeOut);
         }
         catch (Exception e){
             System.out.println("Save User List Exception");

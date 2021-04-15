@@ -19,14 +19,7 @@ public class UIManager {
 
     //Tries to load the orchestrator for use across the application in constructor
     private UIManager(){
-        try {
-            Orchestrator = Orchestrator.getInstance();
-        }catch (Exception e){
-            System.out.println("EXCEPTION!!@#$!@#%!@$%!@$%^~");
-            System.out.println(e.toString());
-            System.out.println(e.getMessage());
-        }
-
+        Orchestrator = Orchestrator.getInstance();
     }
 
     public static UIManager getInstance(){
