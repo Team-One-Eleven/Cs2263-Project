@@ -8,6 +8,7 @@ package Cs2263.UI.Commands;
 
 import Cs2263.UI.Controllers.HomeUIViewController;
 import Cs2263.UI.Controllers.LoginUIViewController;
+import Cs2263.UI.UIManager;
 
 import javax.security.auth.login.FailedLoginException;
 

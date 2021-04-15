@@ -37,7 +37,6 @@ public class ItemFactory {
         s.setId(Orchestrator.getActiveUser().getNextSectionID());
         t.initDefaultSection(s);
         t.getSections().add(s);
-
         return t;
     }
 
