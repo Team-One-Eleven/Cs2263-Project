@@ -118,26 +118,32 @@ public class Orchestrator {
         }
         return false;
     }
-    public boolean loginUser(String email, String password) throws FailedLoginException {
+    public void loginUser(String email, String password) throws FailedLoginException {
         /**
          * This is a compound method for logging in a user.
          * scans the user list, finds the matching credentials, loads their file, sets them to the active
          *
          * Then scans their list to check the due dates, and build the master list structure.
          */
+        UserCredentials toLogin = null;
         for (UserCredentials info : userList){
-            if ((info.getUserEmail() == email) & (info.getUserPassword() == password)){
-                activeInfo = info;
-                activeUser = fileManager.loadUser(activeInfo.getUserFile());
-                listManager.checkDueDates();
-                listManager.constructMasterList();
-                return true;
-            }
-            else {
-                throw new FailedLoginException("Invalid login credentials");
+            if (info.getUserEmail() == email){
+                toLogin = info;
             }
         }
-        return  false;
+        if (toLogin == null){
+            throw new FailedLoginException("Error: User Credentials not found");
+        }
+
+        if (toLogin.getUserPassword() == password){
+            activeInfo = toLogin;
+            activeUser = fileManager.loadUser(activeInfo.getUserFile());
+            listManager.checkDueDates();
+            listManager.constructMasterList();
+        }
+        else {
+            throw new FailedLoginException("Error: Password incorrect.");
+        }
     }
     public void logoutUser() {
         /**

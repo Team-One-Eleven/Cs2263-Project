@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -33,6 +34,20 @@ public class FileManager {
     public FileManager(Orchestrator o){
         this.orchestrator = o;
         gson = new GsonBuilder().setPrettyPrinting().create();
+        initDirectories();
+
+    }
+
+    private void initDirectories(){
+        try {
+            Files.createDirectories(Paths.get(Configuration.BASE_DIRECTORY));
+            Files.createDirectories(Paths.get(Configuration.BASE_DIRECTORY + Configuration.CONFIG_DIR));
+            Files.createDirectories(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_DATA_DIR));
+        }catch (Exception e ){
+            System.out.println("init Directories Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -55,15 +70,6 @@ public class FileManager {
             System.out.println("Load User List Exception");
             System.out.println(e.toString());
             System.out.println(e.getMessage());
-//            try{
-//                //save the new list and reload
-//                readIn = Files.readString(Paths.get(userListPath()));
-//            }catch (Exception x){
-//                System.out.println("\n Tried to make default, then: \n");
-//                System.out.println("Second Exception");
-//                System.out.println(e.toString());
-//                System.out.println(e.getMessage());
-//            }
         }
 
         return theList;
@@ -134,7 +140,7 @@ public class FileManager {
         Configuration c;
         try {
             String readIn = Files.readString(Paths.get(configFilePath()));
-            Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
+            Type type = new TypeToken<Configuration>(){}.getType();
             c = gson.fromJson(readIn, type);
         }
         catch (Exception e){

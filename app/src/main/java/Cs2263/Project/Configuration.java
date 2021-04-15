@@ -21,9 +21,11 @@ public class Configuration implements Serializable {
     // GLOBALS FOR THE SYSTEM
     // File paths
     public static final String BASE_DIRECTORY = "./TODOsystem";
-    public static final String SYSTEM_CONFIG_FILE = "/config/config.json";
-    public static final String USER_LIST_DATA_FILE = "/config/users.json";
-    public static final String USER_DATA_BASE = "/data";
+    public static final String USER_DATA_DIR = "/data";
+    public static final String CONFIG_DIR = "/config";
+    public static final String SYSTEM_CONFIG_FILE = "/config.json";
+    public static final String USER_LIST_DATA_FILE = "/users.json";
+
     public static final String USER_DATA_FILE_SUFFIX = ".json";
     // Default Admin Credentials
     public static final String ADMIN_EMAIL_DEFAULT = "Admin";

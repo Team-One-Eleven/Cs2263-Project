@@ -39,7 +39,7 @@ public class UserFactory {
         newInfo.setUserEmail(email);
         newInfo.setUserPassword(password);
         newInfo.setUserId(userId);
-        newInfo.setUserFile(Configuration.USER_DATA_BASE + userId + Configuration.USER_DATA_FILE_SUFFIX);
+        newInfo.setUserFile("./"+ userId + Configuration.USER_DATA_FILE_SUFFIX);
         return newInfo;
     }
 
