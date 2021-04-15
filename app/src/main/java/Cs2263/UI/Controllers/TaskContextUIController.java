@@ -59,7 +59,6 @@ public class TaskContextUIController extends UIViewController{
         if(this.task == null){return;}
         task.setTitle(fxNoteTitleTextField.getText());
         task.setDescription(fxNoteBodyTextArea.getText());
-        System.out.println(task.getTitle());
         homeUIViewController.refreshTree();
     }
 
