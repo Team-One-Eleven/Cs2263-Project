@@ -15,8 +15,8 @@ package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
 import org.junit.jupiter.api.Test;
+import Cs2263.Project.Orchestrator;
 
-import java.io.IOException;
 
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,8 +33,8 @@ public class ConfigurationTest {
     }
 
 
-    @Test void TESTrecoverUserIDseed() throws IOException {
-        OrchestratorTest o = OrchestratorTest.getInstance();
+    @Test void TESTrecoverUserIDseed(){
+        Orchestrator o = Orchestrator.getInstance();
 
         Configuration c = new Configuration();
 
