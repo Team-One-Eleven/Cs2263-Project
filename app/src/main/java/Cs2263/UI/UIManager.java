@@ -24,8 +24,9 @@ public class UIManager {
             Orchestrator = Orchestrator.getInstance();
         }
        catch(Exception e){
-           System.out.printf("An Orchestrator IO Exception Occurred in %s. The orchestrator could not " +
-                  "be loaded.%n", this.getClass().getName());
+           System.out.println("Exception!!!!!!!");
+           System.out.println(e.toString());
+           System.out.println(e.getMessage());
         }
     }
 
