@@ -19,10 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 
-=======
->>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;

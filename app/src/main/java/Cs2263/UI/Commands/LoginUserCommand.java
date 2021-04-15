@@ -39,19 +39,19 @@ public class LoginUserCommand implements UICommand{
     @Override
     public void execute(){
         try{
-            BUTT_STUFF.loginUser(email,password);
+            orchestrator.loginUser(email,password);
         }
         catch (FailedLoginException e){
             //loginUIViewController.setLoginLabel("Login failed. Invalid credentials.");
             System.out.printf("Login failed at %s%n",this.getClass().getName());
         }
-        catch (IOException e){
-            //loginUIViewController.setLoginLabel("An IO Exception Occurred.");
-            System.out.printf("IO Exception in %s%n",this.getClass().getName());
-        }
-        catch (Exception e){
-            //loginUIViewController.setLoginLabel("An Exception Occurred.");
-            System.out.printf("Exception in %s%n",this.getClass().getName());
-        }
+//        catch (IOException e){
+//            //loginUIViewController.setLoginLabel("An IO Exception Occurred.");
+//            System.out.printf("IO Exception in %s%n",this.getClass().getName());
+//        }
+//        catch (Exception e){
+//            //loginUIViewController.setLoginLabel("An Exception Occurred.");
+//            System.out.printf("Exception in %s%n",this.getClass().getName());
+//        }
     }
 }

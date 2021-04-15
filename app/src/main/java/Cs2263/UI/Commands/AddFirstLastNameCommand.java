@@ -44,7 +44,7 @@ public class AddFirstLastNameCommand implements UICommand{
 
     @Override
     public void execute() {
-        User activeUser = BUTT_STUFF.getActiveUser();
+        User activeUser = orchestrator.getActiveUser();
         activeUser.setFirstName(fName);
         activeUser.setLastName(lName);
     }

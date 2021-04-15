@@ -8,9 +8,6 @@ import Cs2263.UI.UIManager;
 public class App {
 
     public static void main(String[] args) throws Exception{
-
-        // FUCK
-
         UIManager uiManager = UIManager.getInstance();
         uiManager.startUI();
     }

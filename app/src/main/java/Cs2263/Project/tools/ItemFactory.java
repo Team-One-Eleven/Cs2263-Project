@@ -34,7 +34,7 @@ public class ItemFactory {
     public ToDoList makeToDOList(){
         ToDoList t = new ToDoList();
         Section s = new Section();
-        s.initId(Orchestrator.getActiveUser().getNextSectionID());
+        s.setId(Orchestrator.getActiveUser().getNextSectionID());
         t.initDefaultSection(s);
         t.getSections().add(s);
 
@@ -45,7 +45,7 @@ public class ItemFactory {
     // Ensures to produce a new section with a unique section ID
     public Section makeSection(){
         Section s = new Section();
-        s.initId(Orchestrator.getActiveUser().getNextSectionID());
+        s.setId(Orchestrator.getActiveUser().getNextSectionID());
         return s;
     }
 

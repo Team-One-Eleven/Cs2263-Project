@@ -49,12 +49,22 @@ public class Section extends ListArchetype implements ListableItem, Serializable
         return lists;
     }
 
+    //Task Add and Remove
+    public void addTask(ParentTask toAdd){
+        // remove the sections Id from it
+        toAdd.getParentSections().remove(id);
+        // because it's now in it's rightful place
+        tasks.add(toAdd);
+    }
+    public void removeTask(ParentTask toRemove){
+        // add the sections id to it
+        toRemove.getParentSections().add(id);
+        // so it remembers where it belongs
+        tasks.remove(toRemove);
+    }
+
     // ID initialization
-    public void initId(double id) {
-<<<<<<< HEAD
-=======
-        if (this.id == null){
->>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
+    public void setId(double id) {
             this.id = id;
     }
 

@@ -76,8 +76,7 @@ public class ListManager {
                 ArrayList<Double> toRemove = new ArrayList<>();
                 for (Double id: toAdd.getParentSections()){
                     if (id == secSearch.getId()){
-                        secSearch.getTasks().add(toAdd);
-                        toRemove.add(id);
+                        secSearch.addTask(toAdd);
                     }
                 }
                 toAdd.getParentSections().removeAll(toRemove);
@@ -109,7 +108,7 @@ public class ListManager {
          */
         for (Section secSearch: toSearch.getSections()){
             for (ParentTask t : secSearch.getTasks()){
-                t.getParentSections().add(secSearch.getId());
+                secSearch.removeTask(t);
                 o.getActiveUser().getTheTasks().add(t);
             }
             secSearch.getTasks().clear();

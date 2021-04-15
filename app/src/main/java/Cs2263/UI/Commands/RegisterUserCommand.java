@@ -5,10 +5,7 @@
  */
 
 package Cs2263.UI.Commands;
-<<<<<<< HEAD
 
-=======
->>>>>>> f0fc75ba956ada0c236080f932846ebd20b3aeda
 import Cs2263.Project.User;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -57,13 +54,13 @@ public class RegisterUserCommand implements UICommand{
     @Override
     public void execute() {
         try {
-            if (BUTT_STUFF.registerUser(email, password)) {
-                User newUser = BUTT_STUFF.getActiveUser();
+            if (orchestrator.registerUser(email, password)) {
+                User newUser = orchestrator.getActiveUser();
                 newUser.setFirstName(fName);
                 newUser.setLastName(lName);
             }
         }
-        catch (IOException e) {
+        catch (Exception e) {
             System.out.println("IOException in RegisterUserCommand execution");
         }
 

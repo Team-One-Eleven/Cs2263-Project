@@ -16,6 +16,7 @@ import Cs2263.Project.Orchestrator;
 import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.User;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,17 +26,17 @@ import java.util.ArrayList;
 
 public class FileManager {
     // Variables
-    private Orchestrator Orchestrator;
+    private Orchestrator orchestrator;
     private Gson gson;
 
     // Constructor
     public FileManager(Orchestrator o){
-        this.Orchestrator = o;
-        gson = new Gson();
+        this.orchestrator = o;
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
 
-    public ArrayList<UserCredentials> loadUserList() throws IOException {
+    public ArrayList<UserCredentials> loadUserList() {
         /**
          * This function loads the user list
          *
@@ -43,42 +44,87 @@ public class FileManager {
          * try to read that in instead.
          */
         String readIn;
+        ArrayList<UserCredentials> theList;
         try {
-            readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
+            readIn = Files.readString(Paths.get(userListPath()));
+            Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
+            theList = gson.fromJson(readIn, type);
         }
         catch (IOException e){
-            Orchestrator.makeDefaultUserList();
-            readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE));
+            theList = orchestrator.makeDefaultUserList();
+            System.out.println("Load User List Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+//            try{
+//                //save the new list and reload
+//                readIn = Files.readString(Paths.get(userListPath()));
+//            }catch (Exception x){
+//                System.out.println("\n Tried to make default, then: \n");
+//                System.out.println("Second Exception");
+//                System.out.println(e.toString());
+//                System.out.println(e.getMessage());
+//            }
         }
-        Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
-        return gson.fromJson(readIn, type);
+
+        return theList;
     }
 
-    public void saveUserList() throws IOException {
+
+    public void saveUserList() {
         /**
          * Saves the user list.
          */
-       String writeOut = gson.toJson(Orchestrator.getUserList());
-        Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE), writeOut);
+
+        try {
+            String writeOut = gson.toJson(orchestrator.getUserList());
+            Files.writeString(Paths.get(userPath(userListPath())), writeOut);
+        }
+        catch (Exception e){
+            System.out.println("Save User List Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+
     }
-    public User loadUser(String filePath) throws IOException {
+
+
+    public User loadUser(String filePath) {
         /**
          * Loads user
          */
-        String readIn = Files.readString(Paths.get(Configuration.BASE_DIRECTORY + filePath));
-        Type type = new TypeToken<User>(){}.getType();
-        return gson.fromJson(readIn, type);
+        User theUser;
+        try {
+            String readIn = Files.readString(Paths.get(userPath(filePath)));
+            Type type = new TypeToken<User>(){}.getType();
+            theUser = gson.fromJson(readIn, type);
+        }
+        catch (Exception e){
+            theUser = orchestrator.makeDefaultUser();
+            System.out.println("load user Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+        return theUser;
     }
-    public void saveUser(User toSave, UserCredentials toSaveInfo) throws IOException {
+
+    public void saveUser(User toSave, UserCredentials toSaveInfo)  {
         /**
          * Saves user
          */
-        String writeOut = gson.toJson(toSave);
-        Files.writeString(Paths.get(Configuration.BASE_DIRECTORY + toSaveInfo.getUserFile()), writeOut);
+        try{
+            String writeOut = gson.toJson(toSave);
+            Files.writeString(Paths.get(userPath(toSaveInfo.getUserFile())), writeOut);
+        }
+        catch (Exception e){
+            System.out.println("Save User Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
-
-    public Configuration loadConfig() throws IOException {
+    public Configuration loadConfig() {
         /**
          * This method loads the configuration file.
          *
@@ -87,25 +133,53 @@ public class FileManager {
          */
         Configuration c;
         try {
-            String readIn = Files.readString(Paths.get(Configuration.SYSTEM_CONFIG_FILE));
+            String readIn = Files.readString(Paths.get(configFilePath()));
             Type type = new TypeToken<ArrayList<UserCredentials>>(){}.getType();
             c = gson.fromJson(readIn, type);
         }
-        catch (IOException e){
+        catch (Exception e){
             c = new Configuration();
-            c.recoverUserIDseed(Orchestrator.getUserList());
+            c.recoverUserIDseed(orchestrator.getUserList());
+            System.out.println("Load config Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
         return c;
 
     }
-    public void saveConfiguration() throws IOException {
+    public void saveConfiguration() {
         /**
          * Saves config.
          */
-        String writeOut = gson.toJson(Orchestrator.getConfig());
-        Files.writeString(Paths.get(Configuration.SYSTEM_CONFIG_FILE), writeOut);
+        try {
+            String writeOut = gson.toJson(orchestrator.getConfig());
+            Files.writeString(Paths.get(configFilePath()), writeOut);
+        }
+        catch (Exception e){
+            System.out.println("save config Exception");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+
     }
 
+
+    /**
+     * PATH METHODS
+     *
+     * The following is a set of private methods that add the base directory to a file path
+     * and return the new combined string.
+     *
+     */
+    private String configFilePath(){
+        return Configuration.BASE_DIRECTORY + Configuration.SYSTEM_CONFIG_FILE ;
+    }
+    private String userListPath(){
+        return Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE;
+    }
+    private String userPath(String filePath){
+        return Configuration.BASE_DIRECTORY + filePath;
+    }
 
 
 }
