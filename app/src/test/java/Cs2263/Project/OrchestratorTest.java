@@ -39,6 +39,14 @@ public class OrchestratorTest {
     }
 
     @Test void TESTregisterUser() {
+        /**
+         * Register user calls other important method that need testing.
+         *
+         * This test only checks to see if the the new info made it into the list.
+         *
+         * The actual existence of the saved dat will be tested in the file mangaer
+         */
+
         Orchestrator o = Orchestrator.getInstance();
 
         String emailTEST = "test@gmail.com";
@@ -57,103 +65,44 @@ public class OrchestratorTest {
 
 
     @Test void loginUserTEST()throws FailedLoginException {
+        /**
+         * This test for a confirmed login.
+         * however, in our simplification of the system,
+         * I removed any shared data between the user Credentials and the user file.
+         *
+         * This means that I currently have no way of knowing it the correct
+         * user was loaded.
+         *
+         * TODO fix the aforementioned problem
+         */
         Orchestrator o = Orchestrator.getInstance();
 
         if (!o.getUserList().isEmpty()){
             UserCredentials u = o.getUserList().get(0);
-            //assertTrue(o.loginUser(u.getUserEmail(), u.getUserPassword()));
+            o.loginUser(u.getUserEmail(), u.getUserPassword());
+            assertTrue(o.getActiveInfo() == u);
+            assertTrue(o.getActiveUser() != null);
         }
+    }
+
+
+    @Test public void logoutUserTEST() {
+        /**
+         * This is another composite method containing other
+         * important method in need of testing.
+         *
+         * This will only test the end result of the active
+         * user, info, and list have been cleard.
+         */
+
+        Orchestrator o = Orchestrator.getInstance();
+
+        o.logoutUser();
+        assertTrue(o.getActiveUser() == null);
+        assertTrue(o.getActiveInfo() == null);
+        assertTrue(o.getMasterList() == null);
 
     }
-//    public void logoutUser() {
-//        /**
-//         * This is a compound method to logout the current user.
-//         *
-//         * first, deconstructs the master list structure.
-//         * second, saves all the users data.
-//         * third, sets all the active user variables to null.
-//         *
-//         */
-//        listManager.deconstructMasterList();
-//        fileManager.saveUser(activeUser, activeInfo);
-//        fileManager.saveUserList();
-//        activeInfo = null;
-//        activeUser = null;
-//        masterList = null;
-//    }
-//    public void autosave() throws IOException {
-//        /**
-//         * This is a compound method the provide the methods to perform a safe save of data.
-//         * it have been named autosave to match its functional usage in the app/driver.
-//         *
-//         * It DOESN'T do anything without being called.
-//         *
-//         * This method can also be called to invoke a manual save. The process is the same.
-//         */
-//        // Deconstruct the master list to avoid recursive serialisation, save the data, build the mast list again.
-//        listManager.deconstructMasterList();
-//        fileManager.saveUser(activeUser, activeInfo);
-//        fileManager.saveUserList();
-//        listManager.constructMasterList();
-//    }
-//
-//    public void exit() throws IOException {
-//        /**
-//         * This is a compound method to be called when exiting the app.
-//         * This will  log out the current user, and save the config data.
-//         */
-//        if (activeUser != null){
-//            logoutUser();
-//        }
-//        fileManager.saveConfiguration();
-//    }
-//
-//
-//    public void makeDefaultUserList() throws IOException {
-//        /**
-//         * This is a compound method for initializing the Admin abd Userlist for the program.
-//         * it will be called anytime that data for the program isn't found.
-//         *
-//         * Thus, it should be called the first time a new instance of the app is installed, and
-//         * anytime the data has been deleted or interfered with.
-//         */
-//        UserCredentials info = userFactory.makeUserInfo(ConfigurationTest.ADMIN_EMAIL_DEFAULT,
-//                ConfigurationTest.ADMIN_PASSWORD_DEFAULT,
-//                ConfigurationTest.ADMIN_ID_DEFAULT);
-//        User admin = userFactory.makeUser();
-//        admin.setFirstName("System");
-//        admin.setLastName("Administrator");
-//        admin.setBiography("");
-//
-//        if (userList == null){
-//            userList = new ArrayList<UserCredentials>();
-//        }
-//        userList.add(info);
-//
-//        fileManager.saveUserList();
-//        fileManager.saveUser(admin, info);
-//        makeExampleUsers();
-//    }
-//
-//    private void makeExampleUsers() throws IOException {
-//        /**
-//         * This is a compound function the should only be called by makeDefaultUserList()
-//         *
-//         * for Testing purposes. Delete or comment away later.
-//         *
-//         * This function will further populated the the user list with some data for the new admin to check.
-//         *
-//         */
-//        for (int i=3; i>0; i--){
-//            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password",  i);
-//            User example = userFactory.makeUser();
-//            example.setFirstName("example");
-//            example.setLastName("Number: " + i);
-//            example.setBiography("");
-//            userList.add(info);
-//            fileManager.saveUserList();
-//            fileManager.saveUser(example, info);
-//        }
-//    }
+
 
 }

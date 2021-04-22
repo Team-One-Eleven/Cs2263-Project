@@ -13,6 +13,7 @@ package Cs2263.Project.listable.tasks;
 import Cs2263.Project.listable.lists.ListArchetype;
 import javafx.concurrent.Task;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -21,7 +22,7 @@ public abstract class TaskArchetype {
     private String title;
     private String description;
     private boolean usingDuedate;
-    private Date dueDate;
+    private Calendar dueDate;
     private TaskPriority priority;
     private TaskStatus status;
     private LinkedList<String> labels;
@@ -29,8 +30,7 @@ public abstract class TaskArchetype {
     public TaskArchetype(){
         title = "";
         description = "";
-        dueDate = new Date();
-        dueDate.setTime(0);
+        dueDate = Calendar.getInstance();
         status = TaskStatus.incomplete;
         labels = new LinkedList<>();
     }
@@ -46,7 +46,7 @@ public abstract class TaskArchetype {
     public boolean isUsingDuedate() {
         return usingDuedate;
     }
-    public Date getDueDate() {
+    public Calendar getDueDate() {
         return dueDate;
     }
     public TaskPriority getPriority() {
@@ -73,6 +73,9 @@ public abstract class TaskArchetype {
     }
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+    public void setDueDate(Calendar dueDate) {
+        this.dueDate = dueDate;
     }
 
     @Override

@@ -13,6 +13,8 @@ import Cs2263.Project.tools.*;
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Orchestrator {
 
@@ -102,21 +104,18 @@ public class Orchestrator {
             if (u.getUserEmail() == email){
                 return false;
             }
-            else {
-                // if not, grab a new user ID, fetch an info and user from the factory, fill out the basics
-                // and save there info into the files.
-                double newUserID = config.getNextUserIDseed();
-                UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
-                User newUser = userFactory.makeUser();
-                userList.add(newInfo);
-                fileManager.saveUserList();
-                activeUser = newUser;
-                fileManager.saveUser(activeUser, activeInfo);
-                activeUser = null;
-                return true;
-            }
         }
-        return false;
+        // if not, grab a new user ID, fetch an info and user from the factory, fill out the basics
+        // and save there info into the files.
+        double newUserID = config.getNextUserIDseed();
+        UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
+        User newUser = userFactory.makeUser();
+        userList.add(newInfo);
+        fileManager.saveUserList();
+        activeUser = newUser;
+        fileManager.saveUser(newUser, newInfo);
+        activeUser = null;
+        return true;
     }
     public void loginUser(String email, String password) throws FailedLoginException {
         /**
@@ -211,7 +210,7 @@ public class Orchestrator {
             userList = new ArrayList<UserCredentials>();
         }
         userList.add(info);
-        ///makeExampleUsers();
+        makeExampleUsers();
 
         return userList;
     }
@@ -256,7 +255,7 @@ public class Orchestrator {
         return user;
     }
 
-    private ToDoList makeAnExampleListStructure(int i){
+    public ToDoList makeAnExampleListStructure(int i){
         ToDoList theList = itemFactory.makeToDOList();
 
         theList.setTitle("Top level list" + i);
@@ -306,17 +305,21 @@ public class Orchestrator {
 
 
         ToDoList subListA2 = itemFactory.makeToDOList();
-        subListA2.setTitle("MORE Grocery shopping"+ i);
+        subListA2.setTitle("July 4th Grocery shopping"+ i);
         subListA2.setDescription("I eat the food, I shit the food, it never ends");
+        Calendar due = Calendar.getInstance();
+        due.set(2021, Calendar.JULY, 4);
 
         ParentTask milk2 = getItemFactory().makeParentTask();
         milk2.setTitle("buy MOAR milk"+ i);
         milk2.setDescription("make it stop");
+        milk2.setDueDate(due);
         subListA2.getDefaultSection().addTask(milk2);
 
         ParentTask eggs2 = getItemFactory().makeParentTask();
         eggs2.setTitle("so many eggs"+ i);
         eggs2.setDescription("they smell.");
+        eggs2.setDueDate(due);
         subListA2.getDefaultSection().addTask(eggs2);
         a.getLists().add(subListA2);
 

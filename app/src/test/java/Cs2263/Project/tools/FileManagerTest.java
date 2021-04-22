@@ -33,22 +33,18 @@ public class FileManagerTest {
     void TEST_loadUserList_DATA_AVAILIBLE() throws IOException {
         FileManager fileman = new FileManager(Orchestrator.getInstance());
         ArrayList<UserCredentials> testUserList;
-        try{
             testUserList = fileman.loadUserList();
             // for testing purposes, I need to manually remove the example 1  user to show that it isn't the example list data
             for (UserCredentials u : testUserList){
                 assertFalse(u.getUserEmail() == "example1@example.com");
             }
-        }catch (IOException e){
-            assertFalse(true, "Gave and exception");
-        }
     }
 
     @Test
     void TEST_loadUserList_DATA_UNAVAILIBLE() throws IOException {
         FileManager fileman = new FileManager(Orchestrator.getInstance());
         ArrayList<UserCredentials> testUserList;
-        try{
+
             testUserList = fileman.loadUserList();
             boolean adminpresent = false;
             boolean ex1present = false;
@@ -65,9 +61,7 @@ public class FileManagerTest {
             assertTrue(ex1present);
             assertTrue(ex2present);
             assertTrue(ex3present);
-        }catch (IOException e){
-            assertFalse(true, "Gave and exception");
-        }
+
     }
 
 //    public ArrayList<UserCredentials> loadUserList() throws IOException {
