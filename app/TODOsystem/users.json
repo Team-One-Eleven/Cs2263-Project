@@ -1,0 +1,26 @@
+[
+  {
+    "userEmail": "Admin",
+    "userPassword": "123password",
+    "userId": 0.0,
+    "userFile": "./0.0.json"
+  },
+  {
+    "userEmail": "test@gmail.com",
+    "userPassword": "testPassword",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "test@gmail.com",
+    "userPassword": "testPassword",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "test@gmail.com",
+    "userPassword": "testPassword",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  }
+]

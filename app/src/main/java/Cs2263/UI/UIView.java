@@ -65,7 +65,7 @@ public class UIView extends Application {
         primaryStage.setTitle("TODO");
 
         //Start at login scene and show
-        primaryStage.setScene(homeScene);
+        primaryStage.setScene(registerScene);
         primaryStage.show();
     }
 

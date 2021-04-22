@@ -4,5 +4,17 @@
     "userPassword": "123password",
     "userId": 0.0,
     "userFile": "./0.0.json"
+  },
+  {
+    "userEmail": "fuck@you.com",
+    "userPassword": "password123",
+    "userId": 3.0,
+    "userFile": "./3.0.json"
+  },
+  {
+    "userEmail": "hello@my.baby",
+    "userPassword": "hellowmyragtimegal",
+    "userId": 3.0,
+    "userFile": "./3.0.json"
   }
 ]

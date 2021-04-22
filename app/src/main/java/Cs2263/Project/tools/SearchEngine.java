@@ -89,56 +89,6 @@ public class SearchEngine {
         return taskResults;
    }
 
-    // By LABEL
-    // With Active user's master list
-    public ArrayList<ParentTask> searchByLabel(String Value){
-        ArrayList<ParentTask> taskResults = new ArrayList<>();
-        for (ToDoList list : Orchestrator.getMasterList()){
-            masterRecursiveByLabel(Value, list, taskResults);
-        }
-        return taskResults;
-    }
-    // co function that recursively scans the list
-    private void masterRecursiveByLabel(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
-        for (Section s : toSearch.getSections()){
-            for (ParentTask task : s.getTasks()){
-                if (task.getLabels().contains(value)){
-                    results.add(task);
-                }
-                else {
-                    for (ChildTask c : task.getChildTasks()){
-                        if (c.getLabels().contains(value)){
-                            results.add(task);
-                        }
-                    }
-                }
-
-            }
-            for (ToDoList list : s.getLists()){
-                masterRecursiveByLabel(value, list, results);
-            }
-        }
-    }
-    // With a ArrayList of Parents Tasks past in
-    public ArrayList<ParentTask> searchByLabel(String Value, ArrayList<ParentTask> ListToSearch){
-        ArrayList<ParentTask> taskResults = new ArrayList<>();
-        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-        for (ParentTask task : ListToSearch){
-            if (task.getLabels().contains(Value)){
-                taskResults.add(task);
-            }
-            else {
-                for (ChildTask c : task.getChildTasks()){
-                    if (c.getLabels().contains(Value)){
-                        childTaskResults.add(task);
-                    }
-                }
-            }
-        }
-        taskResults.addAll(childTaskResults);
-        return taskResults;
-    }
-
     // By TITLE
     // With Active user's master list
     public ArrayList<ParentTask> searchByTitle(String Value){
@@ -288,6 +238,60 @@ public class SearchEngine {
         taskResults.addAll(childTaskResults);
         return taskResults;
     }
+
+    /**
+     * Use of labels is currently a cut feature.
+     * The label search functions have been commented out for now.
+     */
+//    // By LABEL
+//    // With Active user's master list
+//    public ArrayList<ParentTask> searchByLabel(String Value){
+//        ArrayList<ParentTask> taskResults = new ArrayList<>();
+//        for (ToDoList list : Orchestrator.getMasterList()){
+//            masterRecursiveByLabel(Value, list, taskResults);
+//        }
+//        return taskResults;
+//    }
+//    // co function that recursively scans the list
+//    private void masterRecursiveByLabel(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
+//        for (Section s : toSearch.getSections()){
+//            for (ParentTask task : s.getTasks()){
+//                if (task.getLabels().contains(value)){
+//                    results.add(task);
+//                }
+//                else {
+//                    for (ChildTask c : task.getChildTasks()){
+//                        if (c.getLabels().contains(value)){
+//                            results.add(task);
+//                        }
+//                    }
+//                }
+//
+//            }
+//            for (ToDoList list : s.getLists()){
+//                masterRecursiveByLabel(value, list, results);
+//            }
+//        }
+//    }
+//    // With a ArrayList of Parents Tasks past in
+//    public ArrayList<ParentTask> searchByLabel(String Value, ArrayList<ParentTask> ListToSearch){
+//        ArrayList<ParentTask> taskResults = new ArrayList<>();
+//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
+//        for (ParentTask task : ListToSearch){
+//            if (task.getLabels().contains(Value)){
+//                taskResults.add(task);
+//            }
+//            else {
+//                for (ChildTask c : task.getChildTasks()){
+//                    if (c.getLabels().contains(Value)){
+//                        childTaskResults.add(task);
+//                    }
+//                }
+//            }
+//        }
+//        taskResults.addAll(childTaskResults);
+//        return taskResults;
+//    }
 
 
 

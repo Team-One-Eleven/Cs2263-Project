@@ -25,15 +25,14 @@ public class User implements Serializable {
     private double sectionIDseed;
     private String firstName;
     private String lastName;
-    private String pictureFile;
     private String biography;
+    private double userId;
 
 
     // Constructor
     public User(){
         firstName = "";
         lastName = "";
-        pictureFile = "";
         biography = "";
         theTasks = new ArrayList<>();
         theLists = new ArrayList<>();

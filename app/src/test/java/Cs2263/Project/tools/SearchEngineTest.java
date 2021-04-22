@@ -17,29 +17,56 @@
 
 package Cs2263.Project.tools;
 
+import Cs2263.Project.Orchestrator;
 import Cs2263.Project.OrchestratorTest;
+import Cs2263.Project.User;
+import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
 
+import javax.security.auth.login.FailedLoginException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class SearchEngineTest {
-//    // Variables
-//    // Parent orchestrator reference
-//    private OrchestratorTest orchestrator;
-//
-//    // Constructor
-//    public SearchEngineTest(OrchestratorTest o){
-//        this.orchestrator = o;
-//    }
-//
-//    // Methods
-//    // SEARCHES:
-//
+    private Orchestrator o;
+    boolean isInit = false;
+
+
+    private void initTestResources(){
+        o = Orchestrator.getInstance();
+
+        String testEmail = "SEtest@test.com";
+        String testPassword = "SEpassword";
+        String testName = "Boboru";
+
+        if (!isInit){
+            o.registerUser(testEmail, testPassword);
+            try {
+                o.loginUser(testEmail, testPassword);
+                o.getActiveUser().setFirstName(testName);
+                o.getActiveUser().setLastName(testName);
+
+                o.getActiveUser().getTheLists().add(o.makeAnExampleListStructure(5));
+                o.getActiveUser().getTheLists().add(o.makeAnExampleListStructure(100));
+                o.getActiveUser().getTheLists().add(o.makeAnExampleListStructure(57));
+
+            } catch (FailedLoginException e){
+                System.out.println("Inside init test resources for the Search engine tests \n" +
+                        " couldn't register the test user");
+            }
+
+        }
+
+
+
+
+
+    }
+
 //    // By DATE range
 //    // With Active user's master list
 //    public ArrayList<ParentTask> searchByDate(Date start, Date end){
