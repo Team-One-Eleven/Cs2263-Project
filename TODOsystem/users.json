@@ -1,0 +1,32 @@
+[
+  {
+    "userEmail": "Admin",
+    "userPassword": "123password",
+    "userId": 0.0,
+    "userFile": "./0.0.json"
+  },
+  {
+    "userEmail": "bboy@gmail.com",
+    "userPassword": "footasd234",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "bboy@gmail.com",
+    "userPassword": "123asd",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "dasd@dd.com",
+    "userPassword": "asd123",
+    "userId": 3.0,
+    "userFile": "./3.0.json"
+  },
+  {
+    "userEmail": "dasd@dd.com",
+    "userPassword": "asd123",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  }
+]

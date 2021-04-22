@@ -43,7 +43,7 @@ public class LoginUserCommand implements UICommand{
             orchestrator.loginUser(email,password);
         }
         catch (FailedLoginException e){
-            loginUIViewController.setLoginLabel(e.getLocalizedMessage());
+           // loginUIViewController.setLoginLabel(e.getMessage());
             System.out.printf("%s at %s%n",e.getMessage(),this.getClass().getName());
         }
     }
