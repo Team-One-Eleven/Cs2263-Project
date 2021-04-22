@@ -112,9 +112,8 @@ public class Orchestrator {
         User newUser = userFactory.makeUser();
         userList.add(newInfo);
         fileManager.saveUserList();
-        activeUser = newUser;
         fileManager.saveUser(newUser, newInfo);
-        activeUser = null;
+        fileManager.loadUserList();
         return true;
     }
     public void loginUser(String email, String password) throws FailedLoginException {
@@ -210,7 +209,7 @@ public class Orchestrator {
             userList = new ArrayList<UserCredentials>();
         }
         userList.add(info);
-        makeExampleUsers();
+        //makeExampleUsers();
 
         return userList;
     }
