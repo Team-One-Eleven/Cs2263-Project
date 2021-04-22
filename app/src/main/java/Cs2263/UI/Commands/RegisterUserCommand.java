@@ -6,8 +6,7 @@
 
 package Cs2263.UI.Commands;
 
-import Cs2263.Project.User;
-import java.io.IOException;
+import Cs2263.UI.Controllers.RegisterUIViewController;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,8 +14,8 @@ public class RegisterUserCommand implements UICommand{
 
     String email;
     String password;
-    String fName;
-    String lName;
+
+    private final RegisterUIViewController registerUIViewController = uiManager.getView().getRegisterController();
 
     public static final Pattern VALID_EMAIL_PATTERN =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -53,15 +52,15 @@ public class RegisterUserCommand implements UICommand{
 
     @Override
     public void execute() {
-        try {
-            if (orchestrator.registerUser(email, password)) {
-                User newUser = orchestrator.getActiveUser();
-                newUser.setFirstName(fName);
-                newUser.setLastName(lName);
-            }
+        System.out.printf("Orchestrator: %s%n", orchestrator);
+        System.out.printf("Register args = email: \"%s\" password: \"%s\" %n",this.email,this.password);
+
+        if(orchestrator.registerUser(email, password)){
+            //registerUIViewController.setRegisterMessage("Success! Please return to the login screen to login.");
+            return;
         }
-        catch (Exception e) {
-            System.out.println("IOException in RegisterUserCommand execution");
+        else{
+            registerUIViewController.setRegisterError("Register Failed");
         }
 
     }

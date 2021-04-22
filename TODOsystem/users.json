@@ -6,27 +6,21 @@
     "userFile": "./0.0.json"
   },
   {
-    "userEmail": "fuck@you.com",
-    "userPassword": "password123",
-    "userId": 3.0,
-    "userFile": "./3.0.json"
+    "userEmail": "bboy@gmail.com",
+    "userPassword": "footasd234",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
   },
   {
-    "userEmail": "hello@my.baby",
-    "userPassword": "hellowmyragtimegal",
-    "userId": 3.0,
-    "userFile": "./3.0.json"
+    "userEmail": "bboy@gmail.com",
+    "userPassword": "123asd",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
   },
   {
-    "userEmail": "hello@world.com",
-    "userPassword": "hello",
+    "userEmail": "dasd@dd.com",
+    "userPassword": "asd123",
     "userId": 3.0,
     "userFile": "./3.0.json"
-  },
-  {
-    "userEmail": "hello@world.com",
-    "userPassword": "hello123",
-    "userId": 4.0,
-    "userFile": "./4.0.json"
   }
 ]

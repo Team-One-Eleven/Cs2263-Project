@@ -38,7 +38,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Button fx:id="fxFirstLastOK" mnemonicParsing="false" text="OK" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="fxFirstLastOK" mnemonicParsing="false" onAction="#onOKClicked" text="OK" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label fx:id="fxFirstLastErrorLabel" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>

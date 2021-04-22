@@ -79,12 +79,13 @@ public class LoginUIViewController extends UIViewController {
         UICommand login = new LoginUserCommand(email,password);
         uiManager.setCommand(login);
         uiManager.executeCommand();
-        if(Orchestrator.getActiveUser() != null){
+        if(orchestrator.getActiveUser() != null){
             Platform.runLater(() -> {
                 Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 s.setScene(homeScene);
-                if(Orchestrator.getActiveUser().getFirstName() == "" ||
-                        Orchestrator.getActiveUser().getLastName() == ""){
+                homeUIViewController.loadUserTaskList();
+                if(orchestrator.getActiveUser().getFirstName() == "" ||
+                        orchestrator.getActiveUser().getLastName() == ""){
                     homeUIViewController.openFirstLastDialog();
                 }
             });

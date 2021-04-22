@@ -62,6 +62,10 @@ public class TaskContextUIController extends UIViewController{
         homeUIViewController.refreshTree();
     }
 
+    @FXML private void removeTask(){
+        homeUIViewController.removeTask();
+    }
+
 
     public void setHomeUIViewController(HomeUIViewController c){
         this.homeUIViewController = c;
