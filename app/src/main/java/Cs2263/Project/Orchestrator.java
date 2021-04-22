@@ -113,7 +113,7 @@ public class Orchestrator {
         userList.add(newInfo);
         fileManager.saveUserList();
         fileManager.saveUser(newUser, newInfo);
-        fileManager.loadUserList();
+        userList = fileManager.loadUserList();
         return true;
     }
     public void loginUser(String email, String password) throws FailedLoginException {
