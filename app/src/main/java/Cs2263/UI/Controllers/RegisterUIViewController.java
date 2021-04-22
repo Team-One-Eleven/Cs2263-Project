@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -56,12 +57,18 @@ public class RegisterUIViewController extends UIViewController {
            uiManager.executeCommand();
        }
        catch (IllegalArgumentException e){
-            setRegisterLabel("Error: Please use a valid email and alphanumeric password.");
+            setRegisterError("Error: Please use a valid email and alphanumeric password.");
        }
     }
 
-    public void setRegisterLabel(String l){
+    public void setRegisterError(String l){
         fxRegisterLabel.setText(l);
+        fxRegisterLabel.setTextFill(Color.RED);
+    }
+
+    public void setRegisterMessage(String l){
+        fxRegisterLabel.setText(l);
+        fxRegisterLabel.setTextFill(Color.GREEN);
     }
 
     /**

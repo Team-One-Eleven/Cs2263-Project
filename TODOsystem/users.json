@@ -4,5 +4,23 @@
     "userPassword": "123password",
     "userId": 0.0,
     "userFile": "./0.0.json"
+  },
+  {
+    "userEmail": "bill@bill.com",
+    "userPassword": "bob123",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "b@email.com",
+    "userPassword": "asda",
+    "userId": 2.0,
+    "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "b@email.com",
+    "userPassword": "jerry",
+    "userId": 3.0,
+    "userFile": "./3.0.json"
   }
 ]

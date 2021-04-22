@@ -10,7 +10,8 @@ import Cs2263.UI.UIManager;
 
 public interface UICommand{
 
-    Orchestrator orchestrator = UIManager.getInstance().getOrchestrator();
+    UIManager uiManager = UIManager.getInstance();
+    Orchestrator orchestrator = uiManager.getInstance().getOrchestrator();
 
     public abstract void execute();
 }
