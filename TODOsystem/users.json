@@ -16,5 +16,17 @@
     "userPassword": "hellowmyragtimegal",
     "userId": 3.0,
     "userFile": "./3.0.json"
+  },
+  {
+    "userEmail": "hello@world.com",
+    "userPassword": "hello",
+    "userId": 3.0,
+    "userFile": "./3.0.json"
+  },
+  {
+    "userEmail": "hello@world.com",
+    "userPassword": "hello123",
+    "userId": 4.0,
+    "userFile": "./4.0.json"
   }
 ]
