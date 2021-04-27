@@ -268,6 +268,7 @@ public class Orchestrator {
                 ChildTask defChild1 = itemFactory.makeChildTask();
                 defChild1.setTitle("This is a child task" + i);
                 defChild1.setDescription("should be in the defatault task of the default section"+ i);
+                defChild1.setPriority(TaskPriority.High);
 
                 ChildTask defChild2 = itemFactory.makeChildTask();
                 defChild2.setTitle("This is another child task"+ i);
@@ -294,12 +295,14 @@ public class Orchestrator {
         ParentTask milk = getItemFactory().makeParentTask();
         milk.setTitle("buy milk"+ i);
         milk.setDescription("tfw no big tiddy mommy milker goth gf."+ i);
+        milk.setPriority(TaskPriority.Medium);
         sublistA1.getDefaultSection().addTask(milk);
 
         ParentTask eggs = getItemFactory().makeParentTask();
         eggs.setTitle("buy eggs"+ i);
         eggs.setDescription("Robotnik");
         sublistA1.getDefaultSection().addTask(eggs);
+        eggs.setPriority(TaskPriority.High);
         a.getLists().add(sublistA1);
 
 
@@ -310,8 +313,9 @@ public class Orchestrator {
         due.set(2021, Calendar.JULY, 4);
 
         ParentTask milk2 = getItemFactory().makeParentTask();
-        milk2.setTitle("buy MOAR milk"+ i);
+        milk2.setTitle("buy milk"+ i);
         milk2.setDescription("make it stop");
+        milk2.setPriority(TaskPriority.Highest);
         milk2.setDueDate(due);
         subListA2.getDefaultSection().addTask(milk2);
 
