@@ -22,5 +22,41 @@
     "userPassword": "testPassword",
     "userId": 2.0,
     "userFile": "./2.0.json"
+  },
+  {
+    "userEmail": "test@gmail.com",
+    "userPassword": "testPassword",
+    "userId": 5.0,
+    "userFile": "./5.0.json"
+  },
+  {
+    "userEmail": "LMtest@test.com",
+    "userPassword": "LMpassword",
+    "userId": 6.0,
+    "userFile": "./6.0.json"
+  },
+  {
+    "userEmail": "SEtest@test.com",
+    "userPassword": "SEpassword",
+    "userId": 8.0,
+    "userFile": "./8.0.json"
+  },
+  {
+    "userEmail": "SEtest@test.com",
+    "userPassword": "SEpassword",
+    "userId": 9.0,
+    "userFile": "./9.0.json"
+  },
+  {
+    "userEmail": "SEtest@test.com",
+    "userPassword": "SEpassword",
+    "userId": 10.0,
+    "userFile": "./10.0.json"
+  },
+  {
+    "userEmail": "SEtest@test.com",
+    "userPassword": "SEpassword",
+    "userId": 11.0,
+    "userFile": "./11.0.json"
   }
 ]

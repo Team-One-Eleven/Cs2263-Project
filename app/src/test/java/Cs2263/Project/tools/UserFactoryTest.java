@@ -1,14 +1,12 @@
 /**
- * User Factory class
+ * User Factory Test class
  *
- * Produces a new userInfo, called from orchestrator.registerUser()
- *
- * Produces a new User using userInfo.
- *
+ * The user factory just creates a user, which only really stores data.
+ * The tests are really just testing to see if something appeared.
  *
  * @author  Traae
  * @version 1.0
- * @since 3/31/2021
+ * @since 4/30/2021
  */
 
 package Cs2263.Project.tools;

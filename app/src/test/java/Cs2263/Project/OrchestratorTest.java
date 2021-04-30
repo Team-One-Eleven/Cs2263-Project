@@ -1,44 +1,32 @@
 /**
- * Orchestrator for the system.
+ * Orchestrator Test Class
  *
- * Supposed to be in the vein of a facade, and NOT a god object.
- * Handles all of the logic and/or the classes that handles the logic
- * for the system and makes it accessible to the UI.
+ *  The Orchestrator is the center peice of the systems tools.
+ *  It's method's (that aren't getters and setters for the tools and data)
+ *  are arrangements of other methods from throughout the system.
  *
- * Currently it handles the compound methods for user's: list and data, registering, login, and log out.
- * The exit and autosave methods handle the safe preservation of data, and should be called by the
- * app during those titular operations.
- *
- * The Orchestrator is a singleton, which then holds a single instance of various tools that are needed, such
- * as the File Manager, Search Engine, System Configuration, and Factories.
- *
+ *  Making sure that the systems tools are used when needed and in order.
  *
  * @author  Traae
  * @version 1.0
- * @since 4/6/2021
+ * @since 4/30/2021
  */
 
 package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
-import Cs2263.Project.listable.lists.ToDoList;
-import Cs2263.Project.tools.*;
 import org.junit.jupiter.api.Test;
-
 import javax.security.auth.login.FailedLoginException;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrchestratorTest {
 
-    @Test void TESTgetInstance() {
+    @Test void getInstanceTEST() {
         Orchestrator o = Orchestrator.getInstance();
         assertTrue(o != null);
     }
 
-    @Test void TESTregisterUser() {
+    @Test void registerUserTEST() {
         /**
          * Register user calls other important method that need testing.
          *

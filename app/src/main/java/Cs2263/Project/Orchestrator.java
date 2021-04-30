@@ -52,7 +52,7 @@ public class Orchestrator {
         userList = fileManager.loadUserList();
         fileManager.saveUserList();
         config = fileManager.loadConfig();
-        fileManager.saveConfiguration();
+        fileManager.saveConfiguration(config);
 
     }
     public static Orchestrator getInstance(){
@@ -183,11 +183,10 @@ public class Orchestrator {
         if (activeUser != null){
             logoutUser();
         }
-        fileManager.saveConfiguration();
+        fileManager.saveConfiguration(config);
     }
 
-
-
+    // SYSTEM User Initilization and example data
 
     public ArrayList<UserCredentials> makeDefaultUserList() {
         /**

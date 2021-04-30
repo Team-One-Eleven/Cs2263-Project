@@ -1,14 +1,10 @@
 /**
- * Search Engine class
+ * Search Engine Test class
  *
- * Takes a list for a given search condition and value and return's a new list
- * with the desired results.
+ * This set of tests need something to search, so they rely heavily on the Orchestrator's
+ * methods that create examples. Some of these tests are completely dead if thought functions change.
  *
- * Most of these functions are very similar as then need to scan throug hteh same lists,
- * but with variations in the contitions that the use to qualify for the search results
- *
- * As of version 1.0, all parentTask's are searched and added to the first section of the list,
- * then every ChildTask that qualifies has its parentTask added after the first section.
+ * TODO copy the orchestrator's functions, improve them and use the test @before setup.
  *
  * @author  Traae
  * @version 1.0

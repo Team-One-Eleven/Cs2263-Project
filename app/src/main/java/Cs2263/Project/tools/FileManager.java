@@ -151,12 +151,12 @@ public class FileManager {
         return c;
 
     }
-    public void saveConfiguration() {
+    public void saveConfiguration(Configuration c) {
         /**
          * Saves config.
          */
         try {
-            String writeOut = gson.toJson(orchestrator.getConfig());
+            String writeOut = gson.toJson(c);
             Files.writeString(Paths.get(configFilePath()), writeOut);
         }
         catch (Exception e){
