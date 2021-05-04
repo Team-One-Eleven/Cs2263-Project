@@ -6,11 +6,14 @@
 package Cs2263.UI;
 
 import Cs2263.UI.Controllers.*;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.concurrent.TimeUnit;
 
@@ -72,9 +75,7 @@ public class UIView extends Application {
         primaryStage.setTitle("TODO");
 
         //Start at login scene and show
-        primaryStage.setScene(splashScene);
-        primaryStage.show();
-        primaryStage.setScene(registerScene);
+        primaryStage.setScene(loginScene);
         primaryStage.show();
     }
 

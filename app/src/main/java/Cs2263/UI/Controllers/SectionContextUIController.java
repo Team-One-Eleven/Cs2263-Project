@@ -59,6 +59,10 @@ public class SectionContextUIController extends UIViewController {
         homeUIViewController.refreshTree();
     }
 
+    @FXML private void removeSection(){
+        homeUIViewController.removeSection();
+    }
+
     public void setHomeUIViewController(HomeUIViewController c){
         this.homeUIViewController = c;
     }

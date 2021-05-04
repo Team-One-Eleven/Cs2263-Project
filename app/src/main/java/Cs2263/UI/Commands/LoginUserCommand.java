@@ -40,6 +40,7 @@ public class LoginUserCommand implements UICommand{
     @Override
     public void execute(){
         try{
+            System.out.println(email + " " + password);
             orchestrator.loginUser(email,password);
         }
         catch (FailedLoginException e){

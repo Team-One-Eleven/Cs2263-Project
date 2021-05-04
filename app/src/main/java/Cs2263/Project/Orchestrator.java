@@ -312,13 +312,11 @@ public class Orchestrator {
         ParentTask milk2 = getItemFactory().makeParentTask();
         milk2.setTitle("buy MOAR milk"+ i);
         milk2.setDescription("make it stop");
-        milk2.setDueDate(due);
         subListA2.getDefaultSection().addTask(milk2);
 
         ParentTask eggs2 = getItemFactory().makeParentTask();
         eggs2.setTitle("so many eggs"+ i);
         eggs2.setDescription("they smell.");
-        eggs2.setDueDate(due);
         subListA2.getDefaultSection().addTask(eggs2);
         a.getLists().add(subListA2);
 

@@ -54,7 +54,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="fxDeleteSectionButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="1" />
+                  <Button fx:id="fxDeleteSectionButton" alignment="CENTER" mnemonicParsing="false" onAction="#removeSection" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="1" />
                   <Button fx:id="fxMoveSectionButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Move" />
                   <Button fx:id="fxSaveSectionButton" alignment="CENTER" mnemonicParsing="false" onAction="#saveSection" prefHeight="25.0" prefWidth="85.0" text="Save" GridPane.rowIndex="2" />
                </children>

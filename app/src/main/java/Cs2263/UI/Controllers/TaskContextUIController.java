@@ -6,8 +6,11 @@
 
 package Cs2263.UI.Controllers;
 import Cs2263.Project.listable.tasks.TaskArchetype;
+import Cs2263.Project.listable.tasks.TaskPriority;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Priority;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,6 +48,7 @@ public class TaskContextUIController extends UIViewController{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        fxPriorityComboBox.getItems().addAll(TaskPriority.Low,TaskPriority.Medium,TaskPriority.High,TaskPriority.Highest);
     }
 
     @FXML public void setData(TaskArchetype item, String title, String body){
@@ -53,12 +57,14 @@ public class TaskContextUIController extends UIViewController{
         }
         fxNoteTitleTextField.setText(title);
         fxNoteBodyTextArea.setText(body);
+        fxPriorityComboBox.getSelectionModel().select(task.getPriority());
     }
 
     @FXML private void saveTask(){
         if(this.task == null){return;}
         task.setTitle(fxNoteTitleTextField.getText());
         task.setDescription(fxNoteBodyTextArea.getText());
+        task.setPriority((TaskPriority) fxPriorityComboBox.getSelectionModel().getSelectedItem());
         homeUIViewController.refreshTree();
     }
 

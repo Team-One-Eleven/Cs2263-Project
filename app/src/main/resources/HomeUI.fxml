@@ -36,7 +36,7 @@
          <children>
             <TabPane prefHeight="200.0" prefWidth="293.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="2">
               <tabs>
-                <Tab fx:id="fxTasksTab" text="Today">
+                <Tab fx:id="fxTasksTab" text="Tasks">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
                            <children>
@@ -45,6 +45,15 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab fx:id="fxTodayTab" text="Today">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
+                           <children>
+                              <TreeView fx:id="fxTodayTree" onMouseClicked="#setSelectedItem" prefHeight="292.0" prefWidth="200.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
                   <Tab fx:id="fxUpcomingTab" text="Upcoming">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
@@ -58,7 +67,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxOverdueList" prefHeight="289.0" prefWidth="205.0" />
+                              <ListView fx:id="fxOverdueTree" prefHeight="289.0" prefWidth="205.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -67,7 +76,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxCompletedList" prefHeight="290.0" prefWidth="200.0" />
+                              <ListView fx:id="fxCompletedTree" prefHeight="290.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -76,7 +85,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxArchivedList" prefHeight="300.0" prefWidth="200.0" />
+                              <ListView fx:id="fxArchivedTree" prefHeight="300.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -110,7 +119,7 @@
               </rowConstraints>
                <children>
                   <Button fx:id="fxNewTaskButton" mnemonicParsing="false" onAction="#addTask" prefHeight="25.0" prefWidth="64.0" text="+Task" GridPane.halignment="LEFT" />
-                  <Button fx:id="fxNewSectionButton" mnemonicParsing="false" text="+Section" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Button fx:id="fxNewSectionButton" mnemonicParsing="false" onAction="#addSection" text="+Section" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                   <Button fx:id="fxNewListButton" mnemonicParsing="false" prefWidth="64.0" text="+List" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
                </children>
             </GridPane>

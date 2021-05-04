@@ -84,10 +84,11 @@ public class HomeUIViewController extends UIViewController {
     @FXML private Tab fxCompletedTab;
     @FXML private Tab fxOverdueTab;
     @FXML private Tab fxArchivedTab;
-    @FXML private ListView<ListableItem> fxTaskList;
-    @FXML private ListView<ListableItem> fxCompletedList;
-    @FXML private ListView<ListableItem> fxOverdueList;
-    @FXML private ListView<ListableItem> fxArchivedList;
+    @FXML private TreeView<ListableItem> fxTodayTree;
+    @FXML private TreeView<ListableItem> fxUpcomingTree;
+    @FXML private ListView<ListableItem> fxOverdueTree;
+    @FXML private ListView<ListableItem> fxCompletedTree;
+    @FXML private ListView<ListableItem> fxArchivedTree;
 
     //List TreeView Roots
     private TreeItem<ListableItem> taskTreeRoot;
@@ -221,6 +222,44 @@ public class HomeUIViewController extends UIViewController {
             Section section= (Section) parentVal;
             section.getTasks().remove(itemVal);
             clearView();
+        }
+        else{
+            return;
+        }
+        refreshTree();
+    }
+
+    @FXML private void addSection(){
+        ListableItem item;
+        try{
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+        if(item.getType() == ListableType.List){
+            ToDoList list = (ToDoList) item;
+            list.getSections().add(orchestrator.getItemFactory().makeSection());
+            System.out.println("Added Section");
+        }
+        else{
+            return;
+        }
+        refreshTree();
+    }
+
+    @FXML public void removeSection(){
+        ListableItem item;
+        try{
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
+            return;
+        }
+        if(item.getType() == ListableType.Section){
+            ToDoList parentList = (ToDoList) fxTaskTree.getSelectionModel().getSelectedItem().getParent().getValue();
+            parentList.getSections().remove(item);
         }
         else{
             return;
