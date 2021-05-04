@@ -24,7 +24,7 @@ import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class SearchEngine {
     // Variables
@@ -39,9 +39,9 @@ public class SearchEngine {
     // Methods
     // SEARCHES:
 
-    // By DATE range
+    // By Calendar range
     // With Active user's master list
-    public ArrayList<ParentTask> searchByDate(Date start, Date end){
+    public ArrayList<ParentTask> searchByDate(Calendar start, Calendar end){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         for (ToDoList list : Orchestrator.getMasterList()){
             masterRecursiveByDate(start, end, list, taskResults);
@@ -49,7 +49,7 @@ public class SearchEngine {
         return taskResults;
     }
     // co function that recursively scans the list
-    private void masterRecursiveByDate(Date start, Date end, ToDoList toSearch, ArrayList<ParentTask> results) {
+    private void masterRecursiveByDate(Calendar start, Calendar end, ToDoList toSearch, ArrayList<ParentTask> results) {
         for (Section s : toSearch.getSections()){
             for (ParentTask task : s.getTasks()){
                 if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
@@ -70,7 +70,7 @@ public class SearchEngine {
         }
     }
     // With a ArrayList of Parents Tasks past in
-    public ArrayList<ParentTask> searchByDate(Date start, Date end, ArrayList<ParentTask> ListToSearch){
+    public ArrayList<ParentTask> searchByDate(Calendar start, Calendar end, ArrayList<ParentTask> ListToSearch){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         ArrayList<ParentTask> childTaskResults = new ArrayList<>();
         for (ParentTask task : ListToSearch){
@@ -120,7 +120,7 @@ public class SearchEngine {
         }
     }
     // With a ArrayListt of Parents Tasks past in
-    public ArrayList<ParentTask> LinkedsearchByTitle(String Value, ArrayList<ParentTask> ListToSearch){
+    public ArrayList<ParentTask> searchByTitle(String Value, ArrayList<ParentTask> ListToSearch){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         ArrayList<ParentTask> childTaskResults = new ArrayList<>();
         for (ParentTask task : ListToSearch){

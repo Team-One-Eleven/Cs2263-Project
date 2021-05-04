@@ -1,14 +1,10 @@
 /**
- * Search Engine class
+ * Search Engine Test class
  *
- * Takes a list for a given search condition and value and return's a new list
- * with the desired results.
+ * This set of tests need something to search, so they rely heavily on the Orchestrator's
+ * methods that create examples. Some of these tests are completely dead if thought functions change.
  *
- * Most of these functions are very similar as then need to scan throug hteh same lists,
- * but with variations in the contitions that the use to qualify for the search results
- *
- * As of version 1.0, all parentTask's are searched and added to the first section of the list,
- * then every ChildTask that qualifies has its parentTask added after the first section.
+ * TODO copy the orchestrator's functions, improve them and use the test @before setup.
  *
  * @author  Traae
  * @version 1.0
@@ -26,10 +22,14 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
+import org.junit.jupiter.api.Test;
 
 import javax.security.auth.login.FailedLoginException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SearchEngineTest {
     private Orchestrator o;
@@ -67,256 +67,162 @@ public class SearchEngineTest {
 
     }
 
-//    // By DATE range
-//    // With Active user's master list
-//    public ArrayList<ParentTask> searchByDate(Date start, Date end){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        for (ToDoList list : orchestrator.getMasterList()){
-//            masterRecursiveByDate(start, end, list, taskResults);
-//        }
-//        return taskResults;
-//    }
-//    // co function that recursively scans the list
-//    private void masterRecursiveByDate(Date start, Date end, ToDoList toSearch, ArrayList<ParentTask> results) {
-//        for (Section s : toSearch.getSections()){
-//            for (ParentTask task : s.getTasks()){
-//                if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
-//                    results.add(task);
-//                }
-//                else {
-//                    for (ChildTask c : task.getChildTasks()){
-//                        if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
-//                            results.add(task);
-//                        }
-//                    }
-//                }
-//
-//            }
-//            for (ToDoList list : s.getLists()){
-//                masterRecursiveByDate(start, end, list, results);
-//            }
-//        }
-//    }
-//    // With a ArrayList of Parents Tasks past in
-//    public ArrayList<ParentTask> searchByDate(Date start, Date end, ArrayList<ParentTask> ListToSearch){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-//        for (ParentTask task : ListToSearch){
-//            if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
-//                taskResults.add(task);
-//            }
-//            else {
-//                for (ChildTask c : task.getChildTasks()){
-//                    if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
-//                        childTaskResults.add(task);
-//                    }
-//                }
-//            }
-//        }
-//        taskResults.addAll(childTaskResults);
-//        return taskResults;
-//   }
-//
-//    // By LABEL
-//    // With Active user's master list
-//    public ArrayList<ParentTask> searchByLabel(String Value){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        for (ToDoList list : orchestrator.getMasterList()){
-//            masterRecursiveByLabel(Value, list, taskResults);
-//        }
-//        return taskResults;
-//    }
-//    // co function that recursively scans the list
-//    private void masterRecursiveByLabel(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
-//        for (Section s : toSearch.getSections()){
-//            for (ParentTask task : s.getTasks()){
-//                if (task.getLabels().contains(value)){
-//                    results.add(task);
-//                }
-//                else {
-//                    for (ChildTask c : task.getChildTasks()){
-//                        if (c.getLabels().contains(value)){
-//                            results.add(task);
-//                        }
-//                    }
-//                }
-//
-//            }
-//            for (ToDoList list : s.getLists()){
-//                masterRecursiveByLabel(value, list, results);
-//            }
-//        }
-//    }
-//    // With a ArrayList of Parents Tasks past in
-//    public ArrayList<ParentTask> searchByLabel(String Value, ArrayList<ParentTask> ListToSearch){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-//        for (ParentTask task : ListToSearch){
-//            if (task.getLabels().contains(Value)){
-//                taskResults.add(task);
-//            }
-//            else {
-//                for (ChildTask c : task.getChildTasks()){
-//                    if (c.getLabels().contains(Value)){
-//                        childTaskResults.add(task);
-//                    }
-//                }
-//            }
-//        }
-//        taskResults.addAll(childTaskResults);
-//        return taskResults;
-//    }
-//
-//    // By TITLE
-//    // With Active user's master list
-//    public ArrayList<ParentTask> searchByTitle(String Value){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        for (ToDoList list : orchestrator.getMasterList()){
-//            masterRecursiveByTitle(Value, list, taskResults);
-//        }
-//        return taskResults;
-//    }
-//    // co function that recursively scans the list
-//    private void masterRecursiveByTitle(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
-//        for (Section s : toSearch.getSections()){
-//            for (ParentTask task : s.getTasks()){
-//                if (task.getTitle() == value){
-//                    results.add(task);
-//                }
-//                else {
-//                    for (ChildTask c : task.getChildTasks()){
-//                        if (c.getTitle() == (value)){
-//                            results.add(task);
-//                        }
-//                    }
-//                }
-//
-//            }
-//            for (ToDoList list : s.getLists()){
-//                masterRecursiveByTitle(value, list, results);
-//            }
-//        }
-//    }
-//    // With a ArrayListt of Parents Tasks past in
-//    public ArrayList<ParentTask> LinkedsearchByTitle(String Value, ArrayList<ParentTask> ListToSearch){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-//        for (ParentTask task : ListToSearch){
-//            if (task.getTitle() == Value){
-//                taskResults.add(task);
-//            }
-//            else {
-//                for (ChildTask c : task.getChildTasks()){
-//                    if (c.getTitle() == Value){
-//                        childTaskResults.add(task);
-//                    }
-//                }
-//            }
-//        }
-//        taskResults.addAll(childTaskResults);
-//        return taskResults;
-//    }
-//
-//    // By PRIORITY
-//    // With Active user's master list
-//    public ArrayList<ParentTask> searchByPriority(TaskPriority Value){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        for (ToDoList list : orchestrator.getMasterList()){
-//            masterRecursiveByPriority(Value, list, taskResults);
-//        }
-//        return taskResults;
-//    }
-//    // co function that recursively scans the list
-//    private void masterRecursiveByPriority(TaskPriority value, ToDoList toSearch, ArrayList<ParentTask> results) {
-//        for (Section s : toSearch.getSections()){
-//            for (ParentTask task : s.getTasks()){
-//                if (task.getPriority() == value){
-//                    results.add(task);
-//                }
-//                else {
-//                    for (ChildTask c : task.getChildTasks()){
-//                        if (c.getPriority() == value){
-//                            results.add(task);
-//                        }
-//                    }
-//                }
-//
-//            }
-//            for (ToDoList list : s.getLists()){
-//                masterRecursiveByPriority(value, list, results);
-//            }
-//        }
-//    }
-//    // With a ArrayListof Parents Tasks past in
-//    public ArrayList<ParentTask> searchByPriority(TaskPriority Value, ArrayList<ParentTask> ListToSearch){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-//        for (ParentTask task : ListToSearch){
-//            if (task.getPriority() == Value){
-//                taskResults.add(task);
-//            }
-//            else {
-//                for (ChildTask c : task.getChildTasks()){
-//                    if (c.getPriority() == Value){
-//                        childTaskResults.add(task);
-//                    }
-//                }
-//            }
-//        }
-//        taskResults.addAll(childTaskResults);
-//        return taskResults;
-//    }
-//
-//    // By DESCRIPTION
-//    // With Active user's master list
-//    public   ArrayList<ParentTask> searchByDescription(String Value){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        for (ToDoList list : orchestrator.getMasterList()){
-//            masterRecursiveByDescription(Value, list, taskResults);
-//        }
-//        return taskResults;
-//    }
-//    // co function that recursively scans the list
-//    private void masterRecursiveByDescription(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
-//        for (Section s : toSearch.getSections()){
-//            for (ParentTask task : s.getTasks()){
-//                if (task.getDescription().contains(value)){
-//                    results.add(task);
-//                }
-//                else {
-//                    for (ChildTask c : task.getChildTasks()){
-//                        if (c.getDescription().contains(value)){
-//                            results.add(task);
-//                        }
-//                    }
-//                }
-//
-//            }
-//            for (ToDoList list : s.getLists()){
-//                masterRecursiveByDescription(value, list, results);
-//            }
-//        }
-//    }
-//    // With a ArrayList of Parents Tasks past in
-//    public   ArrayList<ParentTask> searchByDescription(String Value, ArrayList<ParentTask> ListToSearch){
-//        ArrayList<ParentTask> taskResults = new ArrayList<>();
-//        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
-//        for (ParentTask task : ListToSearch){
-//            if (task.getDescription().contains(Value)){
-//                        taskResults.add(task);
-//            }
-//            else {
-//                for (ChildTask c : task.getChildTasks()){
-//                    if (c.getDescription().contains(Value)){
-//                                childTaskResults.add(task);
-//                    }
-//                }
-//            }
-//        }
-//        taskResults.addAll(childTaskResults);
-//        return taskResults;
-//    }
-//
+    // By DATE range
+    // With Active user's master list
+    @Test public void searchByDateTEST(){
+        initTestResources();
+
+        // the Orcastrator's example list function has a couple Item's set to July 4th,
+        // and we used that for the user we initialized in this class.
+        Calendar start = Calendar.getInstance();
+        start.set(2021, Calendar.JULY, 3);
+        Calendar end = Calendar.getInstance();
+        end.set(2021, Calendar.JULY, 5);
+
+        ArrayList<ParentTask> results = o.getSearchEngine().searchByDate(start, end);
+
+        // the example list function has the 4th july on a couple items.
+        // using that for that for the master list test
+        boolean onlyJuly4th = true;
+        for (ParentTask p : results){
+            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+                onlyJuly4th = false;
+            }
+        }
+        assertTrue(onlyJuly4th);
+
+        // should just return the same list
+        results = o.getSearchEngine().searchByDate(start, end, results);
+        onlyJuly4th = true;
+        for (ParentTask p : results){
+            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+                onlyJuly4th = false;
+            }
+        }
+        assertTrue(onlyJuly4th);
+
+        // make a different date, add it to the list and then run it through once more to make sure.
+        ParentTask differentDate = o.getItemFactory().makeParentTask();
+        Calendar christmas = Calendar.getInstance();
+        christmas.set(2021, Calendar.DECEMBER, 25);
+        differentDate.setDueDate(christmas);
+        results.add(differentDate);
+        start.set(2021, Calendar.DECEMBER, 24);
+        end.set(2021, Calendar.DECEMBER, 26);
+
+        // should just return the same list
+        results = o.getSearchEngine().searchByDate(start, end, results);
+        boolean onlyXmas = true;
+        for (ParentTask p : results){
+            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+                onlyXmas = false;
+            }
+        }
+        assertTrue(onlyXmas);
+
+    }
+
+
+
+    @Test public void searchByTitleTEST(){
+        initTestResources();
+
+        String searchFor = "Title we are looking for";
+        ParentTask searchable1 = o.getItemFactory().makeParentTask();
+        searchable1.setTitle(searchFor);
+        ParentTask searchable2 = o.getItemFactory().makeParentTask();
+        searchable2.setTitle(searchFor);
+        ParentTask searchable3 = o.getItemFactory().makeParentTask();
+        searchable3.setTitle(searchFor);
+
+        o.getMasterList().get(0).getDefaultSection().addTask(searchable1);
+        o.getMasterList().get(1).getDefaultSection().addTask(searchable2);
+        o.getMasterList().get(-1).getSections().get(-1).addTask(searchable3);
+
+        ArrayList<ParentTask> results = o.getSearchEngine().searchByTitle(searchFor);
+
+        boolean onlyOurSearchable = true;
+        for (ParentTask p : results){
+            if (p.getTitle() != searchFor){
+                onlyOurSearchable = false;
+            }
+        }
+        assertTrue(onlyOurSearchable);
+
+        results = o.getSearchEngine().searchByTitle("Not searchFor", results);
+        boolean notOurSearchable = true;
+        for (ParentTask p : results){
+            if (p.getTitle() == searchFor){
+                notOurSearchable = false;
+            }
+        }
+        assertTrue(notOurSearchable);
+
+    }
+
+
+
+    @Test public void searchByPriorityTEST(){
+        initTestResources();
+
+        ArrayList<ParentTask> results = o.getSearchEngine().searchByPriority(TaskPriority.Highest);
+        boolean onlyHighest = true;
+        for (ParentTask p : results){
+            if (p.getPriority() != TaskPriority.Highest){
+                onlyHighest = false;
+            }
+        }
+        assertTrue(onlyHighest);
+        // currently there are 2 Highest in the MakeExampleListStructure()
+        // if that changes this assertion is obsolete.
+        // I need to code this better
+        assertTrue(results.size() == 2);
+
+        // now I'll have the search engine by each priority and add them.
+        // then test the list search
+        results.addAll(o.getSearchEngine().searchByPriority(TaskPriority.Low));
+        results.addAll(o.getSearchEngine().searchByPriority(TaskPriority.Medium));
+        results.addAll(o.getSearchEngine().searchByPriority(TaskPriority.High));
+
+        results = o.getSearchEngine().searchByPriority(TaskPriority.Medium);
+        boolean onlyMed = true;
+        for (ParentTask p : results){
+            if (p.getPriority() != TaskPriority.Medium){
+                onlyMed = false;
+            }
+        }
+        assertTrue(onlyMed);
+
+    }
+
+
+    @Test public void searchByDescriptionTEST(){
+        initTestResources();
+
+        String searchFor = "description we are looking for";
+        ParentTask searchable1 = o.getItemFactory().makeParentTask();
+        searchable1.setDescription(searchFor);
+        ParentTask searchable2 = o.getItemFactory().makeParentTask();
+        searchable2.setDescription(searchFor);
+        ParentTask searchable3 = o.getItemFactory().makeParentTask();
+        searchable3.setDescription(searchFor);
+
+        o.getMasterList().get(0).getDefaultSection().addTask(searchable1);
+        o.getMasterList().get(1).getDefaultSection().addTask(searchable2);
+        o.getMasterList().get(-1).getSections().get(-1).addTask(searchable3);
+
+        ArrayList<ParentTask> results = o.getSearchEngine().searchByDescription(searchFor);
+
+        boolean onlyOurSearchable = true;
+        for (ParentTask p : results){
+            if (!p.getDescription().contains(searchFor)){
+                onlyOurSearchable = false;
+            }
+        }
+        assertTrue(onlyOurSearchable);
+
+
+    }
 
 
 }

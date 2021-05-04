@@ -1,24 +1,21 @@
 /**
- * Configurations for the system.
+ * Configuration Test Class.
  *
- * Currently the config has had its functionality reduced from the project's original scale.
+ * Since the configuration got boild down to just the Id seed,
+ * that's all we have to test.
  *
- * It's only being used for the user id seed, which is super important,
- * and for holding global variables used through out the orchestrator and associated tools.
+ * However, the tests kinda have to replicate the function inorder to test them.
+ *
  *
  * @author Traae
  * @version 1.0
- * @since 4/6/2021
+ * @since 4/30/2021
  */
 
 package Cs2263.Project;
 
 import Cs2263.Project.listable.UserCredentials;
 import org.junit.jupiter.api.Test;
-import Cs2263.Project.Orchestrator;
-
-
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigurationTest {
@@ -27,7 +24,7 @@ public class ConfigurationTest {
     @Test void TESTgetNextUserIDseed() {
         Configuration c = new Configuration();
         assertTrue(c.getNextUserIDseed() == 2);
-        for (int i=3; i<100; i++){
+        for (int i=3; i<10; i++){
             assertTrue(c.getNextUserIDseed() == i);
         }
     }
