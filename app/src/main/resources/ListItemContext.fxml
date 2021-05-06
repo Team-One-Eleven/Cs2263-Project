@@ -55,7 +55,7 @@
                </rowConstraints>
                <children>
                   <Button fx:id="fxArchiveButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Archive" />
-                  <Button fx:id="fxDeleteListButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="2" />
+                  <Button fx:id="fxDeleteListButton" alignment="CENTER" mnemonicParsing="false" onAction="#removeList" prefHeight="25.0" prefWidth="85.0" text="Delete" GridPane.rowIndex="2" />
                   <Button fx:id="fxMoveAllButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Move All" GridPane.rowIndex="1" />
                   <Button fx:id="fxSaveListButton" alignment="CENTER" mnemonicParsing="false" onAction="#saveList" prefHeight="25.0" prefWidth="85.0" text="Save" GridPane.rowIndex="3" />
                </children>

@@ -99,7 +99,7 @@
                </rowConstraints>
                <children>
                   <DatePicker fx:id="fxDatePicker" GridPane.halignment="CENTER" />
-                  <Button fx:id="fxCompleteTaskButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Complete" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                  <Button fx:id="fxCompleteTaskButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#completeButton" text="Complete" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                      <GridPane.margin>
                         <Insets left="6.0" />
                      </GridPane.margin>

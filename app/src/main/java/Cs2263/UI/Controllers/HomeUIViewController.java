@@ -16,6 +16,7 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
+import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.UI.UIManager;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -27,9 +28,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class HomeUIViewController extends UIViewController {
@@ -84,11 +85,12 @@ public class HomeUIViewController extends UIViewController {
     @FXML private Tab fxCompletedTab;
     @FXML private Tab fxOverdueTab;
     @FXML private Tab fxArchivedTab;
-    @FXML private TreeView<ListableItem> fxTodayTree;
-    @FXML private TreeView<ListableItem> fxUpcomingTree;
-    @FXML private ListView<ListableItem> fxOverdueTree;
-    @FXML private ListView<ListableItem> fxCompletedTree;
-    @FXML private ListView<ListableItem> fxArchivedTree;
+    @FXML private Tab fxTodayTab;
+    @FXML private ListView<ListableItem> fxTodayList;
+    @FXML private ListView<ListableItem> fxUpcomingList;
+    @FXML private ListView<ListableItem> fxOverdueList;
+    @FXML private ListView<ListableItem> fxCompletedList;
+    @FXML private TreeView<ListableItem> fxArchivedTree;
 
     //List TreeView Roots
     private TreeItem<ListableItem> taskTreeRoot;
@@ -143,7 +145,6 @@ public class HomeUIViewController extends UIViewController {
         taskContextUIController.setHomeUIViewController(this);
         listContextUIController.setHomeUIViewController(this);
         sectionContextUIController.setHomeUIViewController(this);
-        loadUserTaskList();
     }
 
 
@@ -185,11 +186,11 @@ public class HomeUIViewController extends UIViewController {
 
     @FXML private void addTask(){
         ListableItem item;
-        try{
+        try {
             item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
         }
         catch (NullPointerException e){
-            return;
+            item = fxTaskTree.getRoot().getValue();
         }
         if(item.getType() == ListableType.List){
             ToDoList list = (ToDoList) item;
@@ -232,17 +233,15 @@ public class HomeUIViewController extends UIViewController {
 
     @FXML private void addSection(){
         ListableItem item;
-        try{
+        try {
             item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
         }
         catch (NullPointerException e){
-            System.out.println(e.getMessage());
-            return;
+            item = fxTaskTree.getRoot().getValue();
         }
         if(item.getType() == ListableType.List){
             ToDoList list = (ToDoList) item;
             list.getSections().add(orchestrator.getItemFactory().makeSection());
-            System.out.println("Added Section");
         }
         else{
             return;
@@ -268,6 +267,46 @@ public class HomeUIViewController extends UIViewController {
         refreshTree();
     }
 
+    @FXML private void addList(){
+        ListableItem item;
+        try {
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
+            item = fxTaskTree.getRoot().getValue();
+        }
+        if(item.getType() == ListableType.List){
+            ToDoList list = (ToDoList) item;
+            list.getDefaultSection().getLists().add(orchestrator.getItemFactory().makeToDOList());
+        }
+        else if(item.getType() == ListableType.Section){
+            Section section = (Section) item;
+            section.getLists().add(orchestrator.getItemFactory().makeToDOList());
+        }
+        else{
+            return;
+        }
+        refreshTree();
+    }
+
+    @FXML public void removeList(){
+        ListableItem item;
+        try{
+            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+        }
+        catch (NullPointerException e){
+            return;
+        }
+        if(item.getType() == ListableType.List){
+            Section parentSection = (Section) fxTaskTree.getSelectionModel().getSelectedItem().getParent().getValue();
+            parentSection.getLists().remove(item);
+        }
+        else{
+            return;
+        }
+        refreshTree();
+    }
+
 
 
 
@@ -276,52 +315,52 @@ public class HomeUIViewController extends UIViewController {
      *
      */
     @FXML public void loadUserTaskList() {
-//        ArrayList<ToDoList> masterList = orchestrator.getMasterList();
-//        if(masterList == null){
-//            throw new NullPointerException();
-//        }
-//        for(ListableItem i : masterList){
-//            taskTreeRoot.getChildren().add(buildTree(i));
-//        }
+        ArrayList<ToDoList> masterList = orchestrator.getMasterList();
+        if(masterList == null){
+            throw new NullPointerException();
+        }
+        for(ListableItem i : masterList){
+            taskTreeRoot.getChildren().add(buildTree(i));
+        }
 
-        ParentTask task1 = new ParentTask();
-        task1.setTitle("Task 1");
-        task1.setDescription("Task 1 vibes");
-        task1.setPriority(TaskPriority.High);
+//        ParentTask task1 = new ParentTask();
+//        task1.setTitle("Task 1");
+//        task1.setDescription("Task 1 vibes");
+//        task1.setPriority(TaskPriority.High);
+//
+//        ParentTask task2 = new ParentTask();
+//        task2.setTitle("Task 2");
+//        task2.setDescription("Task 2 vibes");
+//        task2.setPriority(TaskPriority.Medium);
+//
+//        ParentTask task3 = new ParentTask();
+//        task3.setTitle("Task 3");
+//        task3.setDescription("Task 3 vibes");
+//        task3.setPriority(TaskPriority.Low);
+//
+//        Section section1 = new Section();
+//        section1.setTitle("Section 1");
+//        section1.setDescription("Section 1 vibes");
+//
+//        Section section2 = new Section();
+//        section2.setTitle("Section 2");
+//        section2.setDescription("Section 2 vibes");
+//
+//        section1.getTasks().add(task1);
+//        section1.getTasks().add(task2);
+//        section2.getTasks().add(task3);
+//
+//        ToDoList list1 = new ToDoList();
+//        list1.setTitle("List 1");
+//        list1.initDefaultSection(section1);
+//        list1.setDescription("List 1 vibes");
+//
+//        list1.getSections().add(section1);
+//        list1.getSections().add(section2);
 
-        ParentTask task2 = new ParentTask();
-        task2.setTitle("Task 2");
-        task2.setDescription("Task 2 vibes");
-        task2.setPriority(TaskPriority.Medium);
+        //testList = list1;
 
-        ParentTask task3 = new ParentTask();
-        task3.setTitle("Task 3");
-        task3.setDescription("Task 3 vibes");
-        task3.setPriority(TaskPriority.Low);
-
-        Section section1 = new Section();
-        section1.setTitle("Section 1");
-        section1.setDescription("Section 1 vibes");
-
-        Section section2 = new Section();
-        section2.setTitle("Section 2");
-        section2.setDescription("Section 2 vibes");
-
-        section1.getTasks().add(task1);
-        section1.getTasks().add(task2);
-        section2.getTasks().add(task3);
-
-        ToDoList list1 = new ToDoList();
-        list1.setTitle("List 1");
-        list1.initDefaultSection(section1);
-        list1.setDescription("List 1 vibes");
-
-        list1.getSections().add(section1);
-        list1.getSections().add(section2);
-
-        testList = list1;
-
-        taskTreeRoot = buildTree(testList);
+       // taskTreeRoot = buildTree(testList);
 
         fxTaskTree.setRoot(taskTreeRoot);
 
@@ -381,6 +420,25 @@ public class HomeUIViewController extends UIViewController {
             else if(root.getType() == ListableType.ParentTask){
                 ParentTask task = (ParentTask) root;
                 returnTree = new TreeItem<>(task);
+                if(task.getStatus() == TaskStatus.incomplete){
+                    if(task.getDueDate().isEqual(LocalDate.now())){
+                        fxTodayList.getItems().add(task);
+                    }
+                    else if(task.getDueDate().isAfter(LocalDate.now())){
+                        fxUpcomingList.getItems().add(task);
+                    }
+                    else if(task.getDueDate().isBefore(LocalDate.now())){
+                        task.setStatus(TaskStatus.overdue);
+                        fxOverdueList.getItems().add(task);
+                    }
+                }
+                else if(task.getStatus() == TaskStatus.complete){
+                    fxCompletedList.getItems().add(task);
+                    return null;
+                }
+                else if(task.getStatus() == TaskStatus.overdue){
+                    fxOverdueList.getItems().add(task);
+                }
 
                 ArrayList<ListableItem> childArray = new ArrayList<>();
                 for(ChildTask child : task.getChildTasks()){
@@ -397,8 +455,25 @@ public class HomeUIViewController extends UIViewController {
             else if(root.getType() == ListableType.ChildTask){
                 ChildTask child = (ChildTask) root;
                 returnTree = new TreeItem<>(child);
-
-
+                if(child.getStatus() == TaskStatus.incomplete){
+                    if(child.getDueDate().isEqual(LocalDate.now())){
+                        fxTodayList.getItems().add(child);
+                    }
+                    else if(child.getDueDate().isAfter(LocalDate.now())){
+                        fxUpcomingList.getItems().add(child);
+                    }
+                    else if(child.getDueDate().isBefore(LocalDate.now())){
+                        child.setStatus(TaskStatus.overdue);
+                        fxOverdueList.getItems().add(child);
+                    }
+                }
+                else if(child.getStatus() == TaskStatus.complete){
+                    fxCompletedList.getItems().add(child);
+                    return null;
+                }
+                else if(child.getStatus() == TaskStatus.overdue){
+                    fxOverdueList.getItems().add(child);
+                }
                 returnTree.setExpanded(true);
                 return returnTree;
             }
@@ -407,6 +482,10 @@ public class HomeUIViewController extends UIViewController {
 
     public void refreshTree(){
         taskTreeRoot.getChildren().clear();
+        fxTodayList.getItems().clear();
+        fxUpcomingList.getItems().clear();
+        fxOverdueList.getItems().clear();
+        fxCompletedList.getItems().clear();
         taskTreeRoot = buildTree(testList);
         taskTreeRoot.setExpanded(true);
         fxTaskTree.setRoot(taskTreeRoot);
@@ -427,7 +506,27 @@ public class HomeUIViewController extends UIViewController {
     @FXML private void setSelectedItem() {
         ListableItem item;
         try {
-            item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+            if(fxTasksTab.isSelected()){
+                item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
+            }
+            else if(fxTodayTab.isSelected()){
+                item = fxTodayList.getSelectionModel().getSelectedItem();
+            }
+            else if(fxUpcomingTab.isSelected()){
+                item = fxUpcomingList.getSelectionModel().getSelectedItem();
+            }
+            else if(fxOverdueTab.isSelected()){
+                item = fxOverdueList.getSelectionModel().getSelectedItem();
+            }
+            else if(fxArchivedTab.isSelected()){
+                item = fxArchivedTree.getSelectionModel().getSelectedItem().getValue();
+            }
+            else if(fxCompletedTab.isSelected()){
+                item = fxCompletedList.getSelectionModel().getSelectedItem();
+            }
+            else{
+                return;
+            }
         } catch (NullPointerException e) {
             return;
         }
@@ -441,12 +540,12 @@ public class HomeUIViewController extends UIViewController {
             showSection();
         } else if (item.getType() == ListableType.ParentTask) {
             ParentTask task = (ParentTask) item;
-            taskContextUIController.setData(task, task.getTitle(), task.getDescription());
+            taskContextUIController.setData(task, task.getTitle(), task.getDescription(), task.getDueDate());
             showTask();
         }
         else if (item.getType() == ListableType.ChildTask){
             ChildTask task = (ChildTask) item;
-            taskContextUIController.setData(task, task.getTitle(), task.getDescription());
+            taskContextUIController.setData(task, task.getTitle(), task.getDescription(), task.getDueDate());
             showTask();
         }
     }

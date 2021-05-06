@@ -49,7 +49,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
                            <children>
-                              <TreeView fx:id="fxTodayTree" onMouseClicked="#setSelectedItem" prefHeight="292.0" prefWidth="200.0" />
+                              <ListView fx:id="fxTodayList" onMouseClicked="#setSelectedItem" prefHeight="288.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -58,7 +58,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="299.0">
                            <children>
-                              <TreeView fx:id="fxUpcomingTree" onMouseClicked="#setSelectedItem" prefHeight="292.0" prefWidth="200.0" />
+                              <ListView fx:id="fxUpcomingList" onMouseClicked="#setSelectedItem" prefHeight="288.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -67,7 +67,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxOverdueTree" prefHeight="289.0" prefWidth="205.0" />
+                              <ListView fx:id="fxOverdueList" onMouseClicked="#setSelectedItem" prefHeight="288.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -76,7 +76,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxCompletedTree" prefHeight="290.0" prefWidth="200.0" />
+                              <ListView fx:id="fxCompletedList" onMouseClicked="#setSelectedItem" prefHeight="288.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -85,7 +85,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ListView fx:id="fxArchivedTree" prefHeight="300.0" prefWidth="200.0" />
+                              <TreeView fx:id="fxArchivedTree" onMouseClicked="#setSelectedItem" prefHeight="292.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -120,7 +120,7 @@
                <children>
                   <Button fx:id="fxNewTaskButton" mnemonicParsing="false" onAction="#addTask" prefHeight="25.0" prefWidth="64.0" text="+Task" GridPane.halignment="LEFT" />
                   <Button fx:id="fxNewSectionButton" mnemonicParsing="false" onAction="#addSection" text="+Section" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Button fx:id="fxNewListButton" mnemonicParsing="false" prefWidth="64.0" text="+List" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                  <Button fx:id="fxNewListButton" mnemonicParsing="false" onAction="#addList" prefWidth="64.0" text="+List" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
                </children>
             </GridPane>
          </children>
@@ -138,7 +138,7 @@
           <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="fxUserButton" mnemonicParsing="false" onAction="#openFirstLastDialog" prefHeight="25.0" prefWidth="47.0" text="User">
+            <Button fx:id="fxUserButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="User">
                <GridPane.margin>
                   <Insets bottom="-5.0" left="5.0" />
                </GridPane.margin>

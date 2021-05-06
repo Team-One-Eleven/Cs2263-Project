@@ -7,11 +7,13 @@
 package Cs2263.UI.Controllers;
 import Cs2263.Project.listable.tasks.TaskArchetype;
 import Cs2263.Project.listable.tasks.TaskPriority;
+import Cs2263.Project.listable.tasks.TaskStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class TaskContextUIController extends UIViewController{
@@ -51,13 +53,20 @@ public class TaskContextUIController extends UIViewController{
         fxPriorityComboBox.getItems().addAll(TaskPriority.Low,TaskPriority.Medium,TaskPriority.High,TaskPriority.Highest);
     }
 
-    @FXML public void setData(TaskArchetype item, String title, String body){
+    @FXML public void setData(TaskArchetype item, String title, String body, LocalDate date){
         if(item != null){
             this.task = item;
         }
         fxNoteTitleTextField.setText(title);
         fxNoteBodyTextArea.setText(body);
         fxPriorityComboBox.getSelectionModel().select(task.getPriority());
+        fxDatePicker.setValue(date);
+        if(this.task.getStatus() == TaskStatus.incomplete || this.task.getStatus() == TaskStatus.overdue){
+            fxCompleteTaskButton.setText("Complete");
+        }
+        else if(this.task.getStatus() == TaskStatus.complete){
+            fxCompleteTaskButton.setText("Restore");
+        }
     }
 
     @FXML private void saveTask(){
@@ -65,6 +74,19 @@ public class TaskContextUIController extends UIViewController{
         task.setTitle(fxNoteTitleTextField.getText());
         task.setDescription(fxNoteBodyTextArea.getText());
         task.setPriority((TaskPriority) fxPriorityComboBox.getSelectionModel().getSelectedItem());
+        task.setDueDate(fxDatePicker.getValue());
+        homeUIViewController.refreshTree();
+    }
+
+    @FXML private void completeButton(){
+        if(this.task.getStatus() == TaskStatus.incomplete || this.task.getStatus() == TaskStatus.overdue){
+            this.task.setStatus(TaskStatus.complete);
+            fxCompleteTaskButton.setText("Restore");
+        }
+        else if(this.task.getStatus() == TaskStatus.complete){
+            this.task.setStatus(TaskStatus.incomplete);
+            fxCompleteTaskButton.setText("Complete");
+        }
         homeUIViewController.refreshTree();
     }
 

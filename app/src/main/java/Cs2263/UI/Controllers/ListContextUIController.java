@@ -52,6 +52,10 @@ public class ListContextUIController extends UIViewController {
         homeUIViewController.refreshTree();
     }
 
+    @FXML private void removeList(){
+        homeUIViewController.removeList();
+    }
+
     public void setHomeUIViewController(HomeUIViewController c){
         this.homeUIViewController = c;
     }
