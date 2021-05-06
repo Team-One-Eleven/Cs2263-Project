@@ -22,6 +22,8 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.Project.User;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -129,7 +131,7 @@ public class ListManager {
             deconstructMasterList();
         }
         for (ParentTask t : o.getActiveUser().getTheTasks()){
-            if ((t.getDueDate().before(new Date())) & (t.getStatus() == TaskStatus.incomplete)){
+            if ((t.getDueDate().isAfter(LocalDate.now())) & (t.getStatus() == TaskStatus.incomplete)){
                 t.setStatus(TaskStatus.overdue);
             }
         }

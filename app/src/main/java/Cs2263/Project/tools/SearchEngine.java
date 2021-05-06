@@ -103,12 +103,12 @@ public class SearchEngine {
     private void masterRecursiveByDate(LocalDate searchDate, ToDoList toSearch, ArrayList<ParentTask> results) {
         for (Section s : toSearch.getSections()){
             for (ParentTask task : s.getTasks()){
-                if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
+                if (task.getDueDate().isEqual(searchDate)){
                     results.add(task);
                 }
                 else {
                     for (ChildTask c : task.getChildTasks()){
-                        if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
+                        if (c.getDueDate().isEqual(searchDate)){
                             results.add(task);
                         }
                     }
@@ -116,21 +116,21 @@ public class SearchEngine {
 
             }
             for (ToDoList list : s.getLists()){
-                masterRecursiveByDateRange(start, end, list, results);
+                masterRecursiveByDate(searchDate, list, results);
             }
         }
     }
     // With a ArrayList of Parents Tasks past in
-    public ArrayList<ParentTask> searchByDate(LocalDate start, LocalDate end, ArrayList<ParentTask> ListToSearch){
+    public ArrayList<ParentTask> searchByDate(LocalDate searchDate, ArrayList<ParentTask> ListToSearch){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         ArrayList<ParentTask> childTaskResults = new ArrayList<>();
         for (ParentTask task : ListToSearch){
-            if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
+            if (task.getDueDate().isEqual(searchDate)){
                 taskResults.add(task);
             }
             else {
                 for (ChildTask c : task.getChildTasks()){
-                    if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
+                    if (c.getDueDate().isEqual(searchDate)){
                         childTaskResults.add(task);
                     }
                 }
