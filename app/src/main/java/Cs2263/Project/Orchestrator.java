@@ -101,7 +101,7 @@ public class Orchestrator {
          */
         for (UserCredentials u: userList){
             // first, see if the email is already in use
-            if (u.getUserEmail() == email){
+            if (u.getUserEmail().equals(email)){
                 return false;
             }
         }
@@ -128,10 +128,6 @@ public class Orchestrator {
             if (info.getUserEmail().equals(email)){
                 System.out.println(info.getUserEmail());
                 toLogin = info;
-            }else {
-                System.out.println("-------");
-                System.out.println(email);
-                System.out.println(info.getUserEmail());
             }
         }
         if (toLogin == null){

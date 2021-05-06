@@ -39,7 +39,7 @@ public class FileManagerTest {
             testUserList = fileman.loadUserList();
             // for testing purposes, I need to manually remove the example 1  user to show that it isn't the example list data
             for (UserCredentials u : testUserList){
-                assertFalse(u.getUserEmail() == "example1@example.com");
+                assertFalse(u.getUserEmail().equals("example1@example.com"));
             }
     }
 
@@ -55,9 +55,9 @@ public class FileManagerTest {
             boolean ex3present = false;
             for (UserCredentials u : testUserList){
                 if (u.getUserEmail() == Configuration.ADMIN_EMAIL_DEFAULT) { adminpresent = true; }
-                if (u.getUserEmail() == "example1@example.com") { ex1present = true; }
-                if (u.getUserEmail() == "example2@example.com") { ex2present = true; }
-                if (u.getUserEmail() == "example3@example.com") { ex3present = true; }
+                if (u.getUserEmail().equals("example1@example.com")) { ex1present = true; }
+                if (u.getUserEmail().equals("example2@example.com")) { ex2present = true; }
+                if (u.getUserEmail().equals("example3@example.com")) { ex3present = true; }
             }
             assertTrue(testUserList.size() == 4);
             assertTrue(adminpresent);
