@@ -128,6 +128,9 @@ public class Orchestrator {
             if (info.getUserEmail() == email){
                 System.out.println(info.getUserEmail());
                 toLogin = info;
+            }else {
+                System.out.println(email);
+                System.out.println(info.getUserEmail());
             }
         }
         if (toLogin == null){

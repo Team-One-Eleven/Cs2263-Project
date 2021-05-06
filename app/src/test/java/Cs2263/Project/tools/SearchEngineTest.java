@@ -114,7 +114,7 @@ public class SearchEngineTest {
 //        results = o.getSearchEngine().searchByDate(start, end, results);
 //        boolean onlyXmas = true;
 //        for (ParentTask p : results){
-//            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+//            if ((p.getDueDate().isAfter(end)) & (p.getDueDate().before(start))){
 //                onlyXmas = false;
 //            }
 //        }
