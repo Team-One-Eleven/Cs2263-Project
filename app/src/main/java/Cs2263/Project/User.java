@@ -31,9 +31,9 @@ public class User implements Serializable {
 
     // Constructor
     public User(){
-        firstName = "";
-        lastName = "";
-        biography = "";
+        firstName = "Your";
+        lastName = "Name";
+        biography = "Your bio.";
         theTasks = new ArrayList<>();
         theLists = new ArrayList<>();
     }

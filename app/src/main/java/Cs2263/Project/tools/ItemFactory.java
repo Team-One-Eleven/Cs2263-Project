@@ -37,6 +37,7 @@ public class ItemFactory {
         s.setId(Orchestrator.getActiveUser().getNextSectionID());
         t.initDefaultSection(s);
         t.getSections().add(s);
+        t.setTitle("New List");
         return t;
     }
 
@@ -44,14 +45,19 @@ public class ItemFactory {
     // Ensures to produce a new section with a unique section ID
     public Section makeSection(){
         Section s = new Section();
+        s.setTitle("New Section");
         s.setId(Orchestrator.getActiveUser().getNextSectionID());
         return s;
     }
 
     public ParentTask makeParentTask(){
-        return new ParentTask();
+        ParentTask p = new ParentTask();
+        p.setTitle("New Task");
+        return p;
     }
     public ChildTask makeChildTask(){
+        ChildTask c = new ChildTask();
+        c.setTitle("New subTask");
         return new ChildTask();
     }
 }

@@ -32,7 +32,7 @@ public class UserFactory {
     // Makes
     public User makeUser(){
         User u = new User();
-        return new User();
+        return u;
     }
     public UserCredentials makeUserInfo(String email, String password, double userId) {
         UserCredentials newInfo = new UserCredentials();

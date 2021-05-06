@@ -23,8 +23,9 @@ import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class SearchEngine {
     // Variables
@@ -41,23 +42,23 @@ public class SearchEngine {
 
     // By Calendar range
     // With Active user's master list
-    public ArrayList<ParentTask> searchByDate(Calendar start, Calendar end){
+    public ArrayList<ParentTask> searchByDateRange(LocalDate start, LocalDate end){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         for (ToDoList list : Orchestrator.getMasterList()){
-            masterRecursiveByDate(start, end, list, taskResults);
+            masterRecursiveByDateRange(start, end, list, taskResults);
         }
         return taskResults;
     }
     // co function that recursively scans the list
-    private void masterRecursiveByDate(Calendar start, Calendar end, ToDoList toSearch, ArrayList<ParentTask> results) {
+    private void masterRecursiveByDateRange(LocalDate start, LocalDate end, ToDoList toSearch, ArrayList<ParentTask> results) {
         for (Section s : toSearch.getSections()){
             for (ParentTask task : s.getTasks()){
-                if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
+                if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
                     results.add(task);
                 }
                 else {
                     for (ChildTask c : task.getChildTasks()){
-                        if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
+                        if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
                             results.add(task);
                         }
                     }
@@ -65,21 +66,21 @@ public class SearchEngine {
 
             }
             for (ToDoList list : s.getLists()){
-                masterRecursiveByDate(start, end, list, results);
+                masterRecursiveByDateRange(start, end, list, results);
             }
         }
     }
     // With a ArrayList of Parents Tasks past in
-    public ArrayList<ParentTask> searchByDate(Calendar start, Calendar end, ArrayList<ParentTask> ListToSearch){
+    public ArrayList<ParentTask> searchByDateRange(LocalDate start, LocalDate end, ArrayList<ParentTask> ListToSearch){
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         ArrayList<ParentTask> childTaskResults = new ArrayList<>();
         for (ParentTask task : ListToSearch){
-            if ((task.getDueDate().after(start)) & (task.getDueDate().before(end))){
+            if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
                 taskResults.add(task);
             }
             else {
                 for (ChildTask c : task.getChildTasks()){
-                    if ((c.getDueDate().after(start)) & (c.getDueDate().before(end))){
+                    if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
                         childTaskResults.add(task);
                     }
                 }
@@ -88,6 +89,56 @@ public class SearchEngine {
         taskResults.addAll(childTaskResults);
         return taskResults;
    }
+
+    // By Calendar Date
+    // With Active user's master list
+    public ArrayList<ParentTask> searchByDate(LocalDate searchDate){
+        ArrayList<ParentTask> taskResults = new ArrayList<>();
+        for (ToDoList list : Orchestrator.getMasterList()){
+            masterRecursiveByDate(searchDate, list, taskResults);
+        }
+        return taskResults;
+    }
+    // co function that recursively scans the list
+    private void masterRecursiveByDate(LocalDate searchDate, ToDoList toSearch, ArrayList<ParentTask> results) {
+        for (Section s : toSearch.getSections()){
+            for (ParentTask task : s.getTasks()){
+                if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
+                    results.add(task);
+                }
+                else {
+                    for (ChildTask c : task.getChildTasks()){
+                        if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
+                            results.add(task);
+                        }
+                    }
+                }
+
+            }
+            for (ToDoList list : s.getLists()){
+                masterRecursiveByDateRange(start, end, list, results);
+            }
+        }
+    }
+    // With a ArrayList of Parents Tasks past in
+    public ArrayList<ParentTask> searchByDate(LocalDate start, LocalDate end, ArrayList<ParentTask> ListToSearch){
+        ArrayList<ParentTask> taskResults = new ArrayList<>();
+        ArrayList<ParentTask> childTaskResults = new ArrayList<>();
+        for (ParentTask task : ListToSearch){
+            if ((task.getDueDate().isAfter(start)) & (task.getDueDate().isBefore(end))){
+                taskResults.add(task);
+            }
+            else {
+                for (ChildTask c : task.getChildTasks()){
+                    if ((c.getDueDate().isAfter(start)) & (c.getDueDate().isBefore(end))){
+                        childTaskResults.add(task);
+                    }
+                }
+            }
+        }
+        taskResults.addAll(childTaskResults);
+        return taskResults;
+    }
 
     // By TITLE
     // With Active user's master list

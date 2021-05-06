@@ -21,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -105,7 +104,7 @@ public class FileManager {
             theUser = gson.fromJson(readIn, type);
         }
         catch (Exception e){
-            theUser = orchestrator.makeDefaultUser();
+            theUser = orchestrator.makeExampleUser();
             System.out.println("load user Exception");
             System.out.println(e.toString());
             System.out.println(e.getMessage());

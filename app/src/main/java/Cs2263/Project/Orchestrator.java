@@ -159,7 +159,7 @@ public class Orchestrator {
         activeUser = null;
         masterList = null;
     }
-    public void autosave() {
+    public void saveActivity() {
         /**
          * This is a compound method the provide the methods to perform a safe save of data.
          * it have been named autosave to match its functional usage in the app/driver.
@@ -213,30 +213,7 @@ public class Orchestrator {
         return userList;
     }
 
-    private void makeExampleUsers() {
-        /**
-         * This is a compound function the should only be called by makeDefaultUserList()
-         *
-         * for Testing purposes. Delete or comment away later.
-         *
-         * This function will further populated the the user list with some data for the new admin to check.
-         *
-         */
-        for (int i=3; i>0; i--){
-            UserCredentials info = userFactory.makeUserInfo("example" + i + "@example.com", "password",  i);
-            User example = userFactory.makeUser();
-            example.setFirstName("example");
-            example.setLastName("Number: " + i);
-            example.setBiography("This biography was written my make Example Users \n Example #" + i);
-
-            example.getTheLists().add(makeAnExampleListStructure(i));
-
-            userList.add(info);
-
-        }
-    }
-
-    public User makeDefaultUser(){
+    public User makeExampleUser(){
         UserCredentials info = userFactory.makeUserInfo(
                 "user@eaxmple.com",
                 "password123",

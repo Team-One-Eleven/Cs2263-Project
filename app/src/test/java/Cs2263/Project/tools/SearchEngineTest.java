@@ -67,60 +67,60 @@ public class SearchEngineTest {
 
     }
 
-    // By DATE range
-    // With Active user's master list
-    @Test public void searchByDateTEST(){
-        initTestResources();
-
-        // the Orcastrator's example list function has a couple Item's set to July 4th,
-        // and we used that for the user we initialized in this class.
-        Calendar start = Calendar.getInstance();
-        start.set(2021, Calendar.JULY, 3);
-        Calendar end = Calendar.getInstance();
-        end.set(2021, Calendar.JULY, 5);
-
-        ArrayList<ParentTask> results = o.getSearchEngine().searchByDate(start, end);
-
-        // the example list function has the 4th july on a couple items.
-        // using that for that for the master list test
-        boolean onlyJuly4th = true;
-        for (ParentTask p : results){
-            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
-                onlyJuly4th = false;
-            }
-        }
-        assertTrue(onlyJuly4th);
-
-        // should just return the same list
-        results = o.getSearchEngine().searchByDate(start, end, results);
-        onlyJuly4th = true;
-        for (ParentTask p : results){
-            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
-                onlyJuly4th = false;
-            }
-        }
-        assertTrue(onlyJuly4th);
-
-        // make a different date, add it to the list and then run it through once more to make sure.
-        ParentTask differentDate = o.getItemFactory().makeParentTask();
-        Calendar christmas = Calendar.getInstance();
-        christmas.set(2021, Calendar.DECEMBER, 25);
-        differentDate.setDueDate(christmas);
-        results.add(differentDate);
-        start.set(2021, Calendar.DECEMBER, 24);
-        end.set(2021, Calendar.DECEMBER, 26);
-
-        // should just return the same list
-        results = o.getSearchEngine().searchByDate(start, end, results);
-        boolean onlyXmas = true;
-        for (ParentTask p : results){
-            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
-                onlyXmas = false;
-            }
-        }
-        assertTrue(onlyXmas);
-
-    }
+//    // By DATE range
+//    // With Active user's master list
+//    @Test public void searchByDateTEST(){
+//        initTestResources();
+//
+//        // the Orcastrator's example list function has a couple Item's set to July 4th,
+//        // and we used that for the user we initialized in this class.
+//        Calendar start = Calendar.getInstance();
+//        start.set(2021, Calendar.JULY, 3);
+//        Calendar end = Calendar.getInstance();
+//        end.set(2021, Calendar.JULY, 5);
+//
+//        ArrayList<ParentTask> results = o.getSearchEngine().searchByDate(start, end);
+//
+//        // the example list function has the 4th july on a couple items.
+//        // using that for that for the master list test
+//        boolean onlyJuly4th = true;
+//        for (ParentTask p : results){
+//            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+//                onlyJuly4th = false;
+//            }
+//        }
+//        assertTrue(onlyJuly4th);
+//
+//        // should just return the same list
+//        results = o.getSearchEngine().searchByDate(start, end, results);
+//        onlyJuly4th = true;
+//        for (ParentTask p : results){
+//            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+//                onlyJuly4th = false;
+//            }
+//        }
+//        assertTrue(onlyJuly4th);
+//
+//        // make a different date, add it to the list and then run it through once more to make sure.
+//        ParentTask differentDate = o.getItemFactory().makeParentTask();
+//        Calendar christmas = Calendar.getInstance();
+//        christmas.set(2021, Calendar.DECEMBER, 25);
+//        differentDate.setDueDate(christmas);
+//        results.add(differentDate);
+//        start.set(2021, Calendar.DECEMBER, 24);
+//        end.set(2021, Calendar.DECEMBER, 26);
+//
+//        // should just return the same list
+//        results = o.getSearchEngine().searchByDate(start, end, results);
+//        boolean onlyXmas = true;
+//        for (ParentTask p : results){
+//            if ((p.getDueDate().after(end)) & (p.getDueDate().before(start))){
+//                onlyXmas = false;
+//            }
+//        }
+//        assertTrue(onlyXmas);
+//
+//    }
 
 
 
