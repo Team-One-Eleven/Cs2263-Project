@@ -33,15 +33,15 @@ public class Configuration implements Serializable {
     public static final Double ADMIN_ID_DEFAULT = 0.0;
 
     // Variables
-    private double userIDseed;
+    private int userIDseed;
 
     // Constructor
     public Configuration(){
-        userIDseed = 1.0;
+        userIDseed = 1;
     }
 
     // Methods
-    public double getNextUserIDseed() {
+    public int getNextUserIDseed() {
         /**
          * This method increments the userIDseed and then returns the new one.
          *
