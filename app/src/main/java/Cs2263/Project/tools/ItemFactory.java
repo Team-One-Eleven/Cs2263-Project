@@ -58,6 +58,6 @@ public class ItemFactory {
     public ChildTask makeChildTask(){
         ChildTask c = new ChildTask();
         c.setTitle("New subTask");
-        return new ChildTask();
+        return c;
     }
 }
