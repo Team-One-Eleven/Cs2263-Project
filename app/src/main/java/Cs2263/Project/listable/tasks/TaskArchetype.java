@@ -14,6 +14,7 @@ import Cs2263.Project.listable.lists.ListArchetype;
 import javafx.concurrent.Task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -23,7 +24,7 @@ public abstract class TaskArchetype {
     private String title;
     private String description;
     private boolean usingDuedate;
-    private LocalDate dueDate;
+    private String dueDate;
     private TaskPriority priority;
     private TaskStatus status;
     private LinkedList<String> labels;
@@ -31,7 +32,7 @@ public abstract class TaskArchetype {
     public TaskArchetype(){
         title = "";
         description = "";
-        dueDate =  LocalDate.now();
+        dueDate =  LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         status = TaskStatus.incomplete;
         labels = new LinkedList<>();
     }
@@ -48,7 +49,7 @@ public abstract class TaskArchetype {
         return usingDuedate;
     }
     public LocalDate getDueDate() {
-        return dueDate;
+        return LocalDate.parse(dueDate, DateTimeFormatter.ISO_LOCAL_DATE);
     }
     public TaskPriority getPriority() {
         return priority;
@@ -75,8 +76,11 @@ public abstract class TaskArchetype {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     @Override
