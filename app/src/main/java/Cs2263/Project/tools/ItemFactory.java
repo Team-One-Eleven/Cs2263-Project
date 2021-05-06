@@ -34,6 +34,7 @@ public class ItemFactory {
     public ToDoList makeToDOList(){
         ToDoList t = new ToDoList();
         Section s = makeSection();
+        s.setTitle("Main");
         t.initDefaultSection(s);
         t.getSections().add(s);
         t.setTitle("New List");

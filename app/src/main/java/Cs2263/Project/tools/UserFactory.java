@@ -17,21 +17,26 @@ import Cs2263.Project.Configuration;
 import Cs2263.Project.Orchestrator;
 import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.User;
+import Cs2263.Project.listable.lists.ToDoList;
 
 public class UserFactory {
 
 
-    private Orchestrator Orchestrator;
+    private Orchestrator orchestrator;
 
     // Constructor
     public UserFactory(Orchestrator o){
-        this.Orchestrator = o;
+        this.orchestrator = o;
     }
 
     // Methods
     // Makes
     public User makeUser(){
         User u = new User();
+        ToDoList mainList = orchestrator.getItemFactory().makeToDOList();
+        mainList.setTitle("Main");
+        mainList.setDescription("a starting list.");
+        u.setMainList(mainList);
         return u;
     }
     public UserCredentials makeUserInfo(String email, String password, double userId) {
