@@ -28,7 +28,6 @@ public class LoginUIViewController extends UIViewController {
     private Scene registerScene;
     private Scene homeScene;
 
-    private HomeUIViewController homeUIViewController;
 
     //Login Gridpane
     @FXML private GridPane fxLoginGridpane;
@@ -49,10 +48,13 @@ public class LoginUIViewController extends UIViewController {
     //Image View for Logo
     @FXML private ImageView fxLoginImageView;
 
+    //Home View Controller
+    HomeUIViewController homeUIViewController;
+
 
 
     public LoginUIViewController(){
-        homeUIViewController = uiManager.getView().getHomeController();
+
     }
 
     @Override
@@ -105,6 +107,10 @@ public class LoginUIViewController extends UIViewController {
 
     public void setLoginLabel(String l){
         fxLoginLabel.setText(l);
+    }
+
+    public void setHomeUIViewController(HomeUIViewController c){
+        this.homeUIViewController = c;
     }
 
     public void setRegisterScene(Scene s){

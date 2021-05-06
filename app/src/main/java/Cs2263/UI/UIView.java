@@ -67,10 +67,14 @@ public class UIView extends Application {
         registerScene = new Scene(registerPageParent, WIDTH, HEIGHT);
         splashScene = new Scene(splashPageParent, WIDTH, HEIGHT);
 
+        //Pass controllers to others for use
+        loginUIViewController.setHomeUIViewController(homeUIViewController);
+
         //Pass loaded scenes to UI controllers so they can change to them
         loginUIViewController.setRegisterScene(registerScene);
         loginUIViewController.setHomeScene(homeScene);
         registerUIViewController.setLoginScene(loginScene);
+        homeUIViewController.setLoginScene(loginScene);
 
         primaryStage.setTitle("TODO");
 

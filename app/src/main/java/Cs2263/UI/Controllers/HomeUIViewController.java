@@ -18,6 +18,7 @@ import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.UI.UIManager;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -28,6 +29,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -95,9 +99,6 @@ public class HomeUIViewController extends UIViewController {
     //List TreeView Roots
     private TreeItem<ListableItem> taskTreeRoot;
 
-    //TODO remove this test variable
-    private ToDoList testList;
-
     //Search controls
     @FXML private TextField fxSearchTextField;
     @FXML private Button fxSearchButton;
@@ -105,6 +106,8 @@ public class HomeUIViewController extends UIViewController {
     //User Controls
     @FXML private Button fxUserButton;
     @FXML private Button fxSettingsButton;
+    @FXML private Button fxLogout;
+    @FXML private Button fxSaveExit;
 
     //Always visible buttons
     @FXML private Button fxNewTaskButton;
@@ -115,6 +118,9 @@ public class HomeUIViewController extends UIViewController {
 
     //Main window Gridpane
     @FXML private GridPane fxMainWindowGridPane;
+
+    //Login Scene
+    private Scene loginScene;
 
     //Observable Lists for ListViews
     ObservableList<ListableItem> taskListObservableList = FXCollections.observableArrayList();
@@ -307,6 +313,14 @@ public class HomeUIViewController extends UIViewController {
         refreshTree();
     }
 
+//    @FXML private void logoutUser(ActionEvent event){
+//        orchestrator.logoutUser();
+//        Platform.runLater(() -> {
+//            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//            s.setScene(loginScene);
+//        });
+//    }
+
 
 
 
@@ -486,7 +500,6 @@ public class HomeUIViewController extends UIViewController {
         fxUpcomingList.getItems().clear();
         fxOverdueList.getItems().clear();
         fxCompletedList.getItems().clear();
-        taskTreeRoot = buildTree(testList);
         taskTreeRoot.setExpanded(true);
         fxTaskTree.setRoot(taskTreeRoot);
     }
@@ -548,5 +561,9 @@ public class HomeUIViewController extends UIViewController {
             taskContextUIController.setData(task, task.getTitle(), task.getDescription(), task.getDueDate());
             showTask();
         }
+    }
+
+    public void setLoginScene(Scene s) {
+        this.loginScene = s;
     }
 }

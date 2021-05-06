@@ -60,7 +60,7 @@ public class RegisterUserCommand implements UICommand{
             return;
         }
         else{
-            registerUIViewController.setRegisterError("Register Failed");
+            return;
         }
 
     }
