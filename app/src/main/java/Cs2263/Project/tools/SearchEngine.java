@@ -153,12 +153,12 @@ public class SearchEngine {
     private void masterRecursiveByTitle(String value, ToDoList toSearch, ArrayList<ParentTask> results) {
         for (Section s : toSearch.getSections()){
             for (ParentTask task : s.getTasks()){
-                if (task.getTitle() == value){
+                if (task.getTitle().equals(value)){
                     results.add(task);
                 }
                 else {
                     for (ChildTask c : task.getChildTasks()){
-                        if (c.getTitle() == (value)){
+                        if (c.getTitle().equals(value)){
                             results.add(task);
                         }
                     }
@@ -175,12 +175,12 @@ public class SearchEngine {
         ArrayList<ParentTask> taskResults = new ArrayList<>();
         ArrayList<ParentTask> childTaskResults = new ArrayList<>();
         for (ParentTask task : ListToSearch){
-            if (task.getTitle() == Value){
+            if (task.getTitle().equals(Value)){
                 taskResults.add(task);
             }
             else {
                 for (ChildTask c : task.getChildTasks()){
-                    if (c.getTitle() == Value){
+                    if (c.getTitle().equals(Value)){
                         childTaskResults.add(task);
                     }
                 }

@@ -28,7 +28,7 @@ public class Configuration implements Serializable {
 
     public static final String USER_DATA_FILE_SUFFIX = ".json";
     // Default Admin Credentials
-    public static final String ADMIN_EMAIL_DEFAULT = "Admin";
+    public static final String ADMIN_EMAIL_DEFAULT = "Admin@todo.system";
     public static final String ADMIN_PASSWORD_DEFAULT = "123password";
     public static final Double ADMIN_ID_DEFAULT = 0.0;
 

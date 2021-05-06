@@ -54,6 +54,8 @@ public class Orchestrator {
         config = fileManager.loadConfig();
         fileManager.saveConfiguration(config);
 
+        masterList = new ArrayList<ToDoList>();
+
     }
     public static Orchestrator getInstance(){
         if (instance == null){
@@ -101,7 +103,7 @@ public class Orchestrator {
          */
         for (UserCredentials u: userList){
             // first, see if the email is already in use
-            if (u.getUserEmail() == email){
+            if (u.getUserEmail().equals(email)){
                 return false;
             }
         }
@@ -111,8 +113,13 @@ public class Orchestrator {
         UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
         User newUser = userFactory.makeUser();
         userList.add(newInfo);
+
         fileManager.saveUserList();
         fileManager.saveUser(newUser, newInfo);
+
+        fileManager.saveConfiguration(config);
+        config = fileManager.loadConfig();
+
         userList = fileManager.loadUserList();
         return true;
     }
@@ -128,10 +135,6 @@ public class Orchestrator {
             if (info.getUserEmail().equals(email)){
                 System.out.println(info.getUserEmail());
                 toLogin = info;
-            }else {
-                System.out.println("-------");
-                System.out.println(email);
-                System.out.println(info.getUserEmail());
             }
         }
         if (toLogin == null){

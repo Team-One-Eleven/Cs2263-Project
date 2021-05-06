@@ -143,7 +143,7 @@ public class SearchEngineTest {
 
         boolean onlyOurSearchable = true;
         for (ParentTask p : results){
-            if (p.getTitle() != searchFor){
+            if (!p.getTitle().equals(searchFor)){
                 onlyOurSearchable = false;
             }
         }
@@ -152,7 +152,7 @@ public class SearchEngineTest {
         results = o.getSearchEngine().searchByTitle("Not searchFor", results);
         boolean notOurSearchable = true;
         for (ParentTask p : results){
-            if (p.getTitle() == searchFor){
+            if (p.getTitle().equals(searchFor)){
                 notOurSearchable = false;
             }
         }
