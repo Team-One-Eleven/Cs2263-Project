@@ -54,6 +54,8 @@ public class Orchestrator {
         config = fileManager.loadConfig();
         fileManager.saveConfiguration(config);
 
+        masterList = new ArrayList<ToDoList>();
+
     }
     public static Orchestrator getInstance(){
         if (instance == null){
