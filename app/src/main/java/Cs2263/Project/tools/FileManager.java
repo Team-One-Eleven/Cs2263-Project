@@ -175,13 +175,15 @@ public class FileManager {
      *
      */
     private String configFilePath(){
-        return Configuration.BASE_DIRECTORY + Configuration.SYSTEM_CONFIG_FILE ;
+        return Configuration.BASE_DIRECTORY +
+                Configuration.CONFIG_DIR + Configuration.SYSTEM_CONFIG_FILE ;
     }
     private String userListPath(){
-        return Configuration.BASE_DIRECTORY + Configuration.USER_LIST_DATA_FILE;
+        return Configuration.BASE_DIRECTORY +
+                Configuration.CONFIG_DIR + Configuration.USER_LIST_DATA_FILE;
     }
     private String userPath(String filePath){
-        return Configuration.BASE_DIRECTORY + filePath;
+        return Configuration.BASE_DIRECTORY + Configuration.USER_DATA_DIR + filePath;
     }
 
 

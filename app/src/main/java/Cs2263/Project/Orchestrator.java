@@ -111,8 +111,13 @@ public class Orchestrator {
         UserCredentials newInfo =  userFactory.makeUserInfo(email, password, newUserID);
         User newUser = userFactory.makeUser();
         userList.add(newInfo);
+
         fileManager.saveUserList();
         fileManager.saveUser(newUser, newInfo);
+
+        fileManager.saveConfiguration(config);
+        config = fileManager.loadConfig();
+
         userList = fileManager.loadUserList();
         return true;
     }
