@@ -33,7 +33,7 @@ public class ItemFactory {
     // all of these come with a default section.
     public ToDoList makeToDOList(){
         ToDoList t = new ToDoList();
-        Section s = makeSection();
+        Section s = makeDefaultSection();
         s.setTitle("Main");
         t.initDefaultSection(s);
         t.getSections().add(s);
@@ -47,6 +47,12 @@ public class ItemFactory {
         Section s = new Section();
         s.setTitle("New Section");
         s.setId(Orchestrator.getActiveUser().getNextSectionID());
+        return s;
+    }
+    public Section makeDefaultSection(){
+        Section s = new Section();
+        s.setTitle("New Section");
+        s.setId(0);
         return s;
     }
 

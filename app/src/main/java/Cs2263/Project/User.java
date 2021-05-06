@@ -23,7 +23,7 @@ public class User implements Serializable {
     private ArrayList<ParentTask> theTasks;
     private ArrayList<ToDoList> theLists;
     private ToDoList mainList;
-    private double sectionIDseed;
+    private int sectionIDseed;
     private String firstName;
     private String lastName;
     private String biography;
@@ -37,6 +37,7 @@ public class User implements Serializable {
         biography = "Your bio.";
         theTasks = new ArrayList<>();
         theLists = new ArrayList<>();
+        sectionIDseed = 1;
     }
 
     // Methods
@@ -47,7 +48,7 @@ public class User implements Serializable {
     public ArrayList<ToDoList> getTheLists() {
         return theLists;
     }
-    public double getNextSectionID() {
+    public int getNextSectionID() {
         /**
          * returns a String to be used as an ID for a toDoList.
          * is based off an incrementing double.
