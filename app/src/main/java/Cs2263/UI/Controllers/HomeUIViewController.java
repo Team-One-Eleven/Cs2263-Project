@@ -167,6 +167,7 @@ public class HomeUIViewController extends UIViewController {
         fxMainWindowGridPane.add(listGridpane,1,1);
     }
 
+    //This clears the view so an item can be shown
     private void clearView(){
         for (final Node n : fxMainWindowGridPane.getChildren()) {
             if (n != null && n.getId() != null) {
@@ -266,6 +267,8 @@ public class HomeUIViewController extends UIViewController {
         }
         refreshTree();
     }
+
+
 
 
     /**

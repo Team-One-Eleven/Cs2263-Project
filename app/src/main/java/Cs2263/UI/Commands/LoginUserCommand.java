@@ -40,12 +40,11 @@ public class LoginUserCommand implements UICommand{
     @Override
     public void execute(){
         try{
-            System.out.println(email + " " + password);
             orchestrator.loginUser(email,password);
         }
         catch (FailedLoginException e){
            // loginUIViewController.setLoginLabel(e.getMessage());
-            System.out.printf("%s at %s%n",e.getMessage(),this.getClass().getName());
+            System.out.printf("%s at %s%n",e.toString(),this.getClass().getName());
         }
     }
 }

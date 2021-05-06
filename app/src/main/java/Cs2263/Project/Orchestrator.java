@@ -126,6 +126,7 @@ public class Orchestrator {
         UserCredentials toLogin = null;
         for (UserCredentials info : userList){
             if (info.getUserEmail() == email){
+                System.out.println(info.getUserEmail());
                 toLogin = info;
             }
         }
