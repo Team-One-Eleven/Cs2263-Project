@@ -125,10 +125,11 @@ public class Orchestrator {
          */
         UserCredentials toLogin = null;
         for (UserCredentials info : userList){
-            if (info.getUserEmail() == email){
+            if (info.getUserEmail().equals(email)){
                 System.out.println(info.getUserEmail());
                 toLogin = info;
             }else {
+                System.out.println("-------");
                 System.out.println(email);
                 System.out.println(info.getUserEmail());
             }
@@ -137,7 +138,7 @@ public class Orchestrator {
             throw new FailedLoginException("Error: User Credentials not found");
         }
 
-        if (toLogin.getUserPassword() == password){
+        if (toLogin.getUserPassword().equals(password)){
             activeInfo = toLogin;
             activeUser = fileManager.loadUser(activeInfo.getUserFile());
             listManager.checkDueDates();
