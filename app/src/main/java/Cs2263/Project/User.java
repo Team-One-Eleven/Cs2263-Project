@@ -22,6 +22,7 @@ public class User implements Serializable {
     // Variables
     private ArrayList<ParentTask> theTasks;
     private ArrayList<ToDoList> theLists;
+    private ToDoList mainList;
     private double sectionIDseed;
     private String firstName;
     private String lastName;
@@ -54,7 +55,6 @@ public class User implements Serializable {
         sectionIDseed++;
         return sectionIDseed;
     }
-    // GETTERS
     public String getFirstName() {
         return firstName;
     }
@@ -73,5 +73,12 @@ public class User implements Serializable {
     }
     public void setBiography(String biography) {
         this.biography = biography;
+    }
+
+    public void setMainList(ToDoList mainList) {
+        this.mainList = mainList;
+        if (!theLists.contains(this.mainList)){
+            theLists.add(mainList);
+        }
     }
 }
