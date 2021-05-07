@@ -18,6 +18,7 @@ import Cs2263.Project.listable.tasks.ParentTask;
 import Cs2263.Project.listable.tasks.TaskPriority;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.UI.UIManager;
+import Cs2263.UI.UIView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -314,11 +315,19 @@ public class HomeUIViewController extends UIViewController {
     }
 
    @FXML private void logoutUser(ActionEvent event){
+        clearView();
         orchestrator.logoutUser();
         Platform.runLater(() -> {
             Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
             s.setScene(loginScene);
         });
+    }
+
+    @FXML private void saveExit(){
+        clearView();
+        orchestrator.logoutUser();
+        orchestrator.exit();
+        uiManager.getView().exit();
     }
 
 

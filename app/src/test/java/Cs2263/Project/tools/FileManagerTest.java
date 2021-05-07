@@ -60,7 +60,6 @@ public class FileManagerTest {
     @Test public void loadUserTEST() {
         Orchestrator o = Orchestrator.getInstance();
         FileManager fileman = new FileManager(o);
-        User
         User testUser = fileman.loadUser(o.getUserList().get(0).getUserFile());
 
         assertTrue(testUser != null);

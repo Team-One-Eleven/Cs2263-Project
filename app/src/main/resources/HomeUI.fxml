@@ -164,7 +164,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="fxSaveExit" mnemonicParsing="false" text="Save &amp; Exit" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+            <Button fx:id="fxSaveExit" mnemonicParsing="false" onAction="#saveExit" text="Save &amp; Exit" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets bottom="-5.0" right="5.0" />
                </GridPane.margin></Button>

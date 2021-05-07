@@ -9,10 +9,12 @@ import Cs2263.UI.Controllers.*;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.util.concurrent.TimeUnit;
@@ -79,9 +81,14 @@ public class UIView extends Application {
 
         primaryStage.setTitle("TODO");
 
+
         //Start at login scene and show
         primaryStage.setScene(loginScene);
         primaryStage.show();
+    }
+
+    public void exit(){
+        Platform.exit();
     }
 
     public HomeUIViewController getHomeController(){ return homeUIViewController; }
