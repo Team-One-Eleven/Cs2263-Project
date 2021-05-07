@@ -52,7 +52,7 @@ public class RegisterUIViewController extends UIViewController {
        try {
            String email = fxRegisterEmailField.getText();
            String password = fxRegisterPassField.getText();
-           RegisterUserCommand register = new RegisterUserCommand(email, password);
+           RegisterUserCommand register = new RegisterUserCommand(email, password,this);
            uiManager.setCommand(register);
            uiManager.executeCommand();
        }

@@ -15,7 +15,7 @@ public class RegisterUserCommand implements UICommand{
     String email;
     String password;
 
-    private final RegisterUIViewController registerUIViewController = uiManager.getView().getRegisterController();
+    private RegisterUIViewController registerUIViewController;
 
     public static final Pattern VALID_EMAIL_PATTERN =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -32,8 +32,9 @@ public class RegisterUserCommand implements UICommand{
      */
 
 
-    public RegisterUserCommand(String e, String p) throws IllegalArgumentException{
+    public RegisterUserCommand(String e, String p, RegisterUIViewController r) throws IllegalArgumentException{
 
+        this.registerUIViewController = r;
         Matcher emailMatcher = VALID_EMAIL_PATTERN.matcher(e);
         Matcher passwordMatcher = VALID_PASSWORD_PATTERN.matcher(p);
         if(emailMatcher.find() && passwordMatcher.find()){
@@ -52,14 +53,13 @@ public class RegisterUserCommand implements UICommand{
 
     @Override
     public void execute() {
-        System.out.printf("Orchestrator: %s%n", orchestrator);
-        System.out.printf("Register args = email: \"%s\" password: \"%s\" %n",this.email,this.password);
 
         if(orchestrator.registerUser(email, password)){
-            //registerUIViewController.setRegisterMessage("Success! Please return to the login screen to login.");
+            registerUIViewController.setRegisterMessage("Success! Please return to the login screen to login.");
             return;
         }
         else{
+            registerUIViewController.setRegisterError("Registration Failed");
             return;
         }
 

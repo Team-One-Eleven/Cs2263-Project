@@ -76,6 +76,7 @@ public class UIView extends Application {
         registerUIViewController.setLoginScene(loginScene);
         homeUIViewController.setLoginScene(loginScene);
 
+
         primaryStage.setTitle("TODO");
 
         //Start at login scene and show
