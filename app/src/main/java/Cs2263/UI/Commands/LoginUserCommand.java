@@ -5,8 +5,6 @@
  */
 
 package Cs2263.UI.Commands;
-
-import Cs2263.UI.Controllers.HomeUIViewController;
 import Cs2263.UI.Controllers.LoginUIViewController;
 import javax.security.auth.login.FailedLoginException;
 
@@ -14,7 +12,6 @@ public class LoginUserCommand implements UICommand{
 
     private final String email;
     private final String password;
-    private HomeUIViewController homeUIViewController = uiManager.getView().getHomeController();
     private LoginUIViewController loginUIViewController;
 
 
@@ -33,8 +30,6 @@ public class LoginUserCommand implements UICommand{
     /**
      * Sends email and password data to orchestrator for login.
      */
-
-    //TODO Fix error messages creating null pointer
     @Override
     public void execute(){
         try{
@@ -44,9 +39,5 @@ public class LoginUserCommand implements UICommand{
             loginUIViewController.setLoginLabel(e.getMessage());
             System.out.printf("%s at %s%n",e.toString(),this.getClass().getName());
         }
-    }
-
-    public void setLoginUIViewController(LoginUIViewController l){
-        this.loginUIViewController = l;
     }
 }

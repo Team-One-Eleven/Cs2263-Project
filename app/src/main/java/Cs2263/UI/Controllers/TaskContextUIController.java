@@ -5,13 +5,12 @@
  */
 
 package Cs2263.UI.Controllers;
+
 import Cs2263.Project.listable.tasks.TaskArchetype;
 import Cs2263.Project.listable.tasks.TaskPriority;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Priority;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;

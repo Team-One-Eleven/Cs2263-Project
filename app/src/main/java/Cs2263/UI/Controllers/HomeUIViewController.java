@@ -8,29 +8,22 @@
 package Cs2263.UI.Controllers;
 
 import Cs2263.Project.Orchestrator;
-import Cs2263.Project.User;
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;
 import Cs2263.Project.listable.lists.Section;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.listable.tasks.ChildTask;
 import Cs2263.Project.listable.tasks.ParentTask;
-import Cs2263.Project.listable.tasks.TaskPriority;
 import Cs2263.Project.listable.tasks.TaskStatus;
 import Cs2263.UI.UIManager;
-import Cs2263.UI.UIView;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -71,9 +64,6 @@ public class HomeUIViewController extends UIViewController {
     private ListContextUIController listContextUIController;
     private SectionContextUIController sectionContextUIController;
 
-    //Dialog Controllers
-    private FirstLastDialogController firstLastDialogController;
-
     //Dialog Boxes
     DialogPane firstLastDialog;
 
@@ -96,9 +86,6 @@ public class HomeUIViewController extends UIViewController {
     @FXML private ListView<ListableItem> fxCompletedList;
     @FXML private TreeView<ListableItem> fxArchivedTree;
 
-    //List TreeView Roots
-    private TreeItem<ListableItem> taskTreeRoot;
-
     //Search controls
     @FXML private TextField fxSearchTextField;
     @FXML private Button fxSearchButton;
@@ -114,6 +101,7 @@ public class HomeUIViewController extends UIViewController {
     @FXML private Button fxNewSectionButton;
     @FXML private Button fxNewListButton;
 
+    //Gridpane before item is selected
     @FXML private GridPane fxTutorialGridpane;
 
     //Main window Gridpane
@@ -121,11 +109,6 @@ public class HomeUIViewController extends UIViewController {
 
     //Login Scene
     private Scene loginScene;
-
-    //Observable Lists for ListViews
-    ObservableList<ListableItem> taskListObservableList = FXCollections.observableArrayList();
-    ObservableList<ListableItem> completeListObservableList = FXCollections.observableArrayList();
-    ObservableList<ListableItem> overdueListObservableList = FXCollections.observableArrayList();
 
     public HomeUIViewController() {
     }
@@ -142,17 +125,15 @@ public class HomeUIViewController extends UIViewController {
             System.out.printf("IO Exception in %s%n",this.getClass().getName());
             System.out.printf("%s%n",e.getMessage());
         }
-        this.firstLastDialogController = firstLastDialogLoader.getController();
+
+        //Controller exchange
         this.taskContextUIController = taskContentFxmlLoader.getController();
         this.listContextUIController = listContentFxmlLoader.getController();
         this.sectionContextUIController = sectionContentFxmlLoader.getController();
-
         taskContextUIController.setHomeUIViewController(this);
         listContextUIController.setHomeUIViewController(this);
         sectionContextUIController.setHomeUIViewController(this);
     }
-
-
 
     /**
      * showTask(), showSection(), and showList() change the internal gridpane to the right of the task lists to reflect
@@ -195,7 +176,6 @@ public class HomeUIViewController extends UIViewController {
             item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
         }
         catch (NullPointerException e){
-            System.out.println("No item Selected");
             item = fxTaskTree.getRoot().getValue();
         }
         if(item.getType() == ListableType.List){
@@ -211,7 +191,6 @@ public class HomeUIViewController extends UIViewController {
             task.getChildTasks().add(Orchestrator.getItemFactory().makeChildTask());
         }
         else{
-            System.out.println("Invalid Item");
             return;
         }
         refreshTree();
@@ -314,23 +293,6 @@ public class HomeUIViewController extends UIViewController {
         refreshTree();
     }
 
-   @FXML private void logoutUser(ActionEvent event){
-        clearView();
-        orchestrator.logoutUser();
-        Platform.runLater(() -> {
-            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            s.setScene(loginScene);
-        });
-    }
-
-    @FXML private void saveExit(){
-        clearView();
-        orchestrator.logoutUser();
-        orchestrator.exit();
-        uiManager.getView().exit();
-    }
-
-
     /**
      * Loads the user info from the currently active user and updates the list views.
      *
@@ -341,57 +303,9 @@ public class HomeUIViewController extends UIViewController {
             throw new NullPointerException();
         }
         fxTaskTree.setRoot(buildTree(orchestrator.getMasterList().get(0)));
-
-//        ParentTask task1 = new ParentTask();
-//        task1.setTitle("Task 1");
-//        task1.setDescription("Task 1 vibes");
-//        task1.setPriority(TaskPriority.High);
-//
-//        ParentTask task2 = new ParentTask();
-//        task2.setTitle("Task 2");
-//        task2.setDescription("Task 2 vibes");
-//        task2.setPriority(TaskPriority.Medium);
-//
-//        ParentTask task3 = new ParentTask();
-//        task3.setTitle("Task 3");
-//        task3.setDescription("Task 3 vibes");
-//        task3.setPriority(TaskPriority.Low);
-//
-//        Section section1 = new Section();
-//        section1.setTitle("Section 1");
-//        section1.setDescription("Section 1 vibes");
-//
-//        Section section2 = new Section();
-//        section2.setTitle("Section 2");
-//        section2.setDescription("Section 2 vibes");
-//
-//        section1.getTasks().add(task1);
-//        section1.getTasks().add(task2);
-//        section2.getTasks().add(task3);
-//
-//        ToDoList list1 = new ToDoList();
-//        list1.setTitle("List 1");
-//        list1.initDefaultSection(section1);
-//        list1.setDescription("List 1 vibes");
-//
-//        list1.getSections().add(section1);
-//        list1.getSections().add(section2);
-//
-//        ToDoList testList = new ToDoList();
-//
-//        taskTreeRoot = buildTree(testList);
-
     }
 
-    public boolean checkFirstLastNameExists(){
-        User activeUser = Orchestrator.getActiveUser();
-        if(activeUser.getFirstName().length() == 0|| activeUser.getLastName().length() == 0){
-            return false;
-        }
-        else return true;
-    }
-
-
+    //This feels gross
     private TreeItem<ListableItem> buildTree(ListableItem root){
         TreeItem<ListableItem> returnTree;
             if(root.getType() == ListableType.List){
@@ -527,18 +441,6 @@ public class HomeUIViewController extends UIViewController {
         fxTaskTree.setRoot(buildTree(orchestrator.getMasterList().get(0)));
     }
 
-
-
-
-    public void openFirstLastDialog(){
-        Scene scene = new Scene(firstLastDialog, 600, 300);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-
     @FXML private void setSelectedItem() {
         ListableItem item;
         try {
@@ -584,6 +486,22 @@ public class HomeUIViewController extends UIViewController {
             taskContextUIController.setData(task, task.getTitle(), task.getDescription(), task.getDueDate());
             showTask();
         }
+    }
+
+    @FXML private void logoutUser(ActionEvent event){
+        clearView();
+        orchestrator.logoutUser();
+        Platform.runLater(() -> {
+            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            s.setScene(loginScene);
+        });
+    }
+
+    @FXML private void saveExit(){
+        clearView();
+        orchestrator.logoutUser();
+        orchestrator.exit();
+        uiManager.getView().exit();
     }
 
     public void setLoginScene(Scene s) {

@@ -37,7 +37,7 @@ public class LoginUIViewController extends UIViewController {
 
     //Login data fields
     @FXML private TextField fxEmailTextField;
-    @FXML private TextField fxPasswordTextField;
+    @FXML private PasswordField fxPasswordTextField;
 
     //Login button
     @FXML private Button fxLoginButton;
@@ -83,13 +83,11 @@ public class LoginUIViewController extends UIViewController {
         uiManager.executeCommand();
         if(orchestrator.getActiveUser() != null){
             Platform.runLater(() -> {
+                fxEmailTextField.setText("");
+                fxPasswordTextField.setText("");
                 Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
                 s.setScene(homeScene);
                 homeUIViewController.loadUserTaskList();
-                if(orchestrator.getActiveUser().getFirstName() == "" ||
-                        orchestrator.getActiveUser().getLastName() == ""){
-                    homeUIViewController.openFirstLastDialog();
-                }
             });
         }
 
