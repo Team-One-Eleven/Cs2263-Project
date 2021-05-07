@@ -30,8 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -142,11 +141,10 @@ public class HomeUIViewController extends UIViewController {
             System.out.printf("IO Exception in %s%n",this.getClass().getName());
             System.out.printf("%s%n",e.getMessage());
         }
-            this.firstLastDialogController = firstLastDialogLoader.getController();
-            this.taskContextUIController = taskContentFxmlLoader.getController();
-            this.listContextUIController = listContentFxmlLoader.getController();
-            this.sectionContextUIController = sectionContentFxmlLoader.getController();
-
+        this.firstLastDialogController = firstLastDialogLoader.getController();
+        this.taskContextUIController = taskContentFxmlLoader.getController();
+        this.listContextUIController = listContentFxmlLoader.getController();
+        this.sectionContextUIController = sectionContentFxmlLoader.getController();
 
         taskContextUIController.setHomeUIViewController(this);
         listContextUIController.setHomeUIViewController(this);
@@ -196,6 +194,7 @@ public class HomeUIViewController extends UIViewController {
             item = fxTaskTree.getSelectionModel().getSelectedItem().getValue();
         }
         catch (NullPointerException e){
+            System.out.println("No item Selected");
             item = fxTaskTree.getRoot().getValue();
         }
         if(item.getType() == ListableType.List){
@@ -211,6 +210,7 @@ public class HomeUIViewController extends UIViewController {
             task.getChildTasks().add(Orchestrator.getItemFactory().makeChildTask());
         }
         else{
+            System.out.println("Invalid Item");
             return;
         }
         refreshTree();
@@ -313,15 +313,13 @@ public class HomeUIViewController extends UIViewController {
         refreshTree();
     }
 
-//    @FXML private void logoutUser(ActionEvent event){
-//        orchestrator.logoutUser();
-//        Platform.runLater(() -> {
-//            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//            s.setScene(loginScene);
-//        });
-//    }
-
-
+   @FXML private void logoutUser(ActionEvent event){
+        orchestrator.logoutUser();
+        Platform.runLater(() -> {
+            Stage s = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            s.setScene(loginScene);
+        });
+    }
 
 
     /**
@@ -333,9 +331,7 @@ public class HomeUIViewController extends UIViewController {
         if(masterList == null){
             throw new NullPointerException();
         }
-        for(ListableItem i : masterList){
-            taskTreeRoot.getChildren().add(buildTree(i));
-        }
+        fxTaskTree.setRoot(buildTree(orchestrator.getMasterList().get(0)));
 
 //        ParentTask task1 = new ParentTask();
 //        task1.setTitle("Task 1");
@@ -371,12 +367,10 @@ public class HomeUIViewController extends UIViewController {
 //
 //        list1.getSections().add(section1);
 //        list1.getSections().add(section2);
-
-        //testList = list1;
-
-       // taskTreeRoot = buildTree(testList);
-
-        fxTaskTree.setRoot(taskTreeRoot);
+//
+//        ToDoList testList = new ToDoList();
+//
+//        taskTreeRoot = buildTree(testList);
 
     }
 
@@ -451,7 +445,17 @@ public class HomeUIViewController extends UIViewController {
                     return null;
                 }
                 else if(task.getStatus() == TaskStatus.overdue){
-                    fxOverdueList.getItems().add(task);
+                    if(task.getDueDate().isEqual(LocalDate.now())){
+                        task.setStatus(TaskStatus.incomplete);
+                        fxTodayList.getItems().add(task);
+                    }
+                    else if(task.getDueDate().isAfter(LocalDate.now())){
+                        task.setStatus(TaskStatus.incomplete);
+                        fxUpcomingList.getItems().add(task);
+                    }
+                    else{
+                        fxOverdueList.getItems().add(task);
+                    }
                 }
 
                 ArrayList<ListableItem> childArray = new ArrayList<>();
@@ -486,7 +490,17 @@ public class HomeUIViewController extends UIViewController {
                     return null;
                 }
                 else if(child.getStatus() == TaskStatus.overdue){
-                    fxOverdueList.getItems().add(child);
+                    if(child.getDueDate().isEqual(LocalDate.now())){
+                        child.setStatus(TaskStatus.incomplete);
+                        fxTodayList.getItems().add(child);
+                    }
+                    else if(child.getDueDate().isAfter(LocalDate.now())){
+                        child.setStatus(TaskStatus.incomplete);
+                        fxUpcomingList.getItems().add(child);
+                    }
+                    else{
+                        fxOverdueList.getItems().add(child);
+                    }
                 }
                 returnTree.setExpanded(true);
                 return returnTree;
@@ -495,13 +509,13 @@ public class HomeUIViewController extends UIViewController {
     }
 
     public void refreshTree(){
-        taskTreeRoot.getChildren().clear();
+        fxTaskTree.getRoot().getChildren().clear();
         fxTodayList.getItems().clear();
         fxUpcomingList.getItems().clear();
         fxOverdueList.getItems().clear();
         fxCompletedList.getItems().clear();
-        taskTreeRoot.setExpanded(true);
-        fxTaskTree.setRoot(taskTreeRoot);
+        fxTaskTree.getRoot().setExpanded(true);
+        fxTaskTree.setRoot(buildTree(orchestrator.getMasterList().get(0)));
     }
 
 

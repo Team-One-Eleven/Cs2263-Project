@@ -168,7 +168,7 @@
                <GridPane.margin>
                   <Insets bottom="-5.0" right="5.0" />
                </GridPane.margin></Button>
-            <Button fx:id="fxLogout" mnemonicParsing="false" text="Logout" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+            <Button fx:id="fxLogout" mnemonicParsing="false" onAction="#logoutUser" text="Logout" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets bottom="-5.0" />
                </GridPane.margin>
