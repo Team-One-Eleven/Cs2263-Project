@@ -17,6 +17,8 @@ package Cs2263.Project;
 import Cs2263.Project.listable.UserCredentials;
 import org.junit.jupiter.api.Test;
 import javax.security.auth.login.FailedLoginException;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrchestratorTest {
@@ -64,13 +66,13 @@ public class OrchestratorTest {
          * TODO fix the aforementioned problem
          */
         Orchestrator o = Orchestrator.getInstance();
+        String emailTEST = "test@gmail.com";
+        String passwordTEST = "testPassword";
+        assertTrue(o.registerUser(emailTEST, passwordTEST));
 
-        if (!o.getUserList().isEmpty()){
-            UserCredentials u = o.getUserList().get(0);
-            o.loginUser(u.getUserEmail(), u.getUserPassword());
-            assertTrue(o.getActiveInfo() == u);
-            assertTrue(o.getActiveUser() != null);
-        }
+        o.loginUser(emailTEST, passwordTEST);
+        assertTrue(o.getActiveInfo().getUserEmail().equals(emailTEST));
+
     }
 
 
@@ -80,17 +82,26 @@ public class OrchestratorTest {
          * important method in need of testing.
          *
          * This will only test the end result of the active
-         * user, info, and list have been cleard.
+         * user, info, and list have been cleared.
          */
 
         Orchestrator o = Orchestrator.getInstance();
 
+
         o.logoutUser();
         assertTrue(o.getActiveUser() == null);
         assertTrue(o.getActiveInfo() == null);
-        assertTrue(o.getMasterList() == null);
 
     }
+
+    @Test public void makeDefaultUserListTEST() {
+        Orchestrator o = Orchestrator.getInstance();
+        ArrayList<UserCredentials> userList = o.makeDefaultUserList();
+        assertTrue(userList.get(0).getUserEmail().equals(Configuration.ADMIN_EMAIL_DEFAULT));
+        assertTrue(o.getUserList()!=null);
+    }
+
+
 
 
 }

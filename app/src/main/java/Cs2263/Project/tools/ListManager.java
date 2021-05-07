@@ -109,7 +109,9 @@ public class ListManager {
          * if repeats the deconstruction loop for all of the possible layers of sub-lists
          */
         for (Section secSearch: toSearch.getSections()){
-            for (ParentTask t : secSearch.getTasks()){
+            ArrayList<ParentTask> toRemove = new ArrayList<>();
+            toRemove.addAll(secSearch.getTasks());
+            for (ParentTask t : toRemove){
                 secSearch.removeTask(t);
                 o.getActiveUser().getTheTasks().add(t);
             }

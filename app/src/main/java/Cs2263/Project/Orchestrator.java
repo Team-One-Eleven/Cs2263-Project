@@ -9,6 +9,7 @@ import Cs2263.Project.tools.ListManager;
 import Cs2263.Project.listable.UserCredentials;
 import Cs2263.Project.listable.lists.ToDoList;
 import Cs2263.Project.tools.*;
+import org.checkerframework.checker.units.qual.A;
 
 import javax.security.auth.login.FailedLoginException;
 import java.io.IOException;
@@ -160,12 +161,14 @@ public class Orchestrator {
          * third, sets all the active user variables to null.
          *
          */
-        listManager.deconstructMasterList();
-        fileManager.saveUser(activeUser, activeInfo);
-        fileManager.saveUserList();
+        if (activeUser != null){
+            listManager.deconstructMasterList();
+            fileManager.saveUser(activeUser, activeInfo);
+            fileManager.saveUserList();
+        }
         activeInfo = null;
         activeUser = null;
-        masterList = null;
+        masterList = new ArrayList<>();
     }
     public void saveActivity() {
         /**
@@ -216,7 +219,6 @@ public class Orchestrator {
             userList = new ArrayList<UserCredentials>();
         }
         userList.add(info);
-        //makeExampleUsers();
 
         return userList;
     }
