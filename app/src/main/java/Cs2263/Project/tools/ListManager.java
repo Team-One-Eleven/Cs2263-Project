@@ -75,13 +75,9 @@ public class ListManager {
          */
         if (!toAdd.getParentSections().isEmpty()){
             for (Section secSearch: toSearch.getSections()){
-                ArrayList<Double> toRemove = new ArrayList<>();
-                for (Double id: toAdd.getParentSections()){
-                    if (id == secSearch.getId()){
-                        secSearch.addTask(toAdd);
-                    }
+                if(toAdd.getParentSections().contains(secSearch.getId())){
+                    secSearch.addTask(toAdd);
                 }
-                toAdd.getParentSections().removeAll(toRemove);
                 for (ToDoList nextList : secSearch.getLists()){
                     nextListDownAddTask(nextList, toAdd);
                 }
