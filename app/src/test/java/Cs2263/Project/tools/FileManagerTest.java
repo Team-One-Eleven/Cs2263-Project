@@ -33,40 +33,12 @@ public class FileManagerTest {
 
 
     @Test
-    public void loadUserListTEST_DataAvailable() throws IOException {
+    public void loadUserListTEST() throws IOException {
         FileManager fileman = new FileManager(Orchestrator.getInstance());
         ArrayList<UserCredentials> testUserList;
-            testUserList = fileman.loadUserList();
-            // for testing purposes, I need to manually remove the example 1  user to show that it isn't the example list data
-            for (UserCredentials u : testUserList){
-                assertFalse(u.getUserEmail().equals("example1@example.com"));
-            }
+        testUserList = fileman.loadUserList();
+        assertNotNull(testUserList);
     }
-
-    @Test
-    public void loadUserListTEST_DataUnavailable() throws IOException {
-        FileManager fileman = new FileManager(Orchestrator.getInstance());
-        ArrayList<UserCredentials> testUserList;
-
-            testUserList = fileman.loadUserList();
-            boolean adminpresent = false;
-            boolean ex1present = false;
-            boolean ex2present = false;
-            boolean ex3present = false;
-            for (UserCredentials u : testUserList){
-                if (u.getUserEmail() == Configuration.ADMIN_EMAIL_DEFAULT) { adminpresent = true; }
-                if (u.getUserEmail().equals("example1@example.com")) { ex1present = true; }
-                if (u.getUserEmail().equals("example2@example.com")) { ex2present = true; }
-                if (u.getUserEmail().equals("example3@example.com")) { ex3present = true; }
-            }
-            assertTrue(testUserList.size() == 4);
-            assertTrue(adminpresent);
-            assertTrue(ex1present);
-            assertTrue(ex2present);
-            assertTrue(ex3present);
-
-    }
-
 
     @Test public void saveUserListTEST() {
         Orchestrator o = Orchestrator.getInstance();
@@ -88,14 +60,14 @@ public class FileManagerTest {
     @Test public void loadUserTEST() {
         Orchestrator o = Orchestrator.getInstance();
         FileManager fileman = new FileManager(o);
-
+        User
         User testUser = fileman.loadUser(o.getUserList().get(0).getUserFile());
 
         assertTrue(testUser != null);
 
     }
 
-    @Test public void saveUser() {
+    @Test public void saveUserTEST() {
         Orchestrator o = Orchestrator.getInstance();
         FileManager fileman = new FileManager(o);
 
