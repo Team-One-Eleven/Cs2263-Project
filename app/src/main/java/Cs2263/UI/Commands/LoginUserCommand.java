@@ -8,17 +8,14 @@ package Cs2263.UI.Commands;
 
 import Cs2263.UI.Controllers.HomeUIViewController;
 import Cs2263.UI.Controllers.LoginUIViewController;
-import Cs2263.UI.UIManager;
-
 import javax.security.auth.login.FailedLoginException;
-import java.io.IOException;
 
 public class LoginUserCommand implements UICommand{
 
     private final String email;
     private final String password;
     private HomeUIViewController homeUIViewController = uiManager.getView().getHomeController();
-    private final LoginUIViewController loginUIViewController = uiManager.getView().getLoginController();
+    private LoginUIViewController loginUIViewController;
 
 
     /**
@@ -27,9 +24,10 @@ public class LoginUserCommand implements UICommand{
      * @param e  User Email
      * @param p  User Password
      */
-    public LoginUserCommand(String e, String p){
+    public LoginUserCommand(String e, String p, LoginUIViewController l){
         this.email = e;
         this.password =p;
+        this.loginUIViewController = l;
     }
 
     /**
@@ -43,8 +41,12 @@ public class LoginUserCommand implements UICommand{
             orchestrator.loginUser(email,password);
         }
         catch (FailedLoginException e){
-           // loginUIViewController.setLoginLabel(e.getMessage());
+            loginUIViewController.setLoginLabel(e.getMessage());
             System.out.printf("%s at %s%n",e.toString(),this.getClass().getName());
         }
+    }
+
+    public void setLoginUIViewController(LoginUIViewController l){
+        this.loginUIViewController = l;
     }
 }

@@ -78,7 +78,7 @@ public class LoginUIViewController extends UIViewController {
     @FXML private void login(ActionEvent event){
         String email = fxEmailTextField.getText();
         String password = fxPasswordTextField.getText();
-        UICommand login = new LoginUserCommand(email,password);
+        UICommand login = new LoginUserCommand(email,password,this);
         uiManager.setCommand(login);
         uiManager.executeCommand();
         if(orchestrator.getActiveUser() != null){
