@@ -5,29 +5,29 @@
  *
  * @author  Traae
  * @version 1.0
- * @since 3/25/2021
+ * @since 3/31/2021
  */
 
 package Cs2263.Project.listable;
 
 import java.io.Serializable;
 
-public class UserInfo implements Serializable, ListableItem {
+public class UserCredentials implements Serializable, ListableItem {
     // Variables
     // Listable type
     private static final ListableType type = ListableType.UserInfo;
     // Instance variables
     private String userEmail;
     private String userPassword;
+    private double userId;
     private String userFile;
 
     // Constructor
-    public UserInfo(String email, String password, String file){
-        this.userEmail = email;
-        this.userPassword = password;
-        this.userFile = file;
-
-
+    public UserCredentials(){
+        userEmail = "";
+        userPassword = "";
+        userId = 1;
+        userFile = "";
     }
     // Methods
     // GETTERS AND SETTERS
@@ -36,6 +36,9 @@ public class UserInfo implements Serializable, ListableItem {
     }
     public String getUserPassword() {
         return userPassword;
+    }
+    public double getUserId() {
+        return userId;
     }
     public String getUserFile() {
         return userFile;
@@ -46,16 +49,24 @@ public class UserInfo implements Serializable, ListableItem {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
+    public void setUserId(double userId) {
+        this.userId = userId;
+    }
     public void setUserFile(String userFile) {
         this.userFile = userFile;
     }
-    // ListableItem Interface
+
     @Override
     public String getTitle() {
-        return userEmail;
+        return getUserEmail();
     }
     @Override
-    public ListableType getType(){
+    public ListableType getType() {
         return type;
+    }
+
+    @Override
+    public String toString(){
+        return getTitle();
     }
 }

@@ -1,12 +1,12 @@
 /**
  * Child Task Class
  *
- * STILL DEVELOPING
- * Needs to have its constructor relove its constructor and factory methods
+ * makes up the tasks within tasks.
+ * Starts with dudDate turned off, unlike ParentTasks.
  *
  * @author  Traae
- * @version 0.0
- * @since 3/25/2021
+ * @version 1.0
+ * @since 3/31/2021
  */
 
 package Cs2263.Project.listable.tasks;
@@ -14,16 +14,25 @@ package Cs2263.Project.listable.tasks;
 import Cs2263.Project.listable.ListableItem;
 import Cs2263.Project.listable.ListableType;
 
-public class ChildTask extends TaskArchetype implements ListableItem {
+import java.io.Serializable;
+
+public class ChildTask extends TaskArchetype implements ListableItem, Serializable {
     // Variables
     // Listable type
     private static final ListableType type = ListableType.ChildTask;
-    // Instance
-    private ParentTask parent;
 
+    // Constructor
+    // NO ARGUMENTS for Serializable
+    public ChildTask(){
+        super.setUsingDuedate(false);
+    }
 
+    //Methods
+    // Listable Implementation
     @Override
     public ListableType getType() {
         return type;
     }
+
+
 }

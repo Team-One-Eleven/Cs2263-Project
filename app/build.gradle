@@ -31,9 +31,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 }
 
+
 application {
     // Define the main class for the application.
-    mainClass = 'Cs2263.Project.App'
+    mainClass = 'Cs2263.App'
 }
 
 tasks.named('test') {
@@ -45,3 +46,9 @@ javafx {
     version = "15.0.1"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
+
+task copyTestResources(type: Copy) {
+    from "${projectDir}/cs"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
