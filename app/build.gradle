@@ -31,9 +31,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 }
 
+
 application {
     // Define the main class for the application.
-    mainClass = 'Cs2263.Project.App'
+    mainClass = 'Cs2263.App'
 }
 
 tasks.named('test') {
